@@ -17,8 +17,8 @@ export const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 4,
     width: '100%',
-    maxHeight: 350,
     position: 'relative',
+    flexDirection: 'row',
     marginVertical: 6,
     shadowColor: Colors.Black,
     shadowOffset: {
@@ -61,14 +61,15 @@ export const styles = StyleSheet.create({
   errorDark: themeDark,
 
   iconContainer: {
-    width: 23,
-    height: 23,
+    width: 24,
+    height: 24,
     flexShrink: 0,
   },
 
   textContainer: {
     flexDirection: 'column',
     position: 'relative',
+    width: '100%',
   },
 
   textContainerWithIcon: {
@@ -79,34 +80,11 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     lineHeight: 18,
     marginBottom: 8,
+    fontWeight: 'bold',
   },
 
   text: {
     fontSize: 14,
     lineHeight: 20,
-  },
-
-  buttonClose: {
-    width: 16,
-    height: 16,
-    fontSize: 0,
-    right: 0,
-    top: 0,
-    position: 'absolute',
-    padding: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderRadius: 8,
-  },
-
-  buttonColored: {
-    borderColor: Colors.White,
-  },
-  buttonDark: {
-    borderColor: Colors.White,
-  },
-  buttonLight: {
-    borderColor: Colors.Grey,
   },
 });
