@@ -1,7 +1,11 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
-import Animtaed, { useAnimatedGestureHandler } from 'react-native-reanimated';
+import Animtaed, {
+  useAnimatedGestureHandler,
+  useSharedValue,
+  useAnimatedStyle,
+} from 'react-native-reanimated';
 
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
 import { NotificationProps } from '../../types/Notification';
@@ -33,10 +37,26 @@ export const Notification = ({
     onActive() {},
     onEnd() {},
   });
+  const opacity = useSharedValue(1);
+  const positionX = useSharedValue(1);
+  const positionY = useSharedValue(1);
+  const animatedStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+    transform: [
+      {
+        translateX: positionX.value,
+      },
+      {
+        translateY: positionY.value,
+      },
+    ],
+  }));
 
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
-      <Animtaed.View style={[styles.container, styles.errorColored]}>
+      <Animtaed.View
+        style={[styles.container, styles.errorColored, animatedStyle]}
+      >
         <View style={styles.iconContainer}>
           <Icon type={type} color="#fff" />
         </View>
