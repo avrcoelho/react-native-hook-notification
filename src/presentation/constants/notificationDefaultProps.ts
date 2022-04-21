@@ -17,6 +17,6 @@ export const notificationDefaultProps = {
   showIcon: true,
   autoClose: true,
   pauseOnPressable: true,
-  dragDirection: 'x' as NotificationDragDirection,
+  dragDirection: 'y' as NotificationDragDirection,
   draggable: true,
 };

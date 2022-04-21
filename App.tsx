@@ -16,6 +16,7 @@ const App = (): JSX.Element => {
         text="warning webpack-dev-server > chokidar@2.1.8: Chokidar  warning webpack-dev-server > chokidar@2.1.8: Chokidar  warning webpack-dev-server > chokidar@2.1.8: Chokidar "
         amount={1}
         type="error"
+        dragDirection="x"
       />
     </SafeAreaView>
   );

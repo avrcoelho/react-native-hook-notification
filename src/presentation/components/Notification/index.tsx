@@ -36,33 +36,41 @@ export const Notification = ({
   draggable = notificationDefaultProps.draggable,
 }: NotificationProps): JSX.Element => {
   const { width } = useWindowDimensions();
-  const limitToRemove = width - 80;
-  const posX = useSharedValue(0);
-  const posY = useSharedValue(0);
+  const onGetLimitToRemove = (): number => {
+    const limites = {
+      x: width - 80,
+      y: title ? 80 : 60,
+    };
+    return limites[dragDirection];
+  };
+  const limitToRemove = onGetLimitToRemove();
+
+  const transitionDirection = dragDirection.toUpperCase() as 'X' | 'Y';
+  const positionOnScreen = useSharedValue(0);
   const onGestureEvent = useAnimatedGestureHandler({
     onStart(_, context: any) {
-      context.posX = posX.value;
-      context.posY = posY.value;
+      context[`pos${transitionDirection}`] = positionOnScreen.value;
     },
     onActive(event, context: any) {
       // if (event.translationY <= 0) return;
-      posX.value = context.posX + event.translationX;
-      posY.value = context.posY + event.translationY;
+      positionOnScreen.value =
+        context[`pos${transitionDirection}`] +
+        event[`translation${transitionDirection}`];
     },
     onEnd() {
-      posX.value = withTiming(0);
-      posY.value = withTiming(0);
+      positionOnScreen.value = withTiming(0);
     },
   });
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: interpolate(
-      posX.value,
+      positionOnScreen.value,
       [-limitToRemove, 0, limitToRemove],
       [0, 1, 0],
     ),
     transform: [
       {
-        translateX: posX.value,
+        [`translate${transitionDirection}` as 'translateX']:
+          positionOnScreen.value,
       },
     ],
   }));
