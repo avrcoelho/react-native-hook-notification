@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, useWindowDimensions } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animtaed, {
   useAnimatedGestureHandler,
   useSharedValue,
   useAnimatedStyle,
+  withSpring,
+  withTiming,
+  interpolate,
 } from 'react-native-reanimated';
 
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
@@ -32,22 +35,34 @@ export const Notification = ({
   dragDirection = notificationDefaultProps.dragDirection,
   draggable = notificationDefaultProps.draggable,
 }: NotificationProps): JSX.Element => {
+  const { width } = useWindowDimensions();
+  const limitToRemove = width - 80;
+  const posX = useSharedValue(0);
+  const posY = useSharedValue(0);
   const onGestureEvent = useAnimatedGestureHandler({
-    onStart() {},
-    onActive() {},
-    onEnd() {},
+    onStart(_, context: any) {
+      context.posX = posX.value;
+      context.posY = posY.value;
+    },
+    onActive(event, context: any) {
+      // if (event.translationY <= 0) return;
+      posX.value = context.posX + event.translationX;
+      posY.value = context.posY + event.translationY;
+    },
+    onEnd() {
+      posX.value = withTiming(0);
+      posY.value = withTiming(0);
+    },
   });
-  const opacity = useSharedValue(1);
-  const positionX = useSharedValue(1);
-  const positionY = useSharedValue(1);
   const animatedStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
+    opacity: interpolate(
+      posX.value,
+      [-limitToRemove, 0, limitToRemove],
+      [0, 1, 0],
+    ),
     transform: [
       {
-        translateX: positionX.value,
-      },
-      {
-        translateY: positionY.value,
+        translateX: posX.value,
       },
     ],
   }));
