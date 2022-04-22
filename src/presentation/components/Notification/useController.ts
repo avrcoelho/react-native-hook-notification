@@ -81,19 +81,22 @@ export const useController: UseControllerHook = ({
       positionOnScreen.value = withTiming(0);
     },
   });
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(
-      positionOnScreen.value,
-      [-limitToRemove, 0, limitToRemove],
-      [0, 1, 0],
-    ),
-    transform: [
-      {
-        [`translate${transitionDirection}` as 'translateX']:
-          positionOnScreen.value,
-      },
-    ],
-  }));
+  const animatedStyle = useAnimatedStyle(
+    () => ({
+      opacity: interpolate(
+        positionOnScreen.value,
+        [-limitToRemove, 0, limitToRemove],
+        [0, 1, 0],
+      ),
+      transform: [
+        {
+          [`translate${transitionDirection}` as 'translateX']:
+            positionOnScreen.value,
+        },
+      ],
+    }),
+    [],
+  );
 
   const withIcon = type === 'default' ? false : showIcon;
 
