@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { Colors } from '../../constants/colors';
+import { Colors } from '../../constants/Colors';
 
 const themeLight = {
   color: Colors.Grey,
@@ -29,36 +29,36 @@ export const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 3,
   },
-  defaultColored: {
+  defaultcolored: {
     backgroundColor: Colors.White,
     color: Colors.Grey,
   },
-  infoColored: {
+  infocolored: {
     backgroundColor: Colors.Blue,
     color: Colors.White,
   },
-  warningColored: {
+  warningcolored: {
     backgroundColor: Colors.Yellow,
     color: Colors.White,
   },
-  successColored: {
+  successcolored: {
     backgroundColor: Colors.Green,
     color: Colors.White,
   },
-  errorColored: {
+  errorcolored: {
     backgroundColor: Colors.Red,
     color: Colors.White,
   },
-  defaultLight: themeLight,
-  infoLight: themeLight,
-  warningLight: themeLight,
-  successLight: themeLight,
-  errorLight: themeLight,
-  defaultDark: themeDark,
-  infoDark: themeDark,
-  warningDark: themeDark,
-  successDark: themeDark,
-  errorDark: themeDark,
+  defaultlight: themeLight,
+  infolight: themeLight,
+  warninglight: themeLight,
+  successlight: themeLight,
+  errorlight: themeLight,
+  defaultdark: themeDark,
+  infodark: themeDark,
+  warningdark: themeDark,
+  successdark: themeDark,
+  errordark: themeDark,
 
   iconContainer: {
     width: 24,

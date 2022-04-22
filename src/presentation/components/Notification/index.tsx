@@ -9,6 +9,7 @@ import Animtaed, {
   withTiming,
   interpolate,
 } from 'react-native-reanimated';
+import { colorsIcon } from '../../constants/colorsIcon';
 
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
 import { NotificationProps } from '../../types/Notification';
@@ -45,6 +46,7 @@ export const Notification = ({
   };
   const limitToRemove = onGetLimitToRemove();
 
+  const typeAndTheme = `${type}${theme}` as 'defaultcolored';
   const transitionDirection = dragDirection.toUpperCase() as 'X' | 'Y';
   const positionOnScreen = useSharedValue(0);
   const onGestureEvent = useAnimatedGestureHandler({
@@ -78,10 +80,10 @@ export const Notification = ({
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
       <Animtaed.View
-        style={[styles.container, styles.errorColored, animatedStyle]}
+        style={[styles.container, styles[typeAndTheme], animatedStyle]}
       >
         <View style={styles.iconContainer}>
-          <Icon type={type} color="#fff" />
+          <Icon type={type} color={colorsIcon[theme][type]} />
         </View>
 
         <View style={[styles.textContainer, styles.textContainerWithIcon]}>
@@ -89,7 +91,7 @@ export const Notification = ({
             <Text
               ellipsizeMode="tail"
               numberOfLines={1}
-              style={[styles.title, styles.errorColored]}
+              style={[styles.title, styles[typeAndTheme]]}
             >
               {title}
             </Text>
@@ -97,7 +99,7 @@ export const Notification = ({
           <Text
             ellipsizeMode="tail"
             numberOfLines={2}
-            style={[styles.text, styles.errorColored]}
+            style={[styles.text, styles[typeAndTheme]]}
           >
             {text}
           </Text>
