@@ -22,6 +22,7 @@ type UseControllerHookProps = {
   dragDirection: NotificationDragDirection;
   type: NotificationType;
   theme: NotificationTheme;
+  showIcon: boolean;
 };
 
 type ContextData = {
@@ -40,6 +41,7 @@ type UseControllerHook = (props: UseControllerHookProps) => {
       translateX: number;
     }[];
   };
+  withIcon: boolean;
 };
 
 export const useController: UseControllerHook = ({
@@ -47,6 +49,7 @@ export const useController: UseControllerHook = ({
   theme,
   type,
   title,
+  showIcon,
 }) => {
   const { width } = useWindowDimensions();
   const onGetLimitToRemove = (): number => {
@@ -92,9 +95,12 @@ export const useController: UseControllerHook = ({
     ],
   }));
 
+  const withIcon = type === 'default' ? false : showIcon;
+
   return {
     animatedStyle,
     onGestureEvent,
     typeAndTheme,
+    withIcon,
   };
 };

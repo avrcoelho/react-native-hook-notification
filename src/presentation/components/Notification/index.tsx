@@ -30,23 +30,27 @@ export const Notification = ({
   dragDirection = notificationDefaultProps.dragDirection,
   draggable = notificationDefaultProps.draggable,
 }: NotificationProps): JSX.Element => {
-  const { animatedStyle, onGestureEvent, typeAndTheme } = useController({
-    dragDirection,
-    theme,
-    type,
-    title,
-  });
+  const { animatedStyle, onGestureEvent, typeAndTheme, withIcon } =
+    useController({
+      dragDirection,
+      theme,
+      type,
+      title,
+      showIcon,
+    });
 
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
       <Animated.View
         style={[styles.container, styles[typeAndTheme], animatedStyle]}
       >
-        <View style={styles.iconContainer}>
-          <Icon type={type} color={colorsIcon[theme][type]} />
-        </View>
+        {withIcon && (
+          <View style={styles.iconContainer}>
+            <Icon type={type} color={colorsIcon[theme][type]} />
+          </View>
+        )}
 
-        <View style={[styles.textContainer, styles.textContainerWithIcon]}>
+        <View style={styles.textContainer}>
           {!!title && (
             <Text
               ellipsizeMode="tail"

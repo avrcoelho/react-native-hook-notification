@@ -64,16 +64,13 @@ export const styles = StyleSheet.create({
     width: 24,
     height: 24,
     flexShrink: 0,
+    marginRight: 8,
   },
 
   textContainer: {
     flexDirection: 'column',
     position: 'relative',
     flex: 1,
-  },
-
-  textContainerWithIcon: {
-    paddingLeft: 8,
   },
 
   title: {
