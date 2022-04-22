@@ -69,7 +69,7 @@ export const styles = StyleSheet.create({
   textContainer: {
     flexDirection: 'column',
     position: 'relative',
-    width: '100%',
+    flex: 1,
   },
 
   textContainerWithIcon: {
