@@ -1,20 +1,14 @@
 import React from 'react';
-import { View, Text, useWindowDimensions } from 'react-native';
+import { View, Text } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
-import Animtaed, {
-  useAnimatedGestureHandler,
-  useSharedValue,
-  useAnimatedStyle,
-  withSpring,
-  withTiming,
-  interpolate,
-} from 'react-native-reanimated';
-import { colorsIcon } from '../../constants/colorsIcon';
+import Animated from 'react-native-reanimated';
 
+import { colorsIcon } from '../../constants/colorsIcon';
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
 import { NotificationProps } from '../../types/Notification';
 import { Icon } from '../Icon';
 import { styles } from './styles';
+import { useController } from './useController';
 
 export const Notification = ({
   type,
@@ -36,50 +30,16 @@ export const Notification = ({
   dragDirection = notificationDefaultProps.dragDirection,
   draggable = notificationDefaultProps.draggable,
 }: NotificationProps): JSX.Element => {
-  const { width } = useWindowDimensions();
-  const onGetLimitToRemove = (): number => {
-    const limites = {
-      x: width - 80,
-      y: title ? 80 : 60,
-    };
-    return limites[dragDirection];
-  };
-  const limitToRemove = onGetLimitToRemove();
-
-  const typeAndTheme = `${type}${theme}` as 'defaultcolored';
-  const transitionDirection = dragDirection.toUpperCase() as 'X' | 'Y';
-  const positionOnScreen = useSharedValue(0);
-  const onGestureEvent = useAnimatedGestureHandler({
-    onStart(_, context: any) {
-      context[`pos${transitionDirection}`] = positionOnScreen.value;
-    },
-    onActive(event, context: any) {
-      // if (event.translationY <= 0) return;
-      positionOnScreen.value =
-        context[`pos${transitionDirection}`] +
-        event[`translation${transitionDirection}`];
-    },
-    onEnd() {
-      positionOnScreen.value = withTiming(0);
-    },
+  const { animatedStyle, onGestureEvent, typeAndTheme } = useController({
+    dragDirection,
+    theme,
+    type,
+    title,
   });
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: interpolate(
-      positionOnScreen.value,
-      [-limitToRemove, 0, limitToRemove],
-      [0, 1, 0],
-    ),
-    transform: [
-      {
-        [`translate${transitionDirection}` as 'translateX']:
-          positionOnScreen.value,
-      },
-    ],
-  }));
 
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
-      <Animtaed.View
+      <Animated.View
         style={[styles.container, styles[typeAndTheme], animatedStyle]}
       >
         <View style={styles.iconContainer}>
@@ -104,7 +64,7 @@ export const Notification = ({
             {text}
           </Text>
         </View>
-      </Animtaed.View>
+      </Animated.View>
     </PanGestureHandler>
   );
 };

@@ -12,7 +12,6 @@ const App = (): JSX.Element => {
       <Notification
         id="1"
         onRemove={() => {}}
-        title="warning webpack-dev-server > chokidar@2.1.8: Chokidar "
         text="warning webpack-dev-server > chokidar@2.1.8: Chokidar  warning webpack-dev-server > chokidar@2.1.8: Chokidar  warning webpack-dev-server > chokidar@2.1.8: Chokidar "
         amount={1}
         type="success"
