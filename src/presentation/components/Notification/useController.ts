@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useWindowDimensions } from 'react-native';
 import {
   GestureHandlerGestureEvent,
@@ -9,8 +10,10 @@ import {
   useAnimatedStyle,
   withTiming,
   interpolate,
+  runOnJS,
 } from 'react-native-reanimated';
 
+import { useToggle } from '../../hooks/useToggle';
 import {
   NotificationDragDirection,
   NotificationTheme,
@@ -35,13 +38,16 @@ type OnGestureEvent<T extends GestureHandlerGestureEvent> = (event: T) => void;
 type UseControllerHook = (props: UseControllerHookProps) => {
   typeAndTheme: 'defaultcolored';
   onGestureEvent: OnGestureEvent<PanGestureHandlerGestureEvent>;
-  animatedStyle: {
-    opacity: number;
-    transform: {
-      translateX: number;
-    }[];
-  };
+  animatedStyle:
+    | {
+        opacity: number;
+        transform: {
+          translateX: number;
+        }[];
+      }
+    | object;
   withIcon: boolean;
+  onFinishAnimation(value: boolean): void;
 };
 
 export const useController: UseControllerHook = ({
@@ -81,29 +87,47 @@ export const useController: UseControllerHook = ({
       positionOnScreen.value = withTiming(0);
     },
   });
+
+  const [animationEnteringFinish, toggleAnimationEnteringFinish] =
+    useToggle(false);
   const animatedStyle = useAnimatedStyle(
-    () => ({
-      opacity: interpolate(
-        positionOnScreen.value,
-        [-limitToRemove, 0, limitToRemove],
-        [0, 1, 0],
-      ),
-      transform: [
-        {
-          [`translate${transitionDirection}` as 'translateX']:
-            positionOnScreen.value,
-        },
-      ],
-    }),
-    [],
+    () =>
+      animationEnteringFinish
+        ? {
+            opacity: interpolate(
+              positionOnScreen.value,
+              [-limitToRemove, 0, limitToRemove],
+              [0, 1, 0],
+            ),
+            transform: [
+              {
+                [`translate${transitionDirection}` as 'translateX']:
+                  positionOnScreen.value,
+              },
+            ],
+          }
+        : {},
+    [animationEnteringFinish],
   );
 
   const withIcon = type === 'default' ? false : showIcon;
+
+  const onFinishAnimation = useCallback(
+    (isFinished: boolean) => {
+      'worklet';
+
+      if (isFinished) {
+        runOnJS(toggleAnimationEnteringFinish)();
+      }
+    },
+    [toggleAnimationEnteringFinish],
+  );
 
   return {
     animatedStyle,
     onGestureEvent,
     typeAndTheme,
     withIcon,
+    onFinishAnimation,
   };
 };
