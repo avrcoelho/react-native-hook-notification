@@ -5,7 +5,13 @@ export type NotificationType =
   | 'warning'
   | 'default';
 
-export type NotificationPosition = 'top' | 'bottom';
+export type NotificationPosition =
+  | 'top-right'
+  | 'top-left'
+  | 'top-center'
+  | 'bottom-right'
+  | 'bottom-left'
+  | 'bottom-center';
 
 export type NotificationTheme = 'colored' | 'dark' | 'light';
 
