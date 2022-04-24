@@ -8,7 +8,7 @@ export const fadeEntering = new Keyframe({
   100: {
     opacity: 1,
   },
-});
+}).duration(300);
 
 export const fadeExiting = new Keyframe({
   0: {
@@ -17,7 +17,7 @@ export const fadeExiting = new Keyframe({
   100: {
     opacity: 0,
   },
-});
+}).duration(300);
 
 export const zoomEntering = new Keyframe({
   0: {

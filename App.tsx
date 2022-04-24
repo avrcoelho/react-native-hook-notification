@@ -27,7 +27,7 @@ const App = (): JSX.Element => {
           dragDirection="x"
           theme="colored"
           showIcon
-          transition="flip"
+          transition="zoom"
           position="bottom-left"
         />
       </View>
