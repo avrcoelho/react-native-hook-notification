@@ -20,7 +20,9 @@ const App = (): JSX.Element => {
       <View style={styles.container}>
         <Notification
           id="1"
-          onRemove={() => {}}
+          onRemove={() => {
+            console.log(1);
+          }}
           text="warning webhhuhuupac dfugds iusdufys difusdy isduhfidhf hidhfisdufhs ihidfhishdhfsihbyun hiuxhc hudsu hdch uhudc"
           amount={1}
           type="success"

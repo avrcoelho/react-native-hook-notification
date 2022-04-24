@@ -7,6 +7,7 @@ import { colorsIcon } from '../../constants/colorsIcon';
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
 import { NotificationProps } from '../../types/Notification';
 import { Icon } from '../Icon';
+import { ProgressBar } from '../ProgressBar';
 import { styles } from './styles';
 import { useController } from './useController';
 
@@ -79,6 +80,18 @@ export const Notification = ({
             {text}
           </Text>
         </View>
+
+        {showProgressBar && (
+          <ProgressBar
+            autoClose={autoClose}
+            delay={delay}
+            id={id}
+            isPaused
+            onRemove={onRemove}
+            theme={theme}
+            type={type}
+          />
+        )}
       </Animated.View>
     </PanGestureHandler>
   );
