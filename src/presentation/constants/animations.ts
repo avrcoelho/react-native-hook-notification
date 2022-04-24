@@ -68,7 +68,6 @@ export const flipEntering = new Keyframe({
         skewX: '-20deg',
       },
     ],
-    easing: Easing.bounce,
   },
   100: {
     opacity: 1,
@@ -95,6 +94,7 @@ export const flipExiting = new Keyframe({
         skewX: '-20',
       },
     ],
+    easing: Easing.bounce,
   },
   100: {
     opacity: 1,

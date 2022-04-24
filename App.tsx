@@ -27,6 +27,8 @@ const App = (): JSX.Element => {
           dragDirection="x"
           theme="colored"
           showIcon
+          transition="flip"
+          position="bottom-left"
         />
       </View>
     </SafeAreaView>

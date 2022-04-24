@@ -14,11 +14,15 @@ import {
 } from 'react-native-reanimated';
 
 import { useToggle } from '../../hooks/useToggle';
+import { AnimationReturn } from '../../types/Animation';
 import {
   NotificationDragDirection,
+  NotificationPosition,
   NotificationTheme,
+  NotificationTransition,
   NotificationType,
 } from '../../types/Notification';
+import { getAnimation } from '../../utils/getAnimation';
 
 type UseControllerHookProps = {
   title?: string;
@@ -26,6 +30,9 @@ type UseControllerHookProps = {
   type: NotificationType;
   theme: NotificationTheme;
   showIcon: boolean;
+  amount: number;
+  position: NotificationPosition;
+  transition: NotificationTransition;
 };
 
 type ContextData = {
@@ -47,6 +54,7 @@ type UseControllerHook = (props: UseControllerHookProps) => {
       }
     | object;
   withIcon: boolean;
+  animation: AnimationReturn;
   onFinishAnimation(value: boolean): void;
 };
 
@@ -56,6 +64,9 @@ export const useController: UseControllerHook = ({
   type,
   title,
   showIcon,
+  amount,
+  transition,
+  position,
 }) => {
   const { width } = useWindowDimensions();
   const onGetLimitToRemove = (): number => {
@@ -123,11 +134,14 @@ export const useController: UseControllerHook = ({
     [toggleAnimationEnteringFinish],
   );
 
+  const animation = getAnimation({ amount, position, transition });
+
   return {
     animatedStyle,
     onGestureEvent,
     typeAndTheme,
     withIcon,
     onFinishAnimation,
+    animation,
   };
 };

@@ -2,30 +2,6 @@ import React from 'react';
 import { View, Text } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
-import {
-  bounceBottomEntering,
-  bounceBottomExiting,
-  bounceLeftEntering,
-  bounceLeftExiting,
-  bounceRightEntering,
-  bounceRightExiting,
-  bounceTopEntering,
-  bounceTopExiting,
-  fadeEntering,
-  fadeExiting,
-  flipEntering,
-  flipExiting,
-  slideBottomEntering,
-  slideBottomExiting,
-  slideLeftEntering,
-  slideLeftExiting,
-  slideRightEntering,
-  slideRightExiting,
-  slideTopEntering,
-  slideTopExiting,
-  zoomEntering,
-  zoomExiting,
-} from '../../constants/animations';
 
 import { colorsIcon } from '../../constants/colorsIcon';
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
@@ -60,19 +36,23 @@ export const Notification = ({
     typeAndTheme,
     withIcon,
     onFinishAnimation,
+    animation,
   } = useController({
     dragDirection,
     theme,
     type,
     title,
     showIcon,
+    transition,
+    amount,
+    position,
   });
 
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
       <Animated.View
-        entering={bounceTopEntering(1).withCallback(onFinishAnimation)}
-        exiting={bounceTopExiting(1)}
+        entering={animation.enter.withCallback(onFinishAnimation)}
+        exiting={animation.exit}
         style={[styles.container, styles[typeAndTheme], animatedStyle]}
       >
         {withIcon && (

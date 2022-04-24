@@ -7,7 +7,7 @@ import {
 
 export const notificationDefaultProps = {
   title: '',
-  position: 'top' as NotificationPosition,
+  position: 'top-center' as NotificationPosition,
   theme: 'colored' as NotificationTheme,
   transition: 'bounce' as NotificationTransition,
   delay: 5000,
