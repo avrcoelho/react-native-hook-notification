@@ -1,5 +1,5 @@
 import { Keyframe, Easing } from 'react-native-reanimated';
-import { setAnimationPosition } from '../utils/setAnimationPosition';
+import { defineAnimationSize } from '../utils/defineAnimationSize';
 
 export const fadeEntering = new Keyframe({
   0: {
@@ -113,7 +113,7 @@ export const slideRightEntering = new Keyframe({
   0: {
     transform: [
       {
-        translateX: setAnimationPosition(),
+        translateX: defineAnimationSize(),
       },
     ],
   },
@@ -137,7 +137,7 @@ export const slideRightExiting = new Keyframe({
   100: {
     transform: [
       {
-        translateX: setAnimationPosition(),
+        translateX: defineAnimationSize(),
       },
     ],
   },
@@ -147,7 +147,7 @@ export const slideLeftEntering = new Keyframe({
   0: {
     transform: [
       {
-        translateX: -setAnimationPosition(),
+        translateX: -defineAnimationSize(),
       },
     ],
   },
@@ -171,7 +171,7 @@ export const slideLeftExiting = new Keyframe({
   100: {
     transform: [
       {
-        translateX: -setAnimationPosition(),
+        translateX: -defineAnimationSize(),
       },
     ],
   },
@@ -253,7 +253,7 @@ export const bounceRightEntering = new Keyframe({
   0: {
     transform: [
       {
-        translateX: setAnimationPosition(),
+        translateX: defineAnimationSize(),
       },
     ],
   },
@@ -278,7 +278,7 @@ export const bounceRightExiting = new Keyframe({
   100: {
     transform: [
       {
-        translateX: setAnimationPosition(),
+        translateX: defineAnimationSize(),
       },
     ],
   },
@@ -288,7 +288,7 @@ export const bounceLeftEntering = new Keyframe({
   0: {
     transform: [
       {
-        translateX: -setAnimationPosition(),
+        translateX: -defineAnimationSize(),
       },
     ],
   },
@@ -313,7 +313,7 @@ export const bounceLeftExiting = new Keyframe({
   100: {
     transform: [
       {
-        translateX: -setAnimationPosition(),
+        translateX: -defineAnimationSize(),
       },
     ],
   },
