@@ -17,10 +17,6 @@ export const styles = StyleSheet.create({
     borderBottomLeftRadius: 5,
   },
 
-  animationShowed: {
-    backgroundColor: 'transparent',
-  },
-
   defaultcolored: {
     backgroundColor: Colors.Grey,
   },

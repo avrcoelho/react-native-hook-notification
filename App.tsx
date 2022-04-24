@@ -31,6 +31,7 @@ const App = (): JSX.Element => {
           showIcon
           transition="zoom"
           position="bottom-left"
+          showProgressBar
         />
       </View>
     </SafeAreaView>
