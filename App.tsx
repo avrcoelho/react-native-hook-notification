@@ -20,8 +20,8 @@ const App = (): JSX.Element => {
       <View style={styles.container}>
         <Notification
           id="1"
-          onRemove={() => {
-            console.log(1);
+          onRemove={e => {
+            console.log(e);
           }}
           text="warning webhhuhuupac dfugds iusdufys difusdy isduhfidhf hidhfisdufhs ihidfhishdhfsihbyun hiuxhc hudsu hdch uhudc"
           amount={1}
@@ -32,6 +32,7 @@ const App = (): JSX.Element => {
           transition="zoom"
           position="bottom-left"
           showProgressBar
+          autoClose
         />
       </View>
     </SafeAreaView>

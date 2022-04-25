@@ -12,7 +12,6 @@ interface ProgressBarProps {
   theme: NotificationTheme;
   type: NotificationType;
   isPaused: boolean;
-  autoClose: boolean;
   onRemove(id: string): void;
 }
 
@@ -23,7 +22,6 @@ export const ProgressBar = ({
   theme,
   type,
   isPaused,
-  autoClose,
 }: ProgressBarProps): JSX.Element | null => {
   const {
     containerTheme,
@@ -38,7 +36,6 @@ export const ProgressBar = ({
     theme,
     type,
     isPaused,
-    autoClose,
   });
 
   return (

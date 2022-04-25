@@ -10,7 +10,6 @@ type UseControllerHookProps = {
   theme: NotificationTheme;
   type: NotificationType;
   isPaused: boolean;
-  autoClose: boolean;
   onRemove(id: string): void;
 };
 

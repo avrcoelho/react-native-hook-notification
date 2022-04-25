@@ -38,6 +38,7 @@ export const Notification = ({
     withIcon,
     onFinishAnimation,
     animation,
+    withProgressBar,
   } = useController({
     dragDirection,
     theme,
@@ -47,6 +48,12 @@ export const Notification = ({
     transition,
     amount,
     position,
+    autoClose,
+    delay,
+    id,
+    onRemove,
+    pauseOnPressable,
+    showProgressBar,
   });
 
   return (
@@ -81,9 +88,8 @@ export const Notification = ({
           </Text>
         </View>
 
-        {showProgressBar && (
+        {withProgressBar && (
           <ProgressBar
-            autoClose={autoClose}
             delay={delay}
             id={id}
             isPaused

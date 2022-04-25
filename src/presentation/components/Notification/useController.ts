@@ -1,4 +1,5 @@
-import { useCallback } from 'react';
+/* eslint-disable react/function-component-definition */
+import { useCallback, useEffect, useRef } from 'react';
 import { useWindowDimensions } from 'react-native';
 import {
   GestureHandlerGestureEvent,
@@ -33,6 +34,12 @@ type UseControllerHookProps = {
   amount: number;
   position: NotificationPosition;
   transition: NotificationTransition;
+  delay: number;
+  pauseOnPressable: boolean;
+  autoClose: boolean;
+  showProgressBar: boolean;
+  id: string;
+  onRemove(id: string): void;
 };
 
 type ContextData = {
@@ -54,9 +61,13 @@ type UseControllerHook = (props: UseControllerHookProps) => {
       }
     | object;
   withIcon: boolean;
+  withProgressBar: boolean;
   animation: AnimationReturn;
   onFinishAnimation(value: boolean): void;
 };
+
+const DELAY = 1000;
+let TIMER: NodeJS.Timeout;
 
 export const useController: UseControllerHook = ({
   dragDirection,
@@ -67,6 +78,12 @@ export const useController: UseControllerHook = ({
   amount,
   transition,
   position,
+  autoClose,
+  delay,
+  onRemove,
+  showProgressBar,
+  id,
+  pauseOnPressable,
 }) => {
   const { width } = useWindowDimensions();
   const onGetLimitToRemove = (): number => {
@@ -123,6 +140,8 @@ export const useController: UseControllerHook = ({
 
   const withIcon = type === 'default' ? false : showIcon;
 
+  const [isPaused, toggleIsPaused] = useToggle(false);
+
   const onFinishAnimation = useCallback(
     (isFinished: boolean) => {
       'worklet';
@@ -135,6 +154,32 @@ export const useController: UseControllerHook = ({
   );
 
   const animation = getAnimation({ amount, position, transition });
+  const withProgressBar = showProgressBar && autoClose;
+
+  const delayDecrement = useRef(delay / DELAY);
+  useEffect(() => {
+    const cannotRun = showProgressBar || !autoClose || isPaused;
+    if (cannotRun) {
+      clearInterval(TIMER);
+      return () => null;
+    }
+    TIMER = setInterval(() => {
+      delayDecrement.current -= 1;
+      if (delayDecrement.current === 0) {
+        onRemove(`${id}test`);
+      }
+    }, DELAY);
+
+    return () => clearInterval(TIMER);
+  }, [
+    autoClose,
+    delay,
+    id,
+    isPaused,
+    onRemove,
+    showProgressBar,
+    withProgressBar,
+  ]);
 
   return {
     animatedStyle,
@@ -143,5 +188,6 @@ export const useController: UseControllerHook = ({
     withIcon,
     onFinishAnimation,
     animation,
+    withProgressBar,
   };
 };
