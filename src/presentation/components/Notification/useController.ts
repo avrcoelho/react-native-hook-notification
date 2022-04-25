@@ -88,12 +88,11 @@ export const useController: UseControllerHook = ({
   const { width } = useWindowDimensions();
   const onGetLimitToRemove = (): number => {
     const limits = {
-      x: width - 80,
-      y: title ? 80 : 60,
+      x: width - 95,
+      y: title ? 95 : 60,
     };
     return limits[dragDirection];
   };
-
   const limitToRemove = onGetLimitToRemove();
   const typeAndTheme = `${type}${theme}` as 'defaultcolored';
   const transitionDirection = dragDirection.toUpperCase() as 'X' | 'Y';
@@ -138,10 +137,6 @@ export const useController: UseControllerHook = ({
     [animationEnteringFinish],
   );
 
-  const withIcon = type === 'default' ? false : showIcon;
-
-  const [isPaused, toggleIsPaused] = useToggle(false);
-
   const onFinishAnimation = useCallback(
     (isFinished: boolean) => {
       'worklet';
@@ -153,9 +148,7 @@ export const useController: UseControllerHook = ({
     [toggleAnimationEnteringFinish],
   );
 
-  const animation = getAnimation({ amount, position, transition });
-  const withProgressBar = showProgressBar && autoClose;
-
+  const [isPaused, toggleIsPaused] = useToggle(false);
   const delayDecrement = useRef(delay / DELAY);
   useEffect(() => {
     const cannotRun = showProgressBar || !autoClose || isPaused;
@@ -171,15 +164,11 @@ export const useController: UseControllerHook = ({
     }, DELAY);
 
     return () => clearInterval(TIMER);
-  }, [
-    autoClose,
-    delay,
-    id,
-    isPaused,
-    onRemove,
-    showProgressBar,
-    withProgressBar,
-  ]);
+  }, [autoClose, delay, id, isPaused, onRemove, showProgressBar]);
+
+  const animation = getAnimation({ amount, position, transition });
+  const withProgressBar = showProgressBar && autoClose;
+  const withIcon = type === 'default' ? false : showIcon;
 
   return {
     animatedStyle,
