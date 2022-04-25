@@ -1,4 +1,3 @@
-/* eslint-disable react/function-component-definition */
 import { useCallback, useEffect, useRef } from 'react';
 import { useWindowDimensions } from 'react-native';
 import {
