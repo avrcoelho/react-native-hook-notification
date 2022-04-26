@@ -1,12 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo } from 'react';
+import { View } from 'react-native';
 
-const Container = (): JSX.Element => {
-  const [a] = useState('');
-  useEffect(() => {
-    a ? 1 : 0;
-  }, [a]);
+import {
+  NotificationPosition,
+  NotificationProps,
+} from '../../types/Notification';
+import { Notification } from '../Notification';
+import { useController } from './useController';
+import { styles } from './styles';
 
-  return <div />;
+interface ContainerProps {
+  isVisible: boolean;
+  notifications: Omit<NotificationProps, 'onRemove' | 'amount'>[];
+  position: NotificationPosition;
+  onRemove(id: string): void;
+}
+
+const Component = ({
+  isVisible,
+  notifications,
+  position,
+  onRemove,
+}: ContainerProps): JSX.Element | null => {
+  const { show } = useController({ isVisible });
+
+  return show ? (
+    <View style={[styles.container, styles[position]]}>
+      {notifications.map(notification => (
+        <Notification
+          key={notification.id}
+          {...notification}
+          onRemove={onRemove}
+          amount={notifications.length}
+        />
+      ))}
+    </View>
+  ) : null;
 };
 
-export default Container;
+export const Container = memo(Component);
