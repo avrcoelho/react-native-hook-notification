@@ -70,10 +70,6 @@ export interface NotificationProps {
    */
   transition?: NotificationTransition;
   /**
-   * Show progress bar in the notification (Default: true)
-   */
-  showProgressBar?: NotificationShowProgressBar;
-  /**
    * Show button close in the notification (Default: true)
    */
   showButtonClose?: NotificationShowButtonClose;

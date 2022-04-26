@@ -28,11 +28,9 @@ const App = (): JSX.Element => {
           type="success"
           dragDirection="x"
           theme="colored"
-          showIcon
+          autoClose
           transition="zoom"
           position="bottom-left"
-          showProgressBar
-          autoClose
         />
       </View>
     </SafeAreaView>

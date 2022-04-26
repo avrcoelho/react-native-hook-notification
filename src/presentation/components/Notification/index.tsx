@@ -7,7 +7,6 @@ import { colorsIcon } from '../../constants/colorsIcon';
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
 import { NotificationProps } from '../../types/Notification';
 import { Icon } from '../Icon';
-import { ProgressBar } from '../ProgressBar';
 import { styles } from './styles';
 import { useController } from './useController';
 
@@ -22,7 +21,6 @@ export const Notification = ({
   theme = notificationDefaultProps.theme,
   transition = notificationDefaultProps.transition,
   delay = notificationDefaultProps.delay,
-  showProgressBar = notificationDefaultProps.showProgressBar,
   showButtonClose = notificationDefaultProps.showButtonClose,
   closeOnPress = notificationDefaultProps.closeOnPress,
   showIcon = notificationDefaultProps.showIcon,
@@ -38,7 +36,6 @@ export const Notification = ({
     withIcon,
     onFinishAnimation,
     animation,
-    withProgressBar,
   } = useController({
     dragDirection,
     theme,
@@ -53,7 +50,6 @@ export const Notification = ({
     id,
     onRemove,
     pauseOnPressable,
-    showProgressBar,
   });
 
   return (
@@ -87,17 +83,6 @@ export const Notification = ({
             {text}
           </Text>
         </View>
-
-        {withProgressBar && (
-          <ProgressBar
-            delay={delay}
-            id={id}
-            isPaused
-            onRemove={onRemove}
-            theme={theme}
-            type={type}
-          />
-        )}
       </Animated.View>
     </PanGestureHandler>
   );

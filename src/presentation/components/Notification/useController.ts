@@ -36,7 +36,6 @@ type UseControllerHookProps = {
   delay: number;
   pauseOnPressable: boolean;
   autoClose: boolean;
-  showProgressBar: boolean;
   id: string;
   onRemove(id: string): void;
 };
@@ -60,7 +59,6 @@ type UseControllerHook = (props: UseControllerHookProps) => {
       }
     | object;
   withIcon: boolean;
-  withProgressBar: boolean;
   animation: AnimationReturn;
   onFinishAnimation(value: boolean): void;
 };
@@ -80,7 +78,6 @@ export const useController: UseControllerHook = ({
   autoClose,
   delay,
   onRemove,
-  showProgressBar,
   id,
   pauseOnPressable,
 }) => {
@@ -96,23 +93,39 @@ export const useController: UseControllerHook = ({
   const typeAndTheme = `${type}${theme}` as 'defaultcolored';
   const transitionDirection = dragDirection.toUpperCase() as 'X' | 'Y';
   const positionOnScreen = useSharedValue(0);
+  const [isPaused, toggleIsPaused] = useToggle(false);
+
+  const onTogglePause = useCallback(() => {
+    'worklet';
+
+    runOnJS(toggleIsPaused)();
+  }, [toggleIsPaused]);
 
   const onGestureEvent = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     ContextData
-  >({
-    onStart(_, context) {
-      context[`position${transitionDirection}`] = positionOnScreen.value;
+  >(
+    {
+      onStart(_, context) {
+        if (autoClose) {
+          onTogglePause();
+        }
+        context[`position${transitionDirection}`] = positionOnScreen.value;
+      },
+      onActive(event, context) {
+        positionOnScreen.value =
+          context[`position${transitionDirection}`] +
+          event[`translation${transitionDirection}`];
+      },
+      onFinish() {
+        if (autoClose) {
+          onTogglePause();
+        }
+        positionOnScreen.value = withTiming(0);
+      },
     },
-    onActive(event, context) {
-      positionOnScreen.value =
-        context[`position${transitionDirection}`] +
-        event[`translation${transitionDirection}`];
-    },
-    onEnd() {
-      positionOnScreen.value = withTiming(0);
-    },
-  });
+    [onTogglePause, autoClose],
+  );
 
   const [animationEnteringFinish, toggleAnimationEnteringFinish] =
     useToggle(false);
@@ -147,10 +160,9 @@ export const useController: UseControllerHook = ({
     [toggleAnimationEnteringFinish],
   );
 
-  const [isPaused, toggleIsPaused] = useToggle(false);
   const delayDecrement = useRef(delay / DELAY);
   useEffect(() => {
-    const cannotRun = showProgressBar || !autoClose || isPaused;
+    const cannotRun = !autoClose || isPaused;
     if (cannotRun) {
       clearInterval(TIMER);
       return () => null;
@@ -163,10 +175,9 @@ export const useController: UseControllerHook = ({
     }, DELAY);
 
     return () => clearInterval(TIMER);
-  }, [autoClose, delay, id, isPaused, onRemove, showProgressBar]);
+  }, [autoClose, delay, id, isPaused, onRemove]);
 
   const animation = getAnimation({ amount, position, transition });
-  const withProgressBar = showProgressBar && autoClose;
   const withIcon = type === 'default' ? false : showIcon;
 
   return {
@@ -176,6 +187,5 @@ export const useController: UseControllerHook = ({
     withIcon,
     onFinishAnimation,
     animation,
-    withProgressBar,
   };
 };
