@@ -30,7 +30,6 @@ type UseControllerHookProps = {
   type: NotificationType;
   theme: NotificationTheme;
   showIcon: boolean;
-  amount: number;
   position: NotificationPosition;
   transition: NotificationTransition;
   delay: number;
@@ -73,7 +72,6 @@ export const useController: UseControllerHook = ({
   type,
   title,
   showIcon,
-  amount,
   transition,
   position,
   autoClose,
@@ -247,7 +245,7 @@ export const useController: UseControllerHook = ({
     return () => clearInterval(TIMER);
   }, [autoClose, delay, id, isPaused, onRemove]);
 
-  const animation = getAnimation({ amount, position, transition });
+  const animation = getAnimation({ position, transition });
   const withIcon = type === 'default' ? false : showIcon;
 
   return {

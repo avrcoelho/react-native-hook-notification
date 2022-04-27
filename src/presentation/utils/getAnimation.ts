@@ -1,27 +1,28 @@
 import {
-  bounceBottomEntering,
-  bounceBottomExiting,
-  bounceLeftEntering,
-  bounceLeftExiting,
-  bounceRightEntering,
-  bounceRightExiting,
-  bounceTopEntering,
-  bounceTopExiting,
-  fadeEntering,
-  fadeExiting,
-  flipEntering,
-  flipExiting,
-  slideBottomEntering,
-  slideBottomExiting,
-  slideLeftEntering,
-  slideLeftExiting,
-  slideRightEntering,
-  slideRightExiting,
-  slideTopEntering,
-  slideTopExiting,
-  zoomEntering,
-  zoomExiting,
-} from '../constants/animations';
+  BounceInDown,
+  BounceInLeft,
+  BounceInRight,
+  BounceInUp,
+  BounceOutDown,
+  BounceOutLeft,
+  BounceOutRight,
+  BounceOutUp,
+  FadeIn,
+  FadeOut,
+  FlipInEasyX,
+  FlipOutEasyX,
+  SlideInDown,
+  SlideInLeft,
+  SlideInRight,
+  SlideInUp,
+  SlideOutDown,
+  SlideOutLeft,
+  SlideOutRight,
+  SlideOutUp,
+  ZoomIn,
+  ZoomOut,
+} from 'react-native-reanimated';
+
 import { AnimationReturn } from '../types/Animation';
 import {
   NotificationPosition,
@@ -31,143 +32,141 @@ import {
 type GetNotificationProps = {
   transition: NotificationTransition;
   position: NotificationPosition;
-  amount: number;
 };
 
 export const getAnimation = ({
   position,
   transition,
-  amount,
 }: GetNotificationProps): AnimationReturn => {
   const animations = {
     bounce: {
       'top-right': {
-        enter: bounceRightEntering,
-        exit: bounceRightExiting,
+        enter: BounceInRight,
+        exit: BounceOutRight,
       },
       'top-center': {
-        enter: bounceTopEntering(amount),
-        exit: bounceTopExiting(amount),
+        enter: BounceInUp,
+        exit: BounceOutUp,
       },
       'top-left': {
-        enter: bounceLeftEntering,
-        exit: bounceLeftExiting,
+        enter: BounceInLeft,
+        exit: BounceOutLeft,
       },
       'bottom-right': {
-        enter: bounceRightEntering,
-        exit: bounceRightExiting,
+        enter: BounceInRight,
+        exit: BounceOutRight,
       },
       'bottom-center': {
-        enter: bounceBottomEntering(amount),
-        exit: bounceBottomExiting(amount),
+        enter: BounceInDown,
+        exit: BounceOutDown,
       },
       'bottom-left': {
-        enter: bounceLeftEntering,
-        exit: bounceLeftExiting,
+        enter: BounceInLeft,
+        exit: BounceOutLeft,
       },
     },
     slide: {
       'top-right': {
-        enter: slideRightEntering,
-        exit: slideRightExiting,
+        enter: SlideInRight,
+        exit: SlideOutRight,
       },
       'top-center': {
-        enter: slideTopEntering(amount),
-        exit: slideTopExiting(amount),
+        enter: SlideInUp,
+        exit: SlideOutUp,
       },
       'top-left': {
-        enter: slideLeftEntering,
-        exit: slideLeftExiting,
+        enter: SlideInLeft,
+        exit: SlideOutLeft,
       },
       'bottom-right': {
-        enter: slideRightEntering,
-        exit: slideRightExiting,
+        enter: SlideInRight,
+        exit: SlideOutRight,
       },
       'bottom-center': {
-        enter: slideBottomEntering(amount),
-        exit: slideBottomExiting(amount),
+        enter: SlideInDown,
+        exit: SlideOutDown,
       },
       'bottom-left': {
-        enter: slideLeftEntering,
-        exit: slideLeftExiting,
+        enter: SlideInLeft,
+        exit: SlideOutLeft,
       },
     },
     fade: {
       'top-right': {
-        enter: fadeEntering,
-        exit: fadeExiting,
+        enter: FadeIn,
+        exit: FadeOut,
       },
       'top-center': {
-        enter: fadeEntering,
-        exit: fadeExiting,
+        enter: FadeIn,
+        exit: FadeOut,
       },
       'top-left': {
-        enter: fadeEntering,
-        exit: fadeExiting,
+        enter: FadeIn,
+        exit: FadeOut,
       },
       'bottom-right': {
-        enter: fadeEntering,
-        exit: fadeExiting,
+        enter: FadeIn,
+        exit: FadeOut,
       },
       'bottom-center': {
-        enter: fadeEntering,
-        exit: fadeExiting,
+        enter: FadeIn,
+        exit: FadeOut,
       },
       'bottom-left': {
-        enter: fadeEntering,
-        exit: fadeExiting,
+        enter: FadeIn,
+        exit: FadeOut,
       },
     },
     flip: {
       'top-right': {
-        enter: flipEntering,
-        exit: flipExiting,
+        enter: FlipInEasyX,
+        exit: FlipOutEasyX,
       },
       'top-center': {
-        enter: flipEntering,
-        exit: flipExiting,
+        enter: FlipInEasyX,
+        exit: FlipOutEasyX,
       },
       'top-left': {
-        enter: flipEntering,
-        exit: flipExiting,
+        enter: FlipInEasyX,
+        exit: FlipOutEasyX,
       },
       'bottom-right': {
-        enter: flipEntering,
-        exit: flipExiting,
+        enter: FlipInEasyX,
+        exit: FlipOutEasyX,
       },
       'bottom-center': {
-        enter: flipEntering,
-        exit: flipExiting,
+        enter: FlipInEasyX,
+        exit: FlipOutEasyX,
       },
       'bottom-left': {
-        enter: flipEntering,
-        exit: flipExiting,
+        enter: FlipInEasyX,
+        exit: FlipOutEasyX,
       },
     },
     zoom: {
       'top-right': {
-        enter: zoomEntering,
-        exit: zoomExiting,
+        enter: ZoomIn,
+        exit: ZoomOut,
       },
       'top-center': {
-        enter: zoomEntering,
-        exit: zoomExiting,
+        enter: ZoomIn,
+        exit: ZoomOut,
       },
       'top-left': {
-        enter: zoomEntering,
-        exit: zoomExiting,
+        enter: ZoomIn,
+        exit: ZoomOut,
       },
       'bottom-right': {
-        enter: zoomEntering,
-        exit: zoomExiting,
+        enter: ZoomIn,
+        exit: ZoomOut,
       },
       'bottom-center': {
-        enter: zoomEntering,
-        exit: zoomExiting,
+        enter: ZoomIn,
+        exit: ZoomOut,
       },
       'bottom-left': {
-        enter: zoomEntering,
-        exit: zoomExiting,
+        enter: ZoomIn,
+        exit: ZoomOut,
       },
     },
   };

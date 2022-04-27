@@ -20,7 +20,7 @@ const App = (): JSX.Element => {
   const onDispatchNotification = (): void => {
     notification.success({
       text: 'My first test!',
-      position: 'bottom-right',
+      position: 'bottom-left',
       dragDirection: 'x',
       transition: 'bounce',
     });

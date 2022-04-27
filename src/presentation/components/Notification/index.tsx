@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
-import Animated from 'react-native-reanimated';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 import { colorsIcon } from '../../constants/colorsIcon';
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
@@ -43,7 +43,6 @@ export const Notification = ({
     title,
     showIcon,
     transition,
-    amount,
     position,
     autoClose,
     delay,
