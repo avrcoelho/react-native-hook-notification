@@ -8,6 +8,7 @@ import {
 import { Notification } from '../Notification';
 import { useController } from './useController';
 import { styles } from './styles';
+import { defineAnimationSize } from '../../utils/defineAnimationSize';
 
 interface ContainerProps {
   isVisible: boolean;
@@ -25,7 +26,15 @@ const Component = ({
   const { show } = useController({ isVisible });
 
   return show ? (
-    <View style={[styles.container, styles[position]]}>
+    <View
+      style={[
+        styles.container,
+        styles[position],
+        {
+          width: defineAnimationSize(),
+        },
+      ]}
+    >
       {notifications.map(notification => (
         <Notification
           key={notification.id}

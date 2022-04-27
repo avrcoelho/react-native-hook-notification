@@ -9,7 +9,7 @@ export const notificationDefaultProps = {
   title: '',
   position: 'top-center' as NotificationPosition,
   theme: 'colored' as NotificationTheme,
-  transition: 'bounce' as NotificationTransition,
+  transition: 'slide' as NotificationTransition,
   delay: 5000,
   showButtonClose: true,
   closeOnPress: true,

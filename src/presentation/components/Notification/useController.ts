@@ -240,7 +240,7 @@ export const useController: UseControllerHook = ({
     TIMER = setInterval(() => {
       delayDecrement.current -= 1;
       if (delayDecrement.current === 0) {
-        onRemove(`${id}test`);
+        onRemove(id);
       }
     }, DELAY);
 

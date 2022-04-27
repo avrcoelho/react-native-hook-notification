@@ -1,10 +1,10 @@
-import 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // export { default } from './storybook';
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
-import { Notification } from './src/presentation/components/Notification';
+import { NotificationContainer, useNotification } from './src/main';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,24 +15,26 @@ const styles = StyleSheet.create({
 });
 
 const App = (): JSX.Element => {
+  const notification = useNotification();
+
+  const onDispatchNotification = (): void => {
+    notification.success({
+      text: 'My first test!',
+      position: 'bottom-right',
+      dragDirection: 'x',
+      transition: 'bounce',
+    });
+  };
+
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, position: 'relative' }}>
       <View style={styles.container}>
-        <Notification
-          id="1"
-          onRemove={e => {
-            console.log(e);
-          }}
-          text="warning webhhuhuupac dfugds iusdufys difusdy isduhfidhf hidhfisdufhs ihidfhishdhfsihbyun hiuxhc hudsu hdch uhudc"
-          amount={1}
-          type="success"
-          dragDirection="y"
-          theme="colored"
-          autoClose
-          transition="zoom"
-          position="top-left"
-        />
+        <TouchableOpacity onPress={onDispatchNotification}>
+          <Text>Dispatch</Text>
+        </TouchableOpacity>
       </View>
+
+      <NotificationContainer />
     </SafeAreaView>
   );
 };

@@ -1,11 +1,9 @@
-import uuid from 'react-native-uuid';
-
 import { NotificationType } from '../../types/Notification';
 import { NotificationStore } from '../NotificationStore';
 
 describe('NotificationStore', () => {
   const notificationData = {
-    id: String(uuid.v4()),
+    id: String(Date.now()),
     type: 'success' as NotificationType,
     text: 'test',
   };
