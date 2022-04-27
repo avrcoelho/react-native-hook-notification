@@ -28,8 +28,6 @@ export const useController: UseControllerHook = () => {
     notificationStore.get(),
   );
 
-  console.log(notifications);
-
   useLayoutEffect(() => {
     notificationStore.subscribe(setNotifications);
   }, []);
