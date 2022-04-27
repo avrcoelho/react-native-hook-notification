@@ -26,11 +26,11 @@ const App = (): JSX.Element => {
           text="warning webhhuhuupac dfugds iusdufys difusdy isduhfidhf hidhfisdufhs ihidfhishdhfsihbyun hiuxhc hudsu hdch uhudc"
           amount={1}
           type="success"
-          dragDirection="x"
+          dragDirection="y"
           theme="colored"
           autoClose
           transition="zoom"
-          position="bottom-left"
+          position="top-left"
         />
       </View>
     </SafeAreaView>

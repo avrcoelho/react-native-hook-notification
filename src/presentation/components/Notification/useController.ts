@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useWindowDimensions } from 'react-native';
 import {
   GestureHandlerGestureEvent,
@@ -11,6 +11,7 @@ import {
   withTiming,
   interpolate,
   runOnJS,
+  cancelAnimation,
 } from 'react-native-reanimated';
 
 import { useToggle } from '../../hooks/useToggle';
@@ -95,37 +96,81 @@ export const useController: UseControllerHook = ({
   const positionOnScreen = useSharedValue(0);
   const [isPaused, toggleIsPaused] = useToggle(false);
 
-  const onTogglePause = useCallback(() => {
+  const onTogglePause = (): void => {
     'worklet';
 
     runOnJS(toggleIsPaused)();
-  }, [toggleIsPaused]);
+  };
 
+  const onRemoveNotification = (): void => {
+    onRemove(id);
+  };
+
+  const onDirectionXRemover = (pos: number): void => {
+    'worklet';
+
+    if (
+      dragDirection === 'x' &&
+      (pos > limitToRemove || pos < -limitToRemove)
+    ) {
+      runOnJS(onRemoveNotification)();
+    }
+  };
+
+  const onDirectionYRemover = (pos: number): void => {
+    'worklet';
+
+    if (
+      dragDirection === 'y' &&
+      (pos > limitToRemove || pos < -limitToRemove)
+    ) {
+      runOnJS(onRemoveNotification)();
+    }
+  };
+
+  const onCanUpdatePosition = (pos: number): boolean => {
+    'worklet';
+
+    if (dragDirection === 'x') {
+      return true;
+    }
+    if (/top/.test(position) && pos > 0) {
+      return false;
+    }
+    if (/bottom/.test(position) && pos < 0) {
+      return false;
+    }
+    return true;
+  };
+
+  const canTogglePause = pauseOnPressable && autoClose;
   const onGestureEvent = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     ContextData
-  >(
-    {
-      onStart(_, context) {
-        if (autoClose) {
-          onTogglePause();
-        }
-        context[`position${transitionDirection}`] = positionOnScreen.value;
-      },
-      onActive(event, context) {
-        positionOnScreen.value =
-          context[`position${transitionDirection}`] +
-          event[`translation${transitionDirection}`];
-      },
-      onFinish() {
-        if (autoClose) {
-          onTogglePause();
-        }
-        positionOnScreen.value = withTiming(0);
-      },
+  >({
+    onStart(_, context) {
+      if (canTogglePause) {
+        onTogglePause();
+      }
+      context[`position${transitionDirection}`] = positionOnScreen.value;
     },
-    [onTogglePause, autoClose],
-  );
+    onActive(event, context) {
+      const positionValue =
+        context[`position${transitionDirection}`] +
+        event[`translation${transitionDirection}`];
+      if (onCanUpdatePosition(positionValue)) {
+        positionOnScreen.value = positionValue;
+        onDirectionXRemover(positionValue);
+        onDirectionYRemover(positionValue);
+      }
+    },
+    onFinish() {
+      if (canTogglePause) {
+        onTogglePause();
+      }
+      positionOnScreen.value = withTiming(0);
+    },
+  });
 
   const [animationEnteringFinish, toggleAnimationEnteringFinish] =
     useToggle(false);
@@ -149,20 +194,17 @@ export const useController: UseControllerHook = ({
     [animationEnteringFinish],
   );
 
-  const onFinishAnimation = useCallback(
-    (isFinished: boolean) => {
-      'worklet';
+  const onFinishAnimation = (isFinished: boolean): void => {
+    'worklet';
 
-      if (isFinished) {
-        runOnJS(toggleAnimationEnteringFinish)();
-      }
-    },
-    [toggleAnimationEnteringFinish],
-  );
+    if (isFinished) {
+      runOnJS(toggleAnimationEnteringFinish)();
+    }
+  };
 
   const delayDecrement = useRef(delay / DELAY);
   useEffect(() => {
-    const cannotRun = !autoClose || isPaused;
+    const cannotRun = pauseOnPressable || !autoClose || isPaused;
     if (cannotRun) {
       clearInterval(TIMER);
       return () => null;
@@ -175,7 +217,7 @@ export const useController: UseControllerHook = ({
     }, DELAY);
 
     return () => clearInterval(TIMER);
-  }, [autoClose, delay, id, isPaused, onRemove]);
+  }, [autoClose, delay, id, isPaused, onRemove, pauseOnPressable]);
 
   const animation = getAnimation({ amount, position, transition });
   const withIcon = type === 'default' ? false : showIcon;
