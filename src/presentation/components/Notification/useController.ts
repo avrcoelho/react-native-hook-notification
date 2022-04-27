@@ -11,7 +11,6 @@ import {
   withTiming,
   interpolate,
   runOnJS,
-  cancelAnimation,
 } from 'react-native-reanimated';
 
 import { useToggle } from '../../hooks/useToggle';
