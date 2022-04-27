@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useWindowDimensions } from 'react-native';
 import {
   GestureHandlerGestureEvent,
@@ -96,81 +96,100 @@ export const useController: UseControllerHook = ({
   const positionOnScreen = useSharedValue(0);
   const [isPaused, toggleIsPaused] = useToggle(false);
 
-  const onTogglePause = (): void => {
+  const onTogglePause = useCallback((): void => {
     'worklet';
 
     runOnJS(toggleIsPaused)();
-  };
+  }, [toggleIsPaused]);
 
-  const onRemoveNotification = (): void => {
+  const onRemoveNotification = useCallback((): void => {
     onRemove(id);
-  };
+  }, [id, onRemove]);
 
-  const onDirectionXRemover = (pos: number): void => {
-    'worklet';
+  const onDirectionXRemover = useCallback(
+    (pos: number): void => {
+      'worklet';
 
-    if (
-      dragDirection === 'x' &&
-      (pos > limitToRemove || pos < -limitToRemove)
-    ) {
-      runOnJS(onRemoveNotification)();
-    }
-  };
+      if (
+        dragDirection === 'x' &&
+        (pos > limitToRemove || pos < -limitToRemove)
+      ) {
+        runOnJS(onRemoveNotification)();
+      }
+    },
+    [dragDirection, limitToRemove, onRemoveNotification],
+  );
 
-  const onDirectionYRemover = (pos: number): void => {
-    'worklet';
+  const onDirectionYRemover = useCallback(
+    (pos: number): void => {
+      'worklet';
 
-    if (
-      dragDirection === 'y' &&
-      (pos > limitToRemove || pos < -limitToRemove)
-    ) {
-      runOnJS(onRemoveNotification)();
-    }
-  };
+      if (
+        dragDirection === 'y' &&
+        (pos > limitToRemove || pos < -limitToRemove)
+      ) {
+        runOnJS(onRemoveNotification)();
+      }
+    },
+    [dragDirection, limitToRemove, onRemoveNotification],
+  );
 
-  const onCanUpdatePosition = (pos: number): boolean => {
-    'worklet';
+  const onCanUpdatePosition = useCallback(
+    (pos: number): boolean => {
+      'worklet';
 
-    if (dragDirection === 'x') {
+      if (dragDirection === 'x') {
+        return true;
+      }
+      if (/top/.test(position) && pos > 0) {
+        return false;
+      }
+      if (/bottom/.test(position) && pos < 0) {
+        return false;
+      }
       return true;
-    }
-    if (/top/.test(position) && pos > 0) {
-      return false;
-    }
-    if (/bottom/.test(position) && pos < 0) {
-      return false;
-    }
-    return true;
-  };
+    },
+    [dragDirection, position],
+  );
 
   const canTogglePause = pauseOnPressable && autoClose;
   const onGestureEvent = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     ContextData
-  >({
-    onStart(_, context) {
-      if (canTogglePause) {
-        onTogglePause();
-      }
-      context[`position${transitionDirection}`] = positionOnScreen.value;
+  >(
+    {
+      onStart(_, context) {
+        if (canTogglePause) {
+          onTogglePause();
+        }
+        context[`position${transitionDirection}`] = positionOnScreen.value;
+      },
+      onActive(event, context) {
+        const positionValue =
+          context[`position${transitionDirection}`] +
+          event[`translation${transitionDirection}`];
+        if (onCanUpdatePosition(positionValue)) {
+          positionOnScreen.value = positionValue;
+          onDirectionXRemover(positionValue);
+          onDirectionYRemover(positionValue);
+        }
+      },
+      onFinish() {
+        if (canTogglePause) {
+          onTogglePause();
+        }
+        positionOnScreen.value = withTiming(0);
+      },
     },
-    onActive(event, context) {
-      const positionValue =
-        context[`position${transitionDirection}`] +
-        event[`translation${transitionDirection}`];
-      if (onCanUpdatePosition(positionValue)) {
-        positionOnScreen.value = positionValue;
-        onDirectionXRemover(positionValue);
-        onDirectionYRemover(positionValue);
-      }
-    },
-    onFinish() {
-      if (canTogglePause) {
-        onTogglePause();
-      }
-      positionOnScreen.value = withTiming(0);
-    },
-  });
+    [
+      onDirectionXRemover,
+      onCanUpdatePosition,
+      onDirectionYRemover,
+      onCanUpdatePosition,
+      onTogglePause,
+      canTogglePause,
+    ],
+  );
 
   const [animationEnteringFinish, toggleAnimationEnteringFinish] =
     useToggle(false);
@@ -194,13 +213,16 @@ export const useController: UseControllerHook = ({
     [animationEnteringFinish],
   );
 
-  const onFinishAnimation = (isFinished: boolean): void => {
-    'worklet';
+  const onFinishAnimation = useCallback(
+    (isFinished: boolean): void => {
+      'worklet';
 
-    if (isFinished) {
-      runOnJS(toggleAnimationEnteringFinish)();
-    }
-  };
+      if (isFinished) {
+        runOnJS(toggleAnimationEnteringFinish)();
+      }
+    },
+    [toggleAnimationEnteringFinish],
+  );
 
   const delayDecrement = useRef(delay / DELAY);
   useEffect(() => {
