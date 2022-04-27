@@ -50,6 +50,7 @@ export const Notification = ({
     id,
     onRemove,
     pauseOnPressable,
+    draggable,
   });
 
   return (

@@ -36,6 +36,7 @@ type UseControllerHookProps = {
   delay: number;
   pauseOnPressable: boolean;
   autoClose: boolean;
+  draggable: boolean;
   id: string;
   onRemove(id: string): void;
 };
@@ -80,6 +81,7 @@ export const useController: UseControllerHook = ({
   onRemove,
   id,
   pauseOnPressable,
+  draggable,
 }) => {
   const { width } = useWindowDimensions();
   const onGetLimitToRemove = (): number => {
@@ -98,8 +100,10 @@ export const useController: UseControllerHook = ({
   const onTogglePause = useCallback((): void => {
     'worklet';
 
-    runOnJS(toggleIsPaused)();
-  }, [toggleIsPaused]);
+    if (pauseOnPressable) {
+      runOnJS(toggleIsPaused)();
+    }
+  }, [pauseOnPressable, toggleIsPaused]);
 
   const onRemoveNotification = useCallback((): void => {
     onRemove(id);
@@ -137,6 +141,9 @@ export const useController: UseControllerHook = ({
     (pos: number): boolean => {
       'worklet';
 
+      if (!draggable) {
+        return false;
+      }
       if (dragDirection === 'x') {
         return true;
       }
@@ -148,7 +155,7 @@ export const useController: UseControllerHook = ({
       }
       return true;
     },
-    [dragDirection, position],
+    [dragDirection, position, draggable],
   );
 
   const canTogglePause = pauseOnPressable && autoClose;
@@ -225,7 +232,7 @@ export const useController: UseControllerHook = ({
 
   const delayDecrement = useRef(delay / DELAY);
   useEffect(() => {
-    const cannotRun = pauseOnPressable || !autoClose || isPaused;
+    const cannotRun = !autoClose || isPaused;
     if (cannotRun) {
       clearInterval(TIMER);
       return () => null;
@@ -238,7 +245,7 @@ export const useController: UseControllerHook = ({
     }, DELAY);
 
     return () => clearInterval(TIMER);
-  }, [autoClose, delay, id, isPaused, onRemove, pauseOnPressable]);
+  }, [autoClose, delay, id, isPaused, onRemove]);
 
   const animation = getAnimation({ amount, position, transition });
   const withIcon = type === 'default' ? false : showIcon;
