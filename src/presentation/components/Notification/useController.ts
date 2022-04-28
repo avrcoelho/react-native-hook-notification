@@ -85,7 +85,7 @@ export const useController: UseControllerHook = ({
   const onGetLimitToRemove = (): number => {
     const limits = {
       x: width - 95,
-      y: title ? 95 : 60,
+      y: title ? 70 : 60,
     };
     return limits[dragDirection];
   };

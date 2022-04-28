@@ -19,9 +19,10 @@ const App = (): JSX.Element => {
 
   const onDispatchNotification = (): void => {
     notification.success({
+      title: 'My first test!',
       text: 'My first test!',
-      position: 'bottom-right',
-      dragDirection: 'x',
+      position: 'bottom-center',
+      dragDirection: 'y',
       transition: 'bounce',
     });
   };
@@ -29,7 +30,10 @@ const App = (): JSX.Element => {
   return (
     <SafeAreaView style={{ flex: 1, position: 'relative' }}>
       <View style={styles.container}>
-        <TouchableOpacity onPress={onDispatchNotification}>
+        <TouchableOpacity
+          style={{ marginTop: 100 }}
+          onPress={onDispatchNotification}
+        >
           <Text>Dispatch</Text>
         </TouchableOpacity>
       </View>

@@ -1,5 +1,4 @@
 import React, { memo } from 'react';
-import { View } from 'react-native';
 
 import Animated, { Easing, Layout } from 'react-native-reanimated';
 import {
@@ -9,7 +8,6 @@ import {
 import { Notification } from '../Notification';
 import { useController } from './useController';
 import { styles } from './styles';
-import { defineAnimationSize } from '../../utils/defineAnimationSize';
 
 interface ContainerProps {
   isVisible: boolean;
@@ -28,21 +26,14 @@ const Component = ({
 
   return show ? (
     <Animated.View
-      style={[
-        styles.container,
-        styles[position],
-        {
-          width: defineAnimationSize(),
-        },
-      ]}
+      style={[styles.container, styles[position]]}
       layout={Layout.easing(Easing.ease)}
     >
-      {notifications.map((notification, index) => (
+      {notifications.map(notification => (
         <Notification
           key={notification.id}
           {...notification}
           onRemove={onRemove}
-          amount={index}
         />
       ))}
     </Animated.View>

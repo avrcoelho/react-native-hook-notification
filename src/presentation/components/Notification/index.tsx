@@ -10,7 +10,7 @@ import { Icon } from '../Icon';
 import { styles } from './styles';
 import { useController } from './useController';
 
-const LAYOUT_DELAY = 800;
+const AIMATION_DELAY = 300;
 
 export const Notification = ({
   type,
@@ -18,7 +18,6 @@ export const Notification = ({
   onRemove,
   title,
   text,
-  amount,
   position = notificationDefaultProps.position,
   theme = notificationDefaultProps.theme,
   transition = notificationDefaultProps.transition,
@@ -57,7 +56,9 @@ export const Notification = ({
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
       <Animated.View
-        entering={animation.enter.withCallback(onFinishAnimation)}
+        entering={animation.enter
+          .withCallback(onFinishAnimation)
+          .delay(AIMATION_DELAY)}
         exiting={animation.exit}
         style={[styles.container, styles[typeAndTheme], animatedStyle]}
         layout={Layout.easing(Easing.ease)}
