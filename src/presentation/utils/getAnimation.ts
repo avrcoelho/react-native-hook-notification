@@ -42,27 +42,27 @@ export const getAnimation = ({
     bounce: {
       'top-right': {
         enter: BounceInRight,
-        exit: BounceOutRight,
+        exit: SlideOutRight,
       },
       'top-center': {
         enter: BounceInUp,
-        exit: BounceOutUp,
+        exit: SlideOutUp,
       },
       'top-left': {
         enter: BounceInLeft,
-        exit: BounceOutLeft,
+        exit: SlideOutLeft,
       },
       'bottom-right': {
         enter: BounceInRight,
-        exit: BounceOutRight,
+        exit: SlideOutRight,
       },
       'bottom-center': {
         enter: BounceInDown,
-        exit: BounceOutDown,
+        exit: SlideOutDown,
       },
       'bottom-left': {
         enter: BounceInLeft,
-        exit: BounceOutLeft,
+        exit: SlideOutLeft,
       },
     },
     slide: {

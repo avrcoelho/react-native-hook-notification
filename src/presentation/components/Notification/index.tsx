@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import Animated, { Layout, Easing } from 'react-native-reanimated';
 
 import { colorsIcon } from '../../constants/colorsIcon';
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
@@ -9,6 +9,8 @@ import { NotificationProps } from '../../types/Notification';
 import { Icon } from '../Icon';
 import { styles } from './styles';
 import { useController } from './useController';
+
+const LAYOUT_DELAY = 800;
 
 export const Notification = ({
   type,
@@ -58,6 +60,7 @@ export const Notification = ({
         entering={animation.enter.withCallback(onFinishAnimation)}
         exiting={animation.exit}
         style={[styles.container, styles[typeAndTheme], animatedStyle]}
+        layout={Layout.easing(Easing.ease)}
       >
         {withIcon && (
           <View style={styles.iconContainer}>
