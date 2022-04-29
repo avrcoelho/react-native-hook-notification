@@ -80,6 +80,7 @@ export const Notification = ({
               ellipsizeMode="tail"
               numberOfLines={1}
               style={[styles.title, styles[typeAndTheme]]}
+              accessibilityLabel={title}
             >
               {title}
             </Text>
@@ -88,6 +89,7 @@ export const Notification = ({
             ellipsizeMode="tail"
             numberOfLines={2}
             style={[styles.text, styles[typeAndTheme]]}
+            accessibilityLabel={text}
           >
             {text}
           </Text>
