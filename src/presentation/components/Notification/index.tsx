@@ -2,12 +2,9 @@ import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { Layout, Easing } from 'react-native-reanimated';
-import { XIcon } from '../../assets/icons/X';
 
-import { colorsIcon, colorsIconButtonClose } from '../../constants/colorsIcon';
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
 import { NotificationProps } from '../../types/Notification';
-import { Icon } from '../Icon';
 import { styles } from './styles';
 import { useController } from './useController';
 
@@ -24,7 +21,6 @@ export const Notification = ({
   transition = notificationDefaultProps.transition,
   delay = notificationDefaultProps.delay,
   showButtonClose = notificationDefaultProps.showButtonClose,
-  showIcon = notificationDefaultProps.showIcon,
   autoClose = notificationDefaultProps.autoClose,
   pauseOnPressable = notificationDefaultProps.pauseOnPressable,
   dragDirection = notificationDefaultProps.dragDirection,
@@ -34,7 +30,6 @@ export const Notification = ({
     animatedStyle,
     onGestureEvent,
     typeAndTheme,
-    withIcon,
     animation,
     isPaused,
     onFinishAnimation,
@@ -44,7 +39,6 @@ export const Notification = ({
     theme,
     type,
     title,
-    showIcon,
     transition,
     position,
     autoClose,
@@ -70,21 +64,13 @@ export const Notification = ({
         }}
         accessibilityRole="alert"
       >
-        {withIcon && (
-          <View style={styles.iconContainer}>
-            <Icon type={type} color={colorsIcon[theme][type]} />
-          </View>
-        )}
-
         {showButtonClose && (
           <TouchableOpacity
             onPress={onRemoveNotification}
             style={[styles.buttonClose, styles[`buttonClose${theme}`]]}
             accessibilityLabel="Close notification"
             activeOpacity={0.5}
-          >
-            <XIcon color={colorsIconButtonClose[theme]} />
-          </TouchableOpacity>
+          />
         )}
 
         <View style={styles.textContainer}>

@@ -29,7 +29,6 @@ type UseControllerHookProps = {
   dragDirection: NotificationDragDirection;
   type: NotificationType;
   theme: NotificationTheme;
-  showIcon: boolean;
   position: NotificationPosition;
   transition: NotificationTransition;
   delay: number;
@@ -58,7 +57,6 @@ type UseControllerHook = (props: UseControllerHookProps) => {
         }[];
       }
     | object;
-  withIcon: boolean;
   animation: AnimationReturn;
   isPaused: boolean;
   onFinishAnimation(value: boolean): void;
@@ -72,7 +70,6 @@ export const useController: UseControllerHook = ({
   theme,
   type,
   title,
-  showIcon,
   transition,
   position,
   autoClose,
@@ -248,13 +245,11 @@ export const useController: UseControllerHook = ({
   }, [autoClose, delay, id, isPaused, onRemove]);
 
   const animation = getAnimation({ position, transition });
-  const withIcon = type === 'default' ? false : showIcon;
 
   return {
     animatedStyle,
     onGestureEvent,
     typeAndTheme,
-    withIcon,
     onFinishAnimation,
     animation,
     isPaused,

@@ -60,13 +60,6 @@ export const styles = StyleSheet.create({
   successdark: themeDark,
   errordark: themeDark,
 
-  iconContainer: {
-    width: 24,
-    height: 24,
-    flexShrink: 0,
-    marginRight: 8,
-  },
-
   textContainer: {
     flexDirection: 'column',
     position: 'relative',
