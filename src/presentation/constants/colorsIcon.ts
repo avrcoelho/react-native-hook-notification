@@ -23,3 +23,9 @@ export const colorsIcon = {
     default: Colors.White,
   },
 };
+
+export const colorsIconButtonClose = {
+  colored: Colors.Grey,
+  light: Colors.White,
+  dark: Colors.Black,
+};

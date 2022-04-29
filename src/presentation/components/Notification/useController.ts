@@ -62,6 +62,7 @@ type UseControllerHook = (props: UseControllerHookProps) => {
   animation: AnimationReturn;
   isPaused: boolean;
   onFinishAnimation(value: boolean): void;
+  onRemoveNotification(): void;
 };
 
 const DELAY = 1000;
@@ -257,5 +258,6 @@ export const useController: UseControllerHook = ({
     onFinishAnimation,
     animation,
     isPaused,
+    onRemoveNotification,
   };
 };

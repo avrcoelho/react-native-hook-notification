@@ -84,4 +84,29 @@ export const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
+
+  buttonClose: {
+    width: 16,
+    height: 16,
+    right: 0,
+    top: 0,
+    position: 'absolute',
+    padding: 0,
+    opacity: 0.7,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottomLeftRadius: 4,
+    borderTopRightRadius: 4,
+    zIndex: 2,
+  },
+
+  buttonClosecolored: {
+    backgroundColor: Colors.White,
+  },
+  buttonCloselight: {
+    backgroundColor: Colors.Grey,
+  },
+  buttonClosedark: {
+    backgroundColor: Colors.White,
+  },
 });

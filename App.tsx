@@ -19,9 +19,10 @@ const App = (): JSX.Element => {
 
   const onDispatchNotification = (): void => {
     notification.success({
-      title: 'My first test!',
-      text: 'My first test!',
-      position: 'bottom-center',
+      title:
+        'My first test! test! test! test! test! test! test! test! test! test!',
+      text: 'My first test! My first test! My first test! My first test!',
+      position: 'top-right',
       dragDirection: 'y',
       transition: 'bounce',
     });

@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, { Layout, Easing } from 'react-native-reanimated';
+import { XIcon } from '../../assets/icons/X';
 
-import { colorsIcon } from '../../constants/colorsIcon';
+import { colorsIcon, colorsIconButtonClose } from '../../constants/colorsIcon';
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
 import { NotificationProps } from '../../types/Notification';
 import { Icon } from '../Icon';
@@ -34,9 +35,10 @@ export const Notification = ({
     onGestureEvent,
     typeAndTheme,
     withIcon,
-    onFinishAnimation,
     animation,
     isPaused,
+    onFinishAnimation,
+    onRemoveNotification,
   } = useController({
     dragDirection,
     theme,
@@ -72,6 +74,17 @@ export const Notification = ({
           <View style={styles.iconContainer}>
             <Icon type={type} color={colorsIcon[theme][type]} />
           </View>
+        )}
+
+        {showButtonClose && (
+          <TouchableOpacity
+            onPress={onRemoveNotification}
+            style={[styles.buttonClose, styles[`buttonClose${theme}`]]}
+            accessibilityLabel="Close notification"
+            activeOpacity={0.5}
+          >
+            <XIcon color={colorsIconButtonClose[theme]} />
+          </TouchableOpacity>
         )}
 
         <View style={styles.textContainer}>
