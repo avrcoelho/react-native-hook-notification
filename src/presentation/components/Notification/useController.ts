@@ -64,7 +64,6 @@ type UseControllerHook = (props: UseControllerHookProps) => {
 };
 
 const DELAY = 1000;
-let TIMER: NodeJS.Timeout;
 
 export const useController: UseControllerHook = ({
   dragDirection,
@@ -229,20 +228,21 @@ export const useController: UseControllerHook = ({
   );
 
   const delayDecrement = useRef(delay / DELAY);
+  const timerRef = useRef<NodeJS.Timeout>();
   useEffect(() => {
-    const cannotRun = !autoClose || isPaused;
-    if (cannotRun) {
-      clearInterval(TIMER);
-      return () => null;
+    const canExecute = autoClose && !isPaused;
+    if (canExecute) {
+      timerRef.current = setInterval(() => {
+        delayDecrement.current -= 1;
+        if (delayDecrement.current === 0) {
+          onRemove(id);
+        }
+      }, DELAY);
+    } else {
+      clearInterval(timerRef.current as NodeJS.Timeout);
     }
-    TIMER = setInterval(() => {
-      delayDecrement.current -= 1;
-      if (delayDecrement.current === 0) {
-        onRemove(id);
-      }
-    }, DELAY);
 
-    return () => clearInterval(TIMER);
+    return () => clearInterval(timerRef.current as NodeJS.Timeout);
   }, [autoClose, delay, id, isPaused, onRemove]);
 
   const animation = getAnimation({ position, transition });
