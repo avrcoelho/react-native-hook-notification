@@ -2,7 +2,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // export { default } from './storybook';
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { NotificationContainer, useNotification } from './src/main';
 
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#ccc',
   },
 });
 
@@ -29,7 +29,7 @@ const App = (): JSX.Element => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, position: 'relative' }}>
+    <>
       <View style={styles.container}>
         <TouchableOpacity
           style={{ marginTop: 100 }}
@@ -40,7 +40,7 @@ const App = (): JSX.Element => {
       </View>
 
       <NotificationContainer />
-    </SafeAreaView>
+    </>
   );
 };
 

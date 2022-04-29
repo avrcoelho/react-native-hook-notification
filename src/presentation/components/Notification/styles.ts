@@ -102,4 +102,12 @@ export const styles = StyleSheet.create({
   buttonClosedark: {
     backgroundColor: Colors.White,
   },
+
+  buttonCloseText: {
+    fontSize: 14,
+  },
+
+  buttonCloseTextcolored: { color: Colors.Grey },
+  buttonCloseTextlight: { color: Colors.White },
+  buttonCloseTextdark: { color: Colors.Black },
 });

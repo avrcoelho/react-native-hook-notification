@@ -70,7 +70,16 @@ export const Notification = ({
             style={[styles.buttonClose, styles[`buttonClose${theme}`]]}
             accessibilityLabel="Close notification"
             activeOpacity={0.5}
-          />
+          >
+            <Text
+              style={[
+                styles.buttonCloseText,
+                styles[`buttonCloseText${theme}`],
+              ]}
+            >
+              &#x2715;
+            </Text>
+          </TouchableOpacity>
         )}
 
         <View style={styles.textContainer}>
