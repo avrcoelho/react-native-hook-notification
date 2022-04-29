@@ -7,7 +7,6 @@ const customWidth = defineAnimationSize() - 32;
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 'auto',
     position: 'absolute',
     zIndex: 9999999,
   },
