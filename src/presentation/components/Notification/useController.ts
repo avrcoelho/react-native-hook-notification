@@ -60,6 +60,7 @@ type UseControllerHook = (props: UseControllerHookProps) => {
     | object;
   withIcon: boolean;
   animation: AnimationReturn;
+  isPaused: boolean;
   onFinishAnimation(value: boolean): void;
 };
 
@@ -255,5 +256,6 @@ export const useController: UseControllerHook = ({
     withIcon,
     onFinishAnimation,
     animation,
+    isPaused,
   };
 };

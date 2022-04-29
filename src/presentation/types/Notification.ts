@@ -74,10 +74,6 @@ export interface NotificationProps {
    */
   showButtonClose?: NotificationShowButtonClose;
   /**
-   * Close on press in the notification (Default: true)
-   */
-  closeOnPress?: NotificationCloseOnPress;
-  /**
    * show icon (Default: true)
    */
   showIcon?: NotificationShowIcon;

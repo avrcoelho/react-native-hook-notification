@@ -12,7 +12,6 @@ export const notificationDefaultProps = {
   transition: 'slide' as NotificationTransition,
   delay: 5000,
   showButtonClose: true,
-  closeOnPress: true,
   showIcon: true,
   autoClose: true,
   pauseOnPressable: true,

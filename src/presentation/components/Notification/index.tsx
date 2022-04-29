@@ -23,7 +23,6 @@ export const Notification = ({
   transition = notificationDefaultProps.transition,
   delay = notificationDefaultProps.delay,
   showButtonClose = notificationDefaultProps.showButtonClose,
-  closeOnPress = notificationDefaultProps.closeOnPress,
   showIcon = notificationDefaultProps.showIcon,
   autoClose = notificationDefaultProps.autoClose,
   pauseOnPressable = notificationDefaultProps.pauseOnPressable,
@@ -37,6 +36,7 @@ export const Notification = ({
     withIcon,
     onFinishAnimation,
     animation,
+    isPaused,
   } = useController({
     dragDirection,
     theme,
@@ -62,6 +62,11 @@ export const Notification = ({
         exiting={animation.exit}
         style={[styles.container, styles[typeAndTheme], animatedStyle]}
         layout={Layout.easing(Easing.ease)}
+        accessible
+        accessibilityState={{
+          selected: isPaused,
+        }}
+        accessibilityRole="alert"
       >
         {withIcon && (
           <View style={styles.iconContainer}>
