@@ -1,9 +1,5 @@
 import { StyleSheet } from 'react-native';
 
-import { defineAnimationSize } from '../../utils/defineAnimationSize';
-
-const customWidth = defineAnimationSize() - 32;
-
 export const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -12,36 +8,28 @@ export const styles = StyleSheet.create({
   },
   'top-right': {
     top: 32,
-    right: 16,
-    width: customWidth,
+    paddingHorizontal: 16,
   },
   'top-center': {
     top: 32,
-    left: 0,
-    right: 0,
+    alignItems: 'center',
     paddingHorizontal: 16,
-    margin: 'auto',
   },
   'top-left': {
     top: 32,
-    left: 16,
-    width: customWidth,
+    paddingHorizontal: 16,
   },
   'bottom-right': {
     bottom: 32,
-    right: 16,
-    width: customWidth,
+    paddingHorizontal: 16,
   },
   'bottom-center': {
     bottom: 32,
-    left: 0,
-    right: 0,
+    alignItems: 'center',
     paddingHorizontal: 16,
-    margin: 'auto',
   },
   'bottom-left': {
     bottom: 32,
-    left: 16,
-    width: customWidth,
+    paddingHorizontal: 16,
   },
 });

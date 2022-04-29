@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import { Colors } from '../../constants/Colors';
+import { defineAnimationSize } from '../../utils/defineAnimationSize';
 
 const themeLight = {
   color: Colors.Grey,
@@ -12,11 +13,13 @@ const themeDark = {
   backgroundColor: Colors.Black,
 };
 
+const customWidth = defineAnimationSize() - 32;
+
 export const styles = StyleSheet.create({
   container: {
     padding: 12,
     borderRadius: 4,
-    width: '100%',
+    width: customWidth,
     position: 'relative',
     flexDirection: 'row',
     marginVertical: 6,
