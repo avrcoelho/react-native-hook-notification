@@ -24,6 +24,7 @@ export const Notification = ({
   dragDirection = notificationDefaultProps.dragDirection,
   draggable = notificationDefaultProps.draggable,
   showProgressBar = notificationDefaultProps.showProgressBar,
+  leftIcon,
 }: NotificationProps): JSX.Element => {
   const {
     animatedStyle,
@@ -65,6 +66,8 @@ export const Notification = ({
         }}
         accessibilityRole="alert"
       >
+        {!!leftIcon && <View style={styles.iconContainer}>{leftIcon}</View>}
+
         {showButtonClose && (
           <TouchableOpacity
             onPress={onRemove}

@@ -1,3 +1,5 @@
+import { FunctionComponentElement, ReactElement } from 'react';
+
 export type NotificationType =
   | 'success'
   | 'error'
@@ -93,6 +95,10 @@ export interface NotificationProps {
    * Drag direction (Default: y)
    */
   dragDirection?: NotificationDragDirection;
+  /**
+   * React.FunctionComponentElement - Dimensions: 24x24 (Default: undefined)
+   */
+  leftIcon?: FunctionComponentElement<any>;
 
   id: string;
   onRemove(): void;
