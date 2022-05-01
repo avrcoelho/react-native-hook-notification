@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { render, fireEvent } from '@testing-library/react-native';
 
 import { NotificationType } from '../../../types/Notification';
@@ -31,6 +32,7 @@ const props = {
   onRemove: mockOnRemove,
   showProgressBar: true,
   draggable: true,
+  leftIcon: <View />,
 };
 describe('Notification component', () => {
   it('should be able to render remove on click Notification', () => {
