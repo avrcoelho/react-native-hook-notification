@@ -20,67 +20,12 @@ describe('Notifications controller hook', () => {
       id: idTopRight,
       position: 'top-right',
     });
-    notificationStore.add({
-      ...notificationBaseData,
-      id: String(Date.now()),
-      position: 'top-left',
-    });
-    notificationStore.add({
-      ...notificationBaseData,
-      id: String(Date.now()),
-      position: 'top-center',
-    });
-    notificationStore.add({
-      ...notificationBaseData,
-      id: String(Date.now()),
-      position: 'bottom-right',
-    });
-    notificationStore.add({
-      ...notificationBaseData,
-      id: String(Date.now()),
-      position: 'bottom-left',
-    });
-    notificationStore.add({
-      ...notificationBaseData,
-      id: String(Date.now()),
-      position: 'bottom-center',
-    });
   });
 
-  it('should be able to get notifications top-right', () => {
+  it('should be able to get notifications', () => {
     const { result } = renderHook(useController);
 
-    expect(result.current.notificationsTopRight).toHaveLength(1);
-  });
-
-  it('should be able to get notifications top-center', () => {
-    const { result } = renderHook(useController);
-
-    expect(result.current.notificationsTopCenter).toHaveLength(1);
-  });
-
-  it('should be able to get notifications top-left', () => {
-    const { result } = renderHook(useController);
-
-    expect(result.current.notificationsTopLeft).toHaveLength(1);
-  });
-
-  it('should be able to get notifications bottom-right', () => {
-    const { result } = renderHook(useController);
-
-    expect(result.current.notificationsBottomRight).toHaveLength(1);
-  });
-
-  it('should be able to get notifications bottom-center', () => {
-    const { result } = renderHook(useController);
-
-    expect(result.current.notificationsBottomCenter).toHaveLength(1);
-  });
-
-  it('should be able to get notifications bottom-left', () => {
-    const { result } = renderHook(useController);
-
-    expect(result.current.notificationsBottomLeft).toHaveLength(1);
+    expect(result.current.notifications).toHaveLength(1);
   });
 
   it('should be able to remove notification', async () => {
@@ -89,7 +34,7 @@ describe('Notifications controller hook', () => {
       .mockImplementation();
     const { result } = renderHook(useController);
 
-    result.current.onRemove(idTopRight);
+    result.current.onRemove();
 
     expect(spiedRemove).toBeCalled();
   });

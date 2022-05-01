@@ -6,18 +6,7 @@ import { Notifications } from '..';
 jest.mock('../useController', () => ({
   useController: () => ({
     onRemove: jest.fn(),
-    notificationsTopRight: [],
-    notificationsTopLeft: [],
-    notificationsTopCenter: [],
-    notificationsBottomRight: [],
-    notificationsBottomLeft: [],
-    notificationsBottomCenter: [],
-    hasNotificationsTopRight: false,
-    hasNotificationsTopLeft: false,
-    hasNotificationsTopCenter: false,
-    hasNotificationsBottomRight: false,
-    hasNotificationsBottomLeft: false,
-    hasNotificationsBottomCenter: false,
+    notifications: [],
   }),
 }));
 

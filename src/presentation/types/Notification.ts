@@ -90,5 +90,6 @@ export interface NotificationProps {
    */
   dragDirection?: NotificationDragDirection;
 
+  id: string;
   onRemove(): void;
 }
