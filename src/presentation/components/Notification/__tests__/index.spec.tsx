@@ -4,7 +4,6 @@ import { render, fireEvent } from '@testing-library/react-native';
 import { NotificationType } from '../../../types/Notification';
 import { Notification } from '..';
 
-const mockOnRemoveNotification = jest.fn();
 let mockIsPortrait = false;
 jest.mock('../useController', () => ({
   useController: () => ({
@@ -18,8 +17,8 @@ jest.mock('../useController', () => ({
       exit: jest.fn(),
     },
     isPaused: false,
+    withProgressBar: true,
     onFinishAnimation: jest.fn(),
-    onRemoveNotification: mockOnRemoveNotification,
     isPortrait: mockIsPortrait,
   }),
 }));
@@ -39,7 +38,7 @@ describe('Notification component', () => {
 
     fireEvent.press(getByA11yLabel('Close notification'));
 
-    expect(mockOnRemoveNotification).toBeCalled();
+    expect(props.onRemove).toBeCalled();
   });
 
   it('should not be able to render button close', () => {

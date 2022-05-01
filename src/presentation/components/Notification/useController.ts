@@ -36,6 +36,7 @@ type UseControllerHookProps = {
   pauseOnPressable: boolean;
   autoClose: boolean;
   draggable: boolean;
+  showProgressBar: boolean;
   onRemove(): void;
 };
 
@@ -60,8 +61,8 @@ type UseControllerHook = (props: UseControllerHookProps) => {
   animation: AnimationReturn;
   isPaused: boolean;
   isPortrait: boolean;
+  withProgressBar: boolean;
   onFinishAnimation(value: boolean): void;
-  onRemoveNotification(): void;
 };
 
 const DELAY = 1000;
@@ -78,6 +79,7 @@ export const useController: UseControllerHook = ({
   onRemove,
   pauseOnPressable,
   draggable,
+  showProgressBar,
 }) => {
   const { width } = useWindowDimensions();
   const onGetLimitToRemove = (): number => {
@@ -101,10 +103,6 @@ export const useController: UseControllerHook = ({
     }
   }, [pauseOnPressable, toggleIsPaused]);
 
-  const onRemoveNotification = useCallback((): void => {
-    onRemove();
-  }, [onRemove]);
-
   const onDirectionXRemover = useCallback(
     (pos: number): void => {
       'worklet';
@@ -113,10 +111,10 @@ export const useController: UseControllerHook = ({
         dragDirection === 'x' &&
         (pos > limitToRemove || pos < -limitToRemove)
       ) {
-        runOnJS(onRemoveNotification)();
+        runOnJS(onRemove)();
       }
     },
-    [dragDirection, limitToRemove, onRemoveNotification],
+    [dragDirection, limitToRemove, onRemove],
   );
 
   const onDirectionYRemover = useCallback(
@@ -127,10 +125,10 @@ export const useController: UseControllerHook = ({
         dragDirection === 'y' &&
         (pos > limitToRemove || pos < -limitToRemove)
       ) {
-        runOnJS(onRemoveNotification)();
+        runOnJS(onRemove)();
       }
     },
-    [dragDirection, limitToRemove, onRemoveNotification],
+    [dragDirection, limitToRemove, onRemove],
   );
 
   const onCanUpdatePosition = useCallback(
@@ -229,7 +227,7 @@ export const useController: UseControllerHook = ({
   const delayDecrement = useRef(delay / DELAY);
   const timerRef = useRef<NodeJS.Timeout>();
   useEffect(() => {
-    const canExecute = autoClose && !isPaused;
+    const canExecute = autoClose && !isPaused && !showProgressBar;
     if (canExecute) {
       timerRef.current = setInterval(() => {
         delayDecrement.current -= 1;
@@ -242,10 +240,11 @@ export const useController: UseControllerHook = ({
     }
 
     return () => clearInterval(timerRef.current as NodeJS.Timeout);
-  }, [autoClose, delay, isPaused, onRemove]);
+  }, [autoClose, delay, isPaused, onRemove, showProgressBar]);
 
   const animation = getAnimation({ position, transition });
   const isPortrait = useOrientation() === 'portrait';
+  const withProgressBar = showProgressBar && !autoClose;
 
   return {
     animatedStyle,
@@ -254,7 +253,7 @@ export const useController: UseControllerHook = ({
     onFinishAnimation,
     animation,
     isPaused,
-    onRemoveNotification,
     isPortrait,
+    withProgressBar,
   };
 };

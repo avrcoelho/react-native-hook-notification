@@ -16,4 +16,5 @@ export const notificationDefaultProps = {
   pauseOnPressable: true,
   dragDirection: 'y' as NotificationDragDirection,
   draggable: true,
+  showProgressBar: false,
 };

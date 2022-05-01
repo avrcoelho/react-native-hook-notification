@@ -5,6 +5,7 @@ import Animated from 'react-native-reanimated';
 
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
 import { NotificationProps } from '../../types/Notification';
+import { ProgressBar } from '../ProgressBar';
 import { getPositionStyles, styles } from './styles';
 import { useController } from './useController';
 
@@ -22,6 +23,7 @@ export const Notification = ({
   pauseOnPressable = notificationDefaultProps.pauseOnPressable,
   dragDirection = notificationDefaultProps.dragDirection,
   draggable = notificationDefaultProps.draggable,
+  showProgressBar = notificationDefaultProps.showProgressBar,
 }: NotificationProps): JSX.Element => {
   const {
     animatedStyle,
@@ -30,8 +32,8 @@ export const Notification = ({
     animation,
     isPaused,
     onFinishAnimation,
-    onRemoveNotification,
     isPortrait,
+    withProgressBar,
   } = useController({
     dragDirection,
     theme,
@@ -44,6 +46,7 @@ export const Notification = ({
     onRemove,
     pauseOnPressable,
     draggable,
+    showProgressBar,
   });
 
   return (
@@ -65,7 +68,7 @@ export const Notification = ({
       >
         {showButtonClose && (
           <TouchableOpacity
-            onPress={onRemoveNotification}
+            onPress={onRemove}
             style={[styles.buttonClose, styles[`buttonClose${theme}`]]}
             accessibilityLabel="Close notification"
             activeOpacity={0.5}
@@ -99,6 +102,15 @@ export const Notification = ({
             {text}
           </Text>
         </View>
+
+        {withProgressBar && (
+          <ProgressBar
+            delay={delay}
+            onRemove={onRemove}
+            theme={theme}
+            type={type}
+          />
+        )}
       </Animated.View>
     </PanGestureHandler>
   );
