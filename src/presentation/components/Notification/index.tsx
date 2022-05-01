@@ -33,7 +33,6 @@ export const Notification = ({
     isPaused,
     onFinishAnimation,
     isPortrait,
-    withProgressBar,
   } = useController({
     dragDirection,
     theme,
@@ -103,7 +102,7 @@ export const Notification = ({
           </Text>
         </View>
 
-        {withProgressBar && (
+        {showProgressBar && (
           <ProgressBar
             delay={delay}
             onRemove={onRemove}

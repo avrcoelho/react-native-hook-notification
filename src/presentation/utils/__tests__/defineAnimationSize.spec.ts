@@ -5,7 +5,7 @@ import { defineAnimationSize } from '../defineAnimationSize';
 describe('Define animation size', () => {
   it('should be able to screen > 640', () => {
     jest.spyOn(Dimensions, 'get').mockReturnValueOnce({
-      width: 777,
+      width: 1000,
       fontScale: 777,
       height: 777,
       scale: 777,

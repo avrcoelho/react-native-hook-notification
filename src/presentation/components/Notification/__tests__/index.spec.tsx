@@ -17,7 +17,6 @@ jest.mock('../useController', () => ({
       exit: jest.fn(),
     },
     isPaused: false,
-    withProgressBar: true,
     onFinishAnimation: jest.fn(),
     isPortrait: mockIsPortrait,
   }),
@@ -30,6 +29,7 @@ const props = {
   text: 'text test',
   amount: 1,
   onRemove: mockOnRemove,
+  showProgressBar: true,
   draggable: true,
 };
 describe('Notification component', () => {

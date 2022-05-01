@@ -61,7 +61,6 @@ type UseControllerHook = (props: UseControllerHookProps) => {
   animation: AnimationReturn;
   isPaused: boolean;
   isPortrait: boolean;
-  withProgressBar: boolean;
   onFinishAnimation(value: boolean): void;
 };
 
@@ -95,13 +94,14 @@ export const useController: UseControllerHook = ({
   const positionOnScreen = useSharedValue(0);
   const [isPaused, toggleIsPaused] = useToggle(false);
 
+  const canPause = pauseOnPressable && !showProgressBar;
   const onTogglePause = useCallback((): void => {
     'worklet';
 
-    if (pauseOnPressable) {
+    if (canPause) {
       runOnJS(toggleIsPaused)();
     }
-  }, [pauseOnPressable, toggleIsPaused]);
+  }, [canPause, toggleIsPaused]);
 
   const onDirectionXRemover = useCallback(
     (pos: number): void => {
@@ -152,7 +152,7 @@ export const useController: UseControllerHook = ({
     [dragDirection, position, draggable],
   );
 
-  const canTogglePause = pauseOnPressable && autoClose;
+  const canTogglePause = canPause && autoClose;
   const onGestureEvent = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     ContextData
@@ -244,7 +244,6 @@ export const useController: UseControllerHook = ({
 
   const animation = getAnimation({ position, transition });
   const isPortrait = useOrientation() === 'portrait';
-  const withProgressBar = showProgressBar && !autoClose;
 
   return {
     animatedStyle,
@@ -254,6 +253,5 @@ export const useController: UseControllerHook = ({
     animation,
     isPaused,
     isPortrait,
-    withProgressBar,
   };
 };
