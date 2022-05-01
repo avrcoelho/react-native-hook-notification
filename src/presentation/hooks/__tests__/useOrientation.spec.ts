@@ -11,7 +11,7 @@ describe('useOrientation hook', () => {
       fontScale: 1,
       scale: 1,
     });
-    const { result } = renderHook(() => useOrientation());
+    const { result } = renderHook(useOrientation);
 
     expect(result.current).toBe('landscape');
   });
@@ -23,7 +23,7 @@ describe('useOrientation hook', () => {
       fontScale: 1,
       scale: 1,
     });
-    const { result } = renderHook(() => useOrientation());
+    const { result } = renderHook(useOrientation);
 
     expect(result.current).toBe('portrait');
   });

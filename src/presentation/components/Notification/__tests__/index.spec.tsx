@@ -5,6 +5,7 @@ import { NotificationType } from '../../../types/Notification';
 import { Notification } from '..';
 
 const mockOnRemoveNotification = jest.fn();
+let mockIsPortrait = false;
 jest.mock('../useController', () => ({
   useController: () => ({
     animatedStyle: {},
@@ -19,6 +20,7 @@ jest.mock('../useController', () => ({
     isPaused: false,
     onFinishAnimation: jest.fn(),
     onRemoveNotification: mockOnRemoveNotification,
+    isPortrait: mockIsPortrait,
   }),
 }));
 
@@ -54,6 +56,7 @@ describe('Notification component', () => {
       title: 'title test',
       draggable: undefined,
     });
+    mockIsPortrait = true;
     const { getByText } = render(<Notification {...props} />);
 
     expect(getByText('title test')).toBeTruthy();

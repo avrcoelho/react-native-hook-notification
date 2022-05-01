@@ -14,6 +14,7 @@ import {
 } from 'react-native-reanimated';
 
 import { useToggle } from '../../hooks/useToggle';
+import { useOrientation } from '../../hooks/useOrientation';
 import { AnimationReturn } from '../../types/Animation';
 import {
   NotificationDragDirection,
@@ -58,6 +59,7 @@ type UseControllerHook = (props: UseControllerHookProps) => {
     | object;
   animation: AnimationReturn;
   isPaused: boolean;
+  isPortrait: boolean;
   onFinishAnimation(value: boolean): void;
   onRemoveNotification(): void;
 };
@@ -243,6 +245,7 @@ export const useController: UseControllerHook = ({
   }, [autoClose, delay, isPaused, onRemove]);
 
   const animation = getAnimation({ position, transition });
+  const isPortrait = useOrientation() === 'portrait';
 
   return {
     animatedStyle,
@@ -252,5 +255,6 @@ export const useController: UseControllerHook = ({
     animation,
     isPaused,
     onRemoveNotification,
+    isPortrait,
   };
 };

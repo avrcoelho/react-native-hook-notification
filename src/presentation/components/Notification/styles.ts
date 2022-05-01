@@ -1,7 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, ViewStyle } from 'react-native';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 import { Colors } from '../../constants/Colors';
+import { NotificationPosition } from '../../types/Notification';
 import { defineAnimationSize } from '../../utils/defineAnimationSize';
 
 const themeLight = {
@@ -118,7 +119,9 @@ export const styles = StyleSheet.create({
   buttonCloseTextdark: { color: Colors.Black },
 });
 
-export const getPositionStyles = (isPortrait = true): any => ({
+export const getPositionStyles = (
+  isPortrait: boolean,
+): Record<NotificationPosition, ViewStyle> => ({
   'top-right': {
     top: isPortrait ? topPosisiton : 16,
     right: isPortrait ? 16 : topPosisiton,

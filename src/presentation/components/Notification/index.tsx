@@ -4,7 +4,6 @@ import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
-import { useOrientation } from '../../hooks/useOrientation';
 import { NotificationProps } from '../../types/Notification';
 import { getPositionStyles, styles } from './styles';
 import { useController } from './useController';
@@ -32,6 +31,7 @@ export const Notification = ({
     isPaused,
     onFinishAnimation,
     onRemoveNotification,
+    isPortrait,
   } = useController({
     dragDirection,
     theme,
@@ -45,7 +45,6 @@ export const Notification = ({
     pauseOnPressable,
     draggable,
   });
-  const orientation = useOrientation();
 
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
@@ -56,7 +55,7 @@ export const Notification = ({
           styles.container,
           styles[typeAndTheme],
           animatedStyle,
-          getPositionStyles(orientation === 'portrait')[position],
+          getPositionStyles(isPortrait)[position],
         ]}
         accessible
         accessibilityState={{
