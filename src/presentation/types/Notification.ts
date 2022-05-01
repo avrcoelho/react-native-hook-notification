@@ -1,4 +1,4 @@
-import { FunctionComponentElement, ReactElement } from 'react';
+import { FunctionComponentElement } from 'react';
 
 export type NotificationType =
   | 'success'
@@ -100,6 +100,5 @@ export interface NotificationProps {
    */
   leftIcon?: FunctionComponentElement<any>;
 
-  id: string;
   onRemove(): void;
 }
