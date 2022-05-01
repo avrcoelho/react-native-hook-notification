@@ -1,6 +1,8 @@
 import { NotificationType } from '../../types/Notification';
 import { NotificationStore } from '../NotificationStore';
 
+jest.useFakeTimers();
+
 describe('NotificationStore', () => {
   const notificationData = {
     id: String(Date.now()),
@@ -21,7 +23,8 @@ describe('NotificationStore', () => {
     notificationStore.subscribe(jest.fn());
 
     notificationStore.add(notificationData);
-    notificationStore.remove(notificationData.id);
+    jest.advanceTimersByTime(500);
+    notificationStore.remove();
 
     expect(notificationStore.get()).toHaveLength(0);
   });

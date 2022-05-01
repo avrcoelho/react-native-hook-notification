@@ -28,19 +28,24 @@ export class NotificationStore {
     this.setState = setState;
   }
 
-  add(value: NotificationData): void {
-    this.notifications = [...this.notifications, value];
+  private updateNotification(notification: NotificationData): void {
+    this.notifications = [notification];
+    this.setState?.(this.notifications);
+  }
+
+  add(notification: NotificationData): void {
     if (this.notifications.length) {
       this.remove();
       setTimeout(() => {
-        this.setState?.(this.notifications);
+        this.updateNotification(notification);
       }, DELAY);
     } else {
-      this.setState?.(this.notifications);
+      this.updateNotification(notification);
     }
   }
 
   remove(): void {
+    this.notifications = [];
     this.setState?.([]);
   }
 
