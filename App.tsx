@@ -24,7 +24,7 @@ const App = (): JSX.Element => {
       text: 'My first test! My first test! My first test! My first test!',
       position: 'bottom-left',
       dragDirection: 'y',
-      transition: 'bounce',
+      transition: 'zoom',
     });
   };
 
