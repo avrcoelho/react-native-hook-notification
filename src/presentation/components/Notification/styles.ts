@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 import { Colors } from '../../constants/Colors';
 import { defineAnimationSize } from '../../utils/defineAnimationSize';
@@ -14,13 +15,14 @@ const themeDark = {
 };
 
 const customWidth = defineAnimationSize() - 32;
+const topPosisiton = getStatusBarHeight() + 16;
 
 export const styles = StyleSheet.create({
   container: {
     padding: 12,
     borderRadius: 4,
     width: customWidth,
-    position: 'relative',
+    position: 'absolute',
     flexDirection: 'row',
     marginVertical: 6,
     shadowColor: Colors.Black,
@@ -31,6 +33,7 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
+    zIndex: 9999999,
   },
   defaultcolored: {
     backgroundColor: Colors.White,
@@ -113,4 +116,31 @@ export const styles = StyleSheet.create({
   buttonCloseTextcolored: { color: Colors.Grey },
   buttonCloseTextlight: { color: Colors.White },
   buttonCloseTextdark: { color: Colors.Black },
+});
+
+export const getPositionStyles = (isPortrait = true): any => ({
+  'top-right': {
+    top: isPortrait ? topPosisiton : 16,
+    right: isPortrait ? 16 : topPosisiton,
+  },
+  'top-center': {
+    top: isPortrait ? topPosisiton : 16,
+    alignSelf: 'center',
+  },
+  'top-left': {
+    top: isPortrait ? topPosisiton : 16,
+    left: isPortrait ? 16 : topPosisiton,
+  },
+  'bottom-right': {
+    bottom: 16,
+    right: isPortrait ? 16 : topPosisiton,
+  },
+  'bottom-center': {
+    bottom: 16,
+    alignSelf: 'center',
+  },
+  'bottom-left': {
+    bottom: 16,
+    left: isPortrait ? 16 : topPosisiton,
+  },
 });

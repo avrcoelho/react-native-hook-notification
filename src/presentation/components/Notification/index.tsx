@@ -1,18 +1,16 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { PanGestureHandler } from 'react-native-gesture-handler';
-import Animated, { Layout, Easing } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
+import { useOrientation } from '../../hooks/useOrientation';
 import { NotificationProps } from '../../types/Notification';
-import { styles } from './styles';
+import { getPositionStyles, styles } from './styles';
 import { useController } from './useController';
-
-const AIMATION_DELAY = 300;
 
 export const Notification = ({
   type,
-  id,
   onRemove,
   title,
   text,
@@ -43,21 +41,23 @@ export const Notification = ({
     position,
     autoClose,
     delay,
-    id,
     onRemove,
     pauseOnPressable,
     draggable,
   });
+  const orientation = useOrientation();
 
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
       <Animated.View
-        entering={animation.enter
-          .withCallback(onFinishAnimation)
-          .delay(AIMATION_DELAY)}
+        entering={animation.enter.withCallback(onFinishAnimation)}
         exiting={animation.exit}
-        style={[styles.container, styles[typeAndTheme], animatedStyle]}
-        layout={Layout.easing(Easing.ease)}
+        style={[
+          styles.container,
+          styles[typeAndTheme],
+          animatedStyle,
+          getPositionStyles(orientation === 'portrait')[position],
+        ]}
         accessible
         accessibilityState={{
           selected: isPaused,

@@ -8,19 +8,8 @@ const notificationStore = NotificationStore.getInstance();
 type NotificationData = Omit<NotificationProps, 'onRemove' | 'amount'>;
 
 type UseControllerHook = () => {
-  onRemove(id: string): void;
-  notificationsTopRight: NotificationData[];
-  notificationsTopLeft: NotificationData[];
-  notificationsTopCenter: NotificationData[];
-  notificationsBottomRight: NotificationData[];
-  notificationsBottomLeft: NotificationData[];
-  notificationsBottomCenter: NotificationData[];
-  hasNotificationsTopRight: boolean;
-  hasNotificationsTopLeft: boolean;
-  hasNotificationsTopCenter: boolean;
-  hasNotificationsBottomRight: boolean;
-  hasNotificationsBottomLeft: boolean;
-  hasNotificationsBottomCenter: boolean;
+  onRemove(): void;
+  notifications: NotificationData[];
 };
 
 export const useController: UseControllerHook = () => {
@@ -32,42 +21,12 @@ export const useController: UseControllerHook = () => {
     notificationStore.subscribe(setNotifications);
   }, []);
 
-  const onRemove = useCallback((id: string): void => {
-    notificationStore.remove(id);
+  const onRemove = useCallback((): void => {
+    notificationStore.remove();
   }, []);
 
-  const notificationsTopRight = notifications.filter(
-    notification => notification.position === 'top-right',
-  );
-  const notificationsTopLeft = notifications.filter(
-    notification => notification.position === 'top-left',
-  );
-  const notificationsTopCenter = notifications.filter(
-    notification => notification.position === 'top-center',
-  );
-  const notificationsBottomRight = notifications
-    .filter(notification => notification.position === 'bottom-right')
-    .reverse();
-  const notificationsBottomLeft = notifications
-    .filter(notification => notification.position === 'bottom-left')
-    .reverse();
-  const notificationsBottomCenter = notifications
-    .filter(notification => notification.position === 'bottom-center')
-    .reverse();
-
   return {
-    notificationsTopRight,
-    notificationsTopLeft,
-    notificationsTopCenter,
-    notificationsBottomRight,
-    notificationsBottomLeft,
-    notificationsBottomCenter,
-    hasNotificationsTopRight: !!notificationsTopRight.length,
-    hasNotificationsTopLeft: !!notificationsTopLeft.length,
-    hasNotificationsTopCenter: !!notificationsTopCenter.length,
-    hasNotificationsBottomRight: !!notificationsBottomRight.length,
-    hasNotificationsBottomLeft: !!notificationsBottomLeft.length,
-    hasNotificationsBottomCenter: !!notificationsBottomCenter.length,
+    notifications,
     onRemove,
   };
 };

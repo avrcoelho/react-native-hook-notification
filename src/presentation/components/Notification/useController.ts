@@ -35,8 +35,7 @@ type UseControllerHookProps = {
   pauseOnPressable: boolean;
   autoClose: boolean;
   draggable: boolean;
-  id: string;
-  onRemove(id: string): void;
+  onRemove(): void;
 };
 
 type ContextData = {
@@ -75,7 +74,6 @@ export const useController: UseControllerHook = ({
   autoClose,
   delay,
   onRemove,
-  id,
   pauseOnPressable,
   draggable,
 }) => {
@@ -102,8 +100,8 @@ export const useController: UseControllerHook = ({
   }, [pauseOnPressable, toggleIsPaused]);
 
   const onRemoveNotification = useCallback((): void => {
-    onRemove(id);
-  }, [id, onRemove]);
+    onRemove();
+  }, [onRemove]);
 
   const onDirectionXRemover = useCallback(
     (pos: number): void => {
@@ -234,7 +232,7 @@ export const useController: UseControllerHook = ({
       timerRef.current = setInterval(() => {
         delayDecrement.current -= 1;
         if (delayDecrement.current === 0) {
-          onRemove(id);
+          onRemove();
         }
       }, DELAY);
     } else {
@@ -242,7 +240,7 @@ export const useController: UseControllerHook = ({
     }
 
     return () => clearInterval(timerRef.current as NodeJS.Timeout);
-  }, [autoClose, delay, id, isPaused, onRemove]);
+  }, [autoClose, delay, isPaused, onRemove]);
 
   const animation = getAnimation({ position, transition });
 

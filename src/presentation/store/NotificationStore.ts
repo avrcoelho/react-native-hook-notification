@@ -4,6 +4,8 @@ import { NotificationProps } from '../types/Notification';
 
 export type NotificationData = Omit<NotificationProps, 'onRemove' | 'amount'>;
 
+const DELAY = 500;
+
 export class NotificationStore {
   private static instance: NotificationStore;
 
@@ -28,14 +30,18 @@ export class NotificationStore {
 
   add(value: NotificationData): void {
     this.notifications = [...this.notifications, value];
-    this.setState?.(this.notifications);
+    if (this.notifications.length) {
+      this.remove();
+      setTimeout(() => {
+        this.setState?.(this.notifications);
+      }, DELAY);
+    } else {
+      this.setState?.(this.notifications);
+    }
   }
 
-  remove(id: string): void {
-    this.notifications = this.notifications.filter(
-      notification => notification.id !== id,
-    );
-    this.setState?.(this.notifications);
+  remove(): void {
+    this.setState?.([]);
   }
 
   get(): NotificationData[] {
