@@ -23,7 +23,7 @@ const App = (): JSX.Element => {
         'My first test! test! test! test! test! test! test! test! test! test!',
       text: 'My first test! My first test! My first test! My first test!',
       position: 'bottom-center',
-      dragDirection: 'y',
+      dragDirection: 'x',
       theme: 'colored',
       transition: 'flip',
     });
