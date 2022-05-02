@@ -36,7 +36,6 @@ type UseControllerHookProps = {
   pauseOnPressable: boolean;
   autoClose: boolean;
   draggable: boolean;
-  showProgressBar: boolean;
   onRemove(): void;
 };
 
@@ -78,7 +77,6 @@ export const useController: UseControllerHook = ({
   onRemove,
   pauseOnPressable,
   draggable,
-  showProgressBar,
 }) => {
   const { width } = useWindowDimensions();
   const onGetLimitToRemove = (): number => {
@@ -94,14 +92,13 @@ export const useController: UseControllerHook = ({
   const positionOnScreen = useSharedValue(0);
   const [isPaused, toggleIsPaused] = useToggle(false);
 
-  const canPause = pauseOnPressable && !showProgressBar;
   const onTogglePause = useCallback((): void => {
     'worklet';
 
-    if (canPause) {
+    if (pauseOnPressable) {
       runOnJS(toggleIsPaused)();
     }
-  }, [canPause, toggleIsPaused]);
+  }, [pauseOnPressable, toggleIsPaused]);
 
   const onDirectionXRemover = useCallback(
     (pos: number): void => {
@@ -152,7 +149,7 @@ export const useController: UseControllerHook = ({
     [dragDirection, position, draggable],
   );
 
-  const canTogglePause = canPause && autoClose;
+  const canTogglePause = pauseOnPressable && autoClose;
   const onGestureEvent = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     ContextData
@@ -227,7 +224,7 @@ export const useController: UseControllerHook = ({
   const delayDecrement = useRef(delay / DELAY);
   const timerRef = useRef<NodeJS.Timeout>();
   useEffect(() => {
-    const canExecute = autoClose && !isPaused && !showProgressBar;
+    const canExecute = autoClose && !isPaused;
     if (canExecute) {
       timerRef.current = setInterval(() => {
         delayDecrement.current -= 1;
@@ -240,7 +237,7 @@ export const useController: UseControllerHook = ({
     }
 
     return () => clearInterval(timerRef.current as NodeJS.Timeout);
-  }, [autoClose, delay, isPaused, onRemove, showProgressBar]);
+  }, [autoClose, delay, isPaused, onRemove]);
 
   const animation = getAnimation({ position, transition });
   const isPortrait = useOrientation() === 'portrait';

@@ -4,8 +4,8 @@ import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
+import { useNotificationWidth } from '../../hooks/useNotificationWidth';
 import { NotificationProps } from '../../types/Notification';
-import { ProgressBar } from '../ProgressBar';
 import { getPositionStyles, styles } from './styles';
 import { useController } from './useController';
 
@@ -24,8 +24,9 @@ export const Notification = ({
   pauseOnPressable = notificationDefaultProps.pauseOnPressable,
   dragDirection = notificationDefaultProps.dragDirection,
   draggable = notificationDefaultProps.draggable,
-  showProgressBar = notificationDefaultProps.showProgressBar,
   customStyle = notificationDefaultProps.customStyle,
+  titleMaxLines = notificationDefaultProps.titleMaxLines,
+  textMaxLines = notificationDefaultProps.textMaxLines,
 }: NotificationProps): JSX.Element => {
   const {
     animatedStyle,
@@ -47,8 +48,8 @@ export const Notification = ({
     onRemove,
     pauseOnPressable,
     draggable,
-    showProgressBar,
   });
+  const width = useNotificationWidth();
 
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
@@ -57,6 +58,7 @@ export const Notification = ({
         exiting={animation.exit}
         style={[
           styles.container,
+          { width },
           styles[typeAndTheme] || customStyle.container,
           animatedStyle,
           getPositionStyles(isPortrait)[position],
@@ -76,7 +78,9 @@ export const Notification = ({
             onPress={onRemove}
             style={[
               styles.buttonClose,
-              styles[`buttonClose${theme}`] || customStyle.button,
+              type === 'custom'
+                ? customStyle.button
+                : styles[`buttonClose${theme}`],
             ]}
             hitSlop={{
               bottom: 5,
@@ -90,7 +94,9 @@ export const Notification = ({
             <Text
               style={[
                 styles.buttonCloseText,
-                styles[`buttonCloseText${theme}`] || customStyle.buttonText,
+                type === 'custom'
+                  ? customStyle.buttonText
+                  : styles[`buttonCloseText${theme}`],
               ]}
             >
               &#x2715;
@@ -102,7 +108,7 @@ export const Notification = ({
           {!!title && (
             <Text
               ellipsizeMode="tail"
-              numberOfLines={1}
+              numberOfLines={titleMaxLines}
               style={[styles.title, styles[typeAndTheme] || customStyle.title]}
             >
               {title}
@@ -110,21 +116,12 @@ export const Notification = ({
           )}
           <Text
             ellipsizeMode="tail"
-            numberOfLines={2}
+            numberOfLines={textMaxLines}
             style={[styles.text, styles[typeAndTheme] || customStyle.text]}
           >
             {text}
           </Text>
         </View>
-
-        {showProgressBar && (
-          <ProgressBar
-            delay={delay}
-            onRemove={onRemove}
-            theme={theme}
-            type={type}
-          />
-        )}
       </Animated.View>
     </PanGestureHandler>
   );

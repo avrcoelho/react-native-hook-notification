@@ -3,7 +3,6 @@ import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 import { Colors } from '../../constants/Colors';
 import { NotificationPosition } from '../../types/Notification';
-import { defineAnimationSize } from '../../utils/defineAnimationSize';
 
 const themeLight = {
   color: Colors.Grey,
@@ -15,14 +14,12 @@ const themeDark = {
   backgroundColor: Colors.Black,
 };
 
-const customWidth = defineAnimationSize() - 32;
 const topPosisiton = getStatusBarHeight() + 16;
 
 export const styles = StyleSheet.create({
   container: {
     padding: 12,
     borderRadius: 4,
-    width: customWidth,
     position: 'absolute',
     flexDirection: 'row',
     marginVertical: 6,
