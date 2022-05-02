@@ -18,7 +18,7 @@ const App = (): JSX.Element => {
   const notification = useNotification();
 
   const onDispatchNotification = (): void => {
-    notification.error({
+    notification.custom({
       title:
         'My first test! test! test! test! test! test! test! test! test! test!',
       text: 'My first test! My first test! My first test! My first test!',

@@ -35,6 +35,7 @@ export const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: 3,
     zIndex: 9999999,
+    backgroundColor: Colors.White,
   },
   defaultcolored: {
     backgroundColor: Colors.White,

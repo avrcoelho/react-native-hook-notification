@@ -1,10 +1,12 @@
 import { FunctionComponentElement } from 'react';
+import { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 export type NotificationType =
   | 'success'
   | 'error'
   | 'info'
   | 'warning'
+  | 'custom'
   | 'default';
 
 export type NotificationPosition =
@@ -96,9 +98,20 @@ export interface NotificationProps {
    */
   dragDirection?: NotificationDragDirection;
   /**
-   * React.FunctionComponentElement - Dimensions: 24x24 (Default: undefined)
+   * Render an icon in the left side notification. Obs: Dimensions: 24x24
    */
-  leftIcon?: FunctionComponentElement<any>;
+  icon?: FunctionComponentElement<any>;
+  /**
+   * Styles for custom notificaion type
+   */
+  customStyle?: {
+    container?: StyleProp<ViewStyle>;
+    title?: StyleProp<TextStyle>;
+    text?: StyleProp<TextStyle>;
+    icon?: StyleProp<ViewStyle>;
+    button?: StyleProp<ViewStyle>;
+    buttonText?: StyleProp<TextStyle>;
+  };
 
   onRemove(): void;
 }

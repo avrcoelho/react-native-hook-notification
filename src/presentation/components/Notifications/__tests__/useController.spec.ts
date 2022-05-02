@@ -11,13 +11,10 @@ const notificationBaseData = {
   text: 'text test',
 };
 
-const idTopRight = String(Date.now());
-
 describe('Notifications controller hook', () => {
   beforeAll(() => {
     notificationStore.add({
       ...notificationBaseData,
-      id: idTopRight,
       position: 'top-right',
     });
   });

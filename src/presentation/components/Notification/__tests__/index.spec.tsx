@@ -32,7 +32,7 @@ const props = {
   onRemove: mockOnRemove,
   showProgressBar: true,
   draggable: true,
-  leftIcon: <View />,
+  icon: <View />,
 };
 describe('Notification component', () => {
   it('should be able to render remove on click Notification', () => {

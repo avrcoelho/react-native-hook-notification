@@ -16,4 +16,5 @@ export type UseNotificationHook = (hookParams?: UseNotificationParams) => {
   error(notificationParams: NotificationParams): void;
   warning(notificationParams: NotificationParams): void;
   info(notificationParams: NotificationParams): void;
+  custom(notificationParams: NotificationParams): void;
 };

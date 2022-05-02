@@ -17,4 +17,12 @@ export const notificationDefaultProps = {
   dragDirection: 'y' as NotificationDragDirection,
   draggable: true,
   showProgressBar: false,
+  customStyle: {
+    container: {},
+    title: {},
+    text: {},
+    icon: {},
+    button: {},
+    buttonText: {},
+  },
 };

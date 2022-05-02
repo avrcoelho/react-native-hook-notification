@@ -22,11 +22,9 @@ export const useNotification: UseNotificationHook = (
 ) => {
   const info = useCallback(
     (notificationParams: NotificationParams) => {
-      const id = String(Date.now());
       const notification = {
         ...hookParams,
         ...notificationParams,
-        id,
         type: 'info' as NotificationType,
       };
       notificationStore.add(notification);
@@ -36,11 +34,9 @@ export const useNotification: UseNotificationHook = (
 
   const success = useCallback(
     (notificationParams: NotificationParams) => {
-      const id = String(Date.now());
       const notification = {
         ...hookParams,
         ...notificationParams,
-        id,
         type: 'success' as NotificationType,
       };
       notificationStore.add(notification);
@@ -50,11 +46,9 @@ export const useNotification: UseNotificationHook = (
 
   const error = useCallback(
     (notificationParams: NotificationParams) => {
-      const id = String(Date.now());
       const notification = {
         ...hookParams,
         ...notificationParams,
-        id,
         type: 'error' as NotificationType,
       };
       notificationStore.add(notification);
@@ -64,11 +58,9 @@ export const useNotification: UseNotificationHook = (
 
   const warning = useCallback(
     (notificationParams: NotificationParams) => {
-      const id = String(Date.now());
       const notification = {
         ...hookParams,
         ...notificationParams,
-        id,
         type: 'warning' as NotificationType,
       };
       notificationStore.add(notification);
@@ -78,12 +70,22 @@ export const useNotification: UseNotificationHook = (
 
   const defaultNotification = useCallback(
     (notificationParams: NotificationParams) => {
-      const id = String(Date.now());
       const notification = {
         ...hookParams,
         ...notificationParams,
-        id,
         type: 'default' as NotificationType,
+      };
+      notificationStore.add(notification);
+    },
+    [hookParams],
+  );
+
+  const custom = useCallback(
+    (notificationParams: NotificationParams) => {
+      const notification = {
+        ...hookParams,
+        ...notificationParams,
+        type: 'custom' as NotificationType,
       };
       notificationStore.add(notification);
     },
@@ -96,5 +98,6 @@ export const useNotification: UseNotificationHook = (
     success,
     warning,
     default: defaultNotification,
+    custom,
   }).current;
 };

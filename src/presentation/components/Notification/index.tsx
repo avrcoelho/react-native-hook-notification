@@ -14,6 +14,7 @@ export const Notification = ({
   onRemove,
   title,
   text,
+  icon,
   position = notificationDefaultProps.position,
   theme = notificationDefaultProps.theme,
   transition = notificationDefaultProps.transition,
@@ -24,7 +25,7 @@ export const Notification = ({
   dragDirection = notificationDefaultProps.dragDirection,
   draggable = notificationDefaultProps.draggable,
   showProgressBar = notificationDefaultProps.showProgressBar,
-  leftIcon,
+  customStyle = notificationDefaultProps.customStyle,
 }: NotificationProps): JSX.Element => {
   const {
     animatedStyle,
@@ -56,7 +57,7 @@ export const Notification = ({
         exiting={animation.exit}
         style={[
           styles.container,
-          styles[typeAndTheme],
+          styles[typeAndTheme] || customStyle.container,
           animatedStyle,
           getPositionStyles(isPortrait)[position],
         ]}
@@ -66,19 +67,30 @@ export const Notification = ({
         }}
         accessibilityRole="alert"
       >
-        {!!leftIcon && <View style={styles.iconContainer}>{leftIcon}</View>}
+        {!!icon && (
+          <View style={[styles.iconContainer, customStyle.icon]}>{icon}</View>
+        )}
 
         {showButtonClose && (
           <TouchableOpacity
             onPress={onRemove}
-            style={[styles.buttonClose, styles[`buttonClose${theme}`]]}
+            style={[
+              styles.buttonClose,
+              styles[`buttonClose${theme}`] || customStyle.button,
+            ]}
+            hitSlop={{
+              bottom: 5,
+              top: 5,
+              left: 5,
+              right: 5,
+            }}
             accessibilityLabel="Close notification"
             activeOpacity={0.5}
           >
             <Text
               style={[
                 styles.buttonCloseText,
-                styles[`buttonCloseText${theme}`],
+                styles[`buttonCloseText${theme}`] || customStyle.buttonText,
               ]}
             >
               &#x2715;
@@ -91,7 +103,7 @@ export const Notification = ({
             <Text
               ellipsizeMode="tail"
               numberOfLines={1}
-              style={[styles.title, styles[typeAndTheme]]}
+              style={[styles.title, styles[typeAndTheme] || customStyle.title]}
             >
               {title}
             </Text>
@@ -99,7 +111,7 @@ export const Notification = ({
           <Text
             ellipsizeMode="tail"
             numberOfLines={2}
-            style={[styles.text, styles[typeAndTheme]]}
+            style={[styles.text, styles[typeAndTheme] || customStyle.text]}
           >
             {text}
           </Text>
