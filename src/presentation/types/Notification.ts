@@ -74,10 +74,6 @@ export interface NotificationProps {
    */
   transition?: NotificationTransition;
   /**
-   * Show progress bar in the notification when do not has "pauseOnPressable" (Default: false)
-   */
-  showProgressBar?: NotificationShowProgressBar;
-  /**
    * Show button close in the notification (Default: true)
    */
   showButtonClose?: NotificationShowButtonClose;
@@ -112,6 +108,16 @@ export interface NotificationProps {
     button?: StyleProp<ViewStyle>;
     buttonText?: StyleProp<TextStyle>;
   };
+
+  /**
+   * Maximum number of lines for notification title. (Default: 1)
+   */
+  titleMaxLines?: number;
+
+  /**
+   * Maximum number of lines for notification text. (Default: 2)
+   */
+  textMaxLines?: number;
 
   onRemove(): void;
 }

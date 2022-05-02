@@ -16,7 +16,8 @@ export const notificationDefaultProps = {
   pauseOnPressable: true,
   dragDirection: 'y' as NotificationDragDirection,
   draggable: true,
-  showProgressBar: false,
+  titleMaxLines: 1,
+  textMaxLines: 2,
   customStyle: {
     container: {},
     title: {},

@@ -18,15 +18,14 @@ const App = (): JSX.Element => {
   const notification = useNotification();
 
   const onDispatchNotification = (): void => {
-    notification.custom({
+    notification.error({
       title:
         'My first test! test! test! test! test! test! test! test! test! test!',
       text: 'My first test! My first test! My first test! My first test!',
       position: 'bottom-left',
       dragDirection: 'y',
-      showProgressBar: true,
       theme: 'colored',
-      transition: 'zoom',
+      transition: 'flip',
     });
   };
 
