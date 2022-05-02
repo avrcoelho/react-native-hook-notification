@@ -30,7 +30,6 @@ const props = {
   text: 'text test',
   amount: 1,
   onRemove: mockOnRemove,
-  showProgressBar: true,
   draggable: true,
   icon: <View />,
 };
