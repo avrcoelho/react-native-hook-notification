@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { useWindowDimensions } from 'react-native';
 import {
   GestureHandlerGestureEvent,
   PanGestureHandlerGestureEvent,
@@ -13,6 +12,7 @@ import {
   runOnJS,
 } from 'react-native-reanimated';
 
+import { LayoutChangeEvent } from 'react-native';
 import { useToggle } from '../../hooks/useToggle';
 import { useOrientation } from '../../hooks/useOrientation';
 import { AnimationReturn } from '../../types/Animation';
@@ -24,9 +24,9 @@ import {
   NotificationType,
 } from '../../types/Notification';
 import { getAnimation } from '../../utils/getAnimation';
+import { useNotificationWidth } from '../../hooks/useNotificationWidth';
 
 type UseControllerHookProps = {
-  title?: string;
   dragDirection: NotificationDragDirection;
   type: NotificationType;
   theme: NotificationTheme;
@@ -60,7 +60,9 @@ type UseControllerHook = (props: UseControllerHookProps) => {
   animation: AnimationReturn;
   isPaused: boolean;
   isPortrait: boolean;
+  width: number;
   onFinishAnimation(value: boolean): void;
+  onGetNotificationHeight(event: LayoutChangeEvent): void;
 };
 
 const DELAY = 1000;
@@ -69,7 +71,6 @@ export const useController: UseControllerHook = ({
   dragDirection,
   theme,
   type,
-  title,
   transition,
   position,
   autoClose,
@@ -78,11 +79,17 @@ export const useController: UseControllerHook = ({
   pauseOnPressable,
   draggable,
 }) => {
-  const { width } = useWindowDimensions();
+  const heightRef = useRef(0);
+  const onGetNotificationHeight = (event: LayoutChangeEvent): void => {
+    const { height } = event.nativeEvent.layout;
+    heightRef.current = height - 20;
+  };
+
+  const width = useNotificationWidth();
   const onGetLimitToRemove = (): number => {
     const limits = {
-      x: width - 95,
-      y: title ? 70 : 60,
+      x: width - 100,
+      y: heightRef.current,
     };
     return limits[dragDirection];
   };
@@ -247,8 +254,10 @@ export const useController: UseControllerHook = ({
     onGestureEvent,
     typeAndTheme,
     onFinishAnimation,
+    onGetNotificationHeight,
     animation,
     isPaused,
     isPortrait,
+    width,
   };
 };

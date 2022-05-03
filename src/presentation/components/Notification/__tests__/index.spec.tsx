@@ -19,6 +19,7 @@ jest.mock('../useController', () => ({
     },
     isPaused: false,
     onFinishAnimation: jest.fn(),
+    onGetNotificationHeight: jest.fn(),
     isPortrait: mockIsPortrait,
   }),
 }));

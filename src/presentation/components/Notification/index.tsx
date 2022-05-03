@@ -4,7 +4,6 @@ import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
-import { useNotificationWidth } from '../../hooks/useNotificationWidth';
 import { NotificationProps } from '../../types/Notification';
 import { getPositionStyles, styles } from './styles';
 import { useController } from './useController';
@@ -35,12 +34,13 @@ export const Notification = ({
     animation,
     isPaused,
     onFinishAnimation,
+    onGetNotificationHeight,
     isPortrait,
+    width,
   } = useController({
     dragDirection,
     theme,
     type,
-    title,
     transition,
     position,
     autoClose,
@@ -49,13 +49,18 @@ export const Notification = ({
     pauseOnPressable,
     draggable,
   });
-  const width = useNotificationWidth();
 
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
       <Animated.View
         entering={animation.enter.withCallback(onFinishAnimation)}
         exiting={animation.exit}
+        onLayout={onGetNotificationHeight}
+        accessible
+        accessibilityRole="alert"
+        accessibilityState={{
+          selected: isPaused,
+        }}
         style={[
           styles.container,
           { width },
@@ -63,11 +68,6 @@ export const Notification = ({
           animatedStyle,
           getPositionStyles(isPortrait)[position],
         ]}
-        accessible
-        accessibilityState={{
-          selected: isPaused,
-        }}
-        accessibilityRole="alert"
       >
         {!!icon && (
           <View style={[styles.iconContainer, customStyle.icon]}>{icon}</View>
