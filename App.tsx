@@ -20,8 +20,8 @@ const App = (): JSX.Element => {
   const onDispatchNotification = (): void => {
     notification.error({
       text: 'My first test! My first test! My first test! My first test!',
-      position: 'bottom-right',
-      dragDirection: 'x',
+      position: 'top-center',
+      dragDirection: 'y',
       theme: 'colored',
       transition: 'zoom',
     });

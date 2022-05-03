@@ -25,6 +25,7 @@ import {
 } from '../../types/Notification';
 import { getAnimation } from '../../utils/getAnimation';
 import { useNotificationWidth } from '../../hooks/useNotificationWidth';
+import { useLimitToRemove } from '../../hooks/useLimitToRemove';
 
 type UseControllerHookProps = {
   dragDirection: NotificationDragDirection;
@@ -79,21 +80,6 @@ export const useController: UseControllerHook = ({
   pauseOnPressable,
   draggable,
 }) => {
-  const heightRef = useRef(0);
-  const onGetNotificationHeight = (event: LayoutChangeEvent): void => {
-    const { height } = event.nativeEvent.layout;
-    heightRef.current = height - 20;
-  };
-
-  const width = useNotificationWidth();
-  const onGetLimitToRemove = (): number => {
-    const limits = {
-      x: width - 100,
-      y: heightRef.current,
-    };
-    return limits[dragDirection];
-  };
-  const limitToRemove = onGetLimitToRemove();
   const typeAndTheme = `${type}${theme}` as 'defaultcolored';
   const transitionDirection = dragDirection.toUpperCase() as 'X' | 'Y';
   const positionOnScreen = useSharedValue(0);
@@ -107,6 +93,11 @@ export const useController: UseControllerHook = ({
     }
   }, [pauseOnPressable, toggleIsPaused]);
 
+  const width = useNotificationWidth();
+  const { limitToRemove, onGetNotificationHeight } = useLimitToRemove({
+    dragDirection,
+    width,
+  });
   const onDirectionXRemover = useCallback(
     (pos: number): void => {
       'worklet';
