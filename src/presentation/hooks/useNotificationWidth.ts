@@ -2,7 +2,7 @@ import { useWindowDimensions } from 'react-native';
 
 import { useOrientation } from './useOrientation';
 
-const maxWidth = 640;
+const maxWidth = 520;
 
 export const useNotificationWidth = (): number => {
   const { width } = useWindowDimensions();
