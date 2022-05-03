@@ -11,7 +11,7 @@ export const notificationDefaultProps = {
   theme: 'colored' as NotificationTheme,
   transition: 'slide' as NotificationTransition,
   delay: 5000,
-  showButtonClose: true,
+  showButtonClose: false,
   autoClose: true,
   pauseOnPressable: true,
   dragDirection: 'y' as NotificationDragDirection,

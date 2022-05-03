@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#ccc',
+    backgroundColor: '#fff',
   },
 });
 
@@ -18,12 +18,12 @@ const App = (): JSX.Element => {
   const notification = useNotification();
 
   const onDispatchNotification = (): void => {
-    notification.error({
+    notification.warning({
       text: 'My first test! My first test! My first test! My first test!',
-      position: 'top-center',
+      position: 'bottom-center',
       dragDirection: 'y',
       theme: 'colored',
-      transition: 'zoom',
+      transition: 'bounce',
     });
   };
 

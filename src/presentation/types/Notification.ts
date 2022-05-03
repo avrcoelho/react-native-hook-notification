@@ -74,7 +74,7 @@ export interface NotificationProps {
    */
   transition?: NotificationTransition;
   /**
-   * Show button close in the notification (Default: true)
+   * Show button close in the notification (Default: false)
    */
   showButtonClose?: NotificationShowButtonClose;
   /**
