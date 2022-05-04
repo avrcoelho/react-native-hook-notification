@@ -14,7 +14,7 @@ const themeDark = {
   backgroundColor: Colors.Black,
 };
 
-const topPosisiton = getStatusBarHeight() + 16;
+const topPosisiton = getStatusBarHeight() + 10;
 
 export const styles = StyleSheet.create({
   container: {
@@ -129,7 +129,7 @@ export const getPositionStyles = (
 ): Record<NotificationPosition, ViewStyle> => ({
   'top-right': {
     top: isPortrait ? topPosisiton : 16,
-    right: isPortrait ? 16 : topPosisiton,
+    right: isPortrait ? 10 : topPosisiton,
   },
   'top-center': {
     top: isPortrait ? topPosisiton : 16,
@@ -137,18 +137,18 @@ export const getPositionStyles = (
   },
   'top-left': {
     top: isPortrait ? topPosisiton : 16,
-    left: isPortrait ? 16 : topPosisiton,
+    left: isPortrait ? 10 : topPosisiton,
   },
   'bottom-right': {
-    bottom: 16,
-    right: isPortrait ? 16 : topPosisiton,
+    bottom: 24,
+    right: isPortrait ? 10 : topPosisiton,
   },
   'bottom-center': {
-    bottom: 16,
+    bottom: 24,
     alignSelf: 'center',
   },
   'bottom-left': {
-    bottom: 16,
-    left: isPortrait ? 16 : topPosisiton,
+    bottom: 24,
+    left: isPortrait ? 10 : topPosisiton,
   },
 });

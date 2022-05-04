@@ -20,8 +20,8 @@ const App = (): JSX.Element => {
   const onDispatchNotification = (): void => {
     notification.warning({
       text: 'My first test! My first test! My first test! My first test!',
-      position: 'bottom-center',
-      dragDirection: 'y',
+      position: 'top-right',
+      dragDirection: 'x',
       theme: 'colored',
       transition: 'bounce',
     });

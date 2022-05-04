@@ -8,6 +8,6 @@ export const useNotificationWidth = (): number => {
   const { width } = useWindowDimensions();
   const orientation = useOrientation();
   const newWidth = width > maxWidth ? maxWidth : width;
-  const iphoneXStatusBar = orientation === 'landscape' ? 64 : 0;
-  return newWidth - iphoneXStatusBar - 32;
+  const iphoneXStatusBar = orientation === 'landscape' ? 40 : 0;
+  return newWidth - iphoneXStatusBar - 20;
 };
