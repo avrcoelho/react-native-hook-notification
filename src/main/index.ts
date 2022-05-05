@@ -1,10 +1,14 @@
 import { useCallback, useRef } from 'react';
 import { NotificationStore } from '../presentation/store/NotificationStore';
 import {
+  CustomNotificationParams,
   NotificationParams,
   UseNotificationHook,
 } from './types/notificationHook';
-import { NotificationType } from '../presentation/types/Notification';
+import {
+  NotificationTheme,
+  NotificationType,
+} from '../presentation/types/Notification';
 
 export { Notifications as NotificationContainer } from '../presentation/components/Notifications';
 
@@ -81,10 +85,11 @@ export const useNotification: UseNotificationHook = (
   );
 
   const custom = useCallback(
-    (notificationParams: NotificationParams) => {
+    (notificationParams: CustomNotificationParams) => {
       const notification = {
         ...hookParams,
         ...notificationParams,
+        theme: 'custom' as NotificationTheme,
         type: 'custom' as NotificationType,
       };
       notificationStore.add(notification);

@@ -70,7 +70,14 @@ export const Notification = ({
         ]}
       >
         {!!icon && (
-          <View style={[styles.iconContainer, customStyle.icon]}>{icon}</View>
+          <View
+            style={[
+              styles.iconContainer,
+              type === 'custom' ? customStyle.icon : {},
+            ]}
+          >
+            {icon}
+          </View>
         )}
 
         {showButtonClose && (
@@ -78,9 +85,7 @@ export const Notification = ({
             onPress={onRemove}
             style={[
               styles.buttonClose,
-              type === 'custom'
-                ? customStyle.button
-                : styles[`buttonClose${theme}`],
+              styles[`buttonClose${theme}`] || customStyle.button,
             ]}
             hitSlop={{
               bottom: 5,
@@ -94,9 +99,7 @@ export const Notification = ({
             <Text
               style={[
                 styles.buttonCloseText,
-                type === 'custom'
-                  ? customStyle.buttonText
-                  : styles[`buttonCloseText${theme}`],
+                styles[`buttonCloseText${theme}`] || customStyle.buttonText,
               ]}
             >
               &#x2715;

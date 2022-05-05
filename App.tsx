@@ -18,12 +18,20 @@ const App = (): JSX.Element => {
   const notification = useNotification();
 
   const onDispatchNotification = (): void => {
-    notification.warning({
+    notification.custom({
       text: 'My first test! My first test! My first test! My first test!',
-      position: 'top-right',
+      position: 'bottom-center',
       dragDirection: 'x',
-      theme: 'colored',
-      transition: 'bounce',
+      transition: 'slide',
+      showButtonClose: true,
+      customStyle: {
+        text: {
+          color: 'red',
+        },
+        button: {
+          backgroundColor: 'red',
+        },
+      },
     });
   };
 

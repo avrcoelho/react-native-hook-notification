@@ -5,10 +5,12 @@ export type UseNotificationParams = Omit<
   'title' | 'text' | 'type' | 'id' | 'onRemove' | 'amount'
 >;
 
-export type NotificationParams = Omit<
+export type CustomNotificationParams = Omit<
   NotificationProps,
   'onRemove' | 'type' | 'id' | 'amount'
 >;
+
+export type NotificationParams = Omit<CustomNotificationParams, 'customStyle'>;
 
 export type UseNotificationHook = (hookParams?: UseNotificationParams) => {
   default(notificationParams: NotificationParams): void;
@@ -16,5 +18,5 @@ export type UseNotificationHook = (hookParams?: UseNotificationParams) => {
   error(notificationParams: NotificationParams): void;
   warning(notificationParams: NotificationParams): void;
   info(notificationParams: NotificationParams): void;
-  custom(notificationParams: NotificationParams): void;
+  custom(notificationParams: CustomNotificationParams): void;
 };
