@@ -70,4 +70,14 @@ describe('useNotification hook', () => {
 
     expect(spiedNotificationStoreAdd).toBeCalled();
   });
+
+  it('should be able to dispatch custom notification', () => {
+    const { result } = renderHook(useNotification);
+
+    act(() => {
+      result.current.custom(notificationParams);
+    });
+
+    expect(spiedNotificationStoreAdd).toBeCalled();
+  });
 });
