@@ -36,6 +36,9 @@ const props = {
 };
 describe('Notification component', () => {
   it('should be able to render remove on click Notification', () => {
+    Object.assign(props, {
+      showButtonClose: true,
+    });
     const { getByA11yLabel } = render(<Notification {...props} />);
 
     fireEvent.press(getByA11yLabel('Close notification'));

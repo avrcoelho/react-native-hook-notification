@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react-hooks';
 import { LayoutChangeEvent } from 'react-native';
 
 import { useLimitToRemove } from '../useLimitToRemove';
@@ -25,7 +25,9 @@ describe('useLimitToRemove hook', () => {
       },
     });
 
-    result.current.onGetNotificationHeight(eventData);
+    act(() => {
+      result.current.onGetNotificationHeight(eventData);
+    });
 
     expect(result.current.limitToRemove).toBe(35);
   });
@@ -38,7 +40,9 @@ describe('useLimitToRemove hook', () => {
       },
     });
 
-    result.current.onGetNotificationHeight(eventData);
+    act(() => {
+      result.current.onGetNotificationHeight(eventData);
+    });
 
     expect(result.current.limitToRemove).toBe(70);
   });
