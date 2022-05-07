@@ -17,7 +17,7 @@ describe('Notification hook controller', () => {
     position: 'bottom-center' as NotificationPosition,
     transition: 'slide' as NotificationTransition,
     delay: 5000,
-    pauseOnPressable: true,
+    pauseOnPress: true,
     autoClose: true,
     draggable: true,
     onRemove: jest.fn(),

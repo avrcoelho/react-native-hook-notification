@@ -69,12 +69,16 @@ export default function Component() {
 | theme           | colored \| light \| dark                                                            | no       | colored   | Notification theme                                         |
 | transition      | bounce \| flip \| fade \| slide \| zoom                                             | no       | bounce    | Notification transition                                    |
 | delay           | number                                                                              | no       | 5000      | Notification delay in milliseconds                         |
-| showButtonClose | boolean                                                                             | no       | false     | Notification show or hide close button                     |
-| closeOnPress    | boolean                                                                             | no       | true      | Notification closes on click                               |
-| showIcon        | boolean                                                                             | no       | true      | Notification show or hide icon                             |
+| showButtonClose | boolean                                                                             | no       | false     | Show or hide close button                                  |
+| closeOnPress    | boolean                                                                             | no       | true      | Close on click                                             |
+| showIcon        | boolean                                                                             | no       | true      | Show or hide icon                                          |
 | autoClose       | boolean                                                                             | no       | true      | Automatic closing of the notification after the delay ends |
 | pauseOnPress    | boolean                                                                             | no       | true      | Auto close pause on hover                                  |
 | draggable       | boolean                                                                             | no       | true      | Enable or disable drag                                     |
+| icon            | React.FunctionComponentElement                                                      | no       | true      | Render icon on left side. Obs.: Dimensions: 24x24          |
+| titleMaxLines   | number                                                                              | no       | 1         | Maximum number of lines for title                          |
+| textMaxLines    | number                                                                              | no       | 2         | Maximum number of lines for text                           |
+| customStyle     | number                                                                              | no       | 2         | Styles for custom notificaion type                         |
 
 ## LICENSE
 

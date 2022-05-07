@@ -20,7 +20,7 @@ export const Notification = ({
   delay = notificationDefaultProps.delay,
   showButtonClose = notificationDefaultProps.showButtonClose,
   autoClose = notificationDefaultProps.autoClose,
-  pauseOnPressable = notificationDefaultProps.pauseOnPressable,
+  pauseOnPress = notificationDefaultProps.pauseOnPress,
   dragDirection = notificationDefaultProps.dragDirection,
   draggable = notificationDefaultProps.draggable,
   customStyle = notificationDefaultProps.customStyle,
@@ -46,7 +46,7 @@ export const Notification = ({
     autoClose,
     delay,
     onRemove,
-    pauseOnPressable,
+    pauseOnPress,
     draggable,
   });
   const buttonCloseStyleIndex = `buttonClose${theme}` as 'buttonClosecolored';

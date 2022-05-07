@@ -13,7 +13,7 @@ export const notificationDefaultProps = {
   delay: 5000,
   showButtonClose: false,
   autoClose: true,
-  pauseOnPressable: true,
+  pauseOnPress: true,
   dragDirection: 'y' as NotificationDragDirection,
   draggable: true,
   titleMaxLines: 1,

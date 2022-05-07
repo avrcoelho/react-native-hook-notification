@@ -34,7 +34,7 @@ type UseControllerHookProps = {
   position: NotificationPosition;
   transition: NotificationTransition;
   delay: number;
-  pauseOnPressable: boolean;
+  pauseOnPress: boolean;
   autoClose: boolean;
   draggable: boolean;
   onRemove(): void;
@@ -77,7 +77,7 @@ export const useController: UseControllerHook = ({
   autoClose,
   delay,
   onRemove,
-  pauseOnPressable,
+  pauseOnPress,
   draggable,
 }) => {
   const typeAndTheme = `${type}${theme}` as 'defaultcolored';
@@ -88,10 +88,10 @@ export const useController: UseControllerHook = ({
   const onTogglePause = useCallback((): void => {
     'worklet';
 
-    if (pauseOnPressable) {
+    if (pauseOnPress) {
       runOnJS(toggleIsPaused)();
     }
-  }, [pauseOnPressable, toggleIsPaused]);
+  }, [pauseOnPress, toggleIsPaused]);
 
   const width = useNotificationWidth();
   const { limitToRemove, onGetNotificationHeight } = useLimitToRemove({
@@ -147,7 +147,7 @@ export const useController: UseControllerHook = ({
     [dragDirection, position, draggable],
   );
 
-  const canTogglePause = pauseOnPressable && autoClose;
+  const canTogglePause = pauseOnPress && autoClose;
   const contextIndex = `position${transitionDirection}` as 'positionX';
   const translationIndex =
     `translation${transitionDirection}` as 'translationX';
