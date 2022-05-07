@@ -1,12 +1,15 @@
 import React from 'react';
 
-import { useController } from './useController';
+import { UseNotificationParams } from '../../../main/types/notificationHook';
 import { Notification } from '../Notification';
+import { useController } from './useController';
 
-export const Notifications = (): JSX.Element | null => {
+export const Notifications = (
+  props: UseNotificationParams,
+): JSX.Element | null => {
   const { notifications, onRemove } = useController();
 
   return notifications[0] ? (
-    <Notification {...notifications[0]} onRemove={onRemove} />
+    <Notification {...props} {...notifications[0]} onRemove={onRemove} />
   ) : null;
 };
