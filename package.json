@@ -1,13 +1,37 @@
 {
   "name": "react-native-hook-notification",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "license": "MIT",
+  "main": "dist/main/index.js",
+  "typings": "dist/main/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "react",
+    "native",
+    "react native",
+    "react-native",
+    "notification",
+    "hook",
+    "toast",
+    "alert"
+  ],
+  "author": "André Coelho",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/avrcoelho/react-native-hook-notification.git"
+  },
+  "bugs": {
+    "url": "https://github.com/avrcoelho/react-native-hook-notification/issues"
+  },
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
+    "build": "tsc",
     "storybook": "start-storybook -p 7007",
     "build-storybook": "build-storybook",
     "test": "jest --config=jest.config.js"

@@ -1,0 +1,26 @@
+{
+  "exclude": [
+    "node_modules",
+    "dist",
+    "./storybook",
+    "src/**/__tests__/*",
+    "App.tsx"
+  ],
+  "compilerOptions": {
+    "strict": true,
+    "outDir": "./dist",
+    "rootDirs": ["./src"],
+    "lib": ["es6"],                    /* Specify library files to be included in the compilation. */
+    "jsx": "react",
+    "declaration": true,
+    "declarationMap": false,
+    "sourceMap": false,
+    "target": "es6",
+    "module": "es6",
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,                  /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */
+    "moduleResolution": "node",               /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
+    "skipLibCheck": true,
+
+  },
+}

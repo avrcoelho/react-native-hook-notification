@@ -49,6 +49,9 @@ export const Notification = ({
     pauseOnPressable,
     draggable,
   });
+  const buttonCloseStyleIndex = `buttonClose${theme}` as 'buttonClosecolored';
+  const buttonCloseTextStyleIndex =
+    `buttonCloseText${theme}` as 'buttonCloseTextcolored';
 
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
@@ -85,7 +88,7 @@ export const Notification = ({
             onPress={onRemove}
             style={[
               styles.buttonClose,
-              styles[`buttonClose${theme}`] || customStyle.button,
+              styles[buttonCloseStyleIndex] || customStyle.button,
             ]}
             hitSlop={{
               bottom: 5,
@@ -99,7 +102,7 @@ export const Notification = ({
             <Text
               style={[
                 styles.buttonCloseText,
-                styles[`buttonCloseText${theme}`] || customStyle.buttonText,
+                styles[buttonCloseTextStyleIndex] || customStyle.buttonText,
               ]}
             >
               &#x2715;

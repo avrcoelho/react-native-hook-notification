@@ -148,6 +148,9 @@ export const useController: UseControllerHook = ({
   );
 
   const canTogglePause = pauseOnPressable && autoClose;
+  const contextIndex = `position${transitionDirection}` as 'positionX';
+  const translationIndex =
+    `translation${transitionDirection}` as 'translationX';
   const onGestureEvent = useAnimatedGestureHandler<
     PanGestureHandlerGestureEvent,
     ContextData
@@ -157,12 +160,10 @@ export const useController: UseControllerHook = ({
         if (canTogglePause) {
           onTogglePause();
         }
-        context[`position${transitionDirection}`] = positionOnScreen.value;
+        context[contextIndex] = positionOnScreen.value;
       },
       onActive(event, context) {
-        const positionValue =
-          context[`position${transitionDirection}`] +
-          event[`translation${transitionDirection}`];
+        const positionValue = context[contextIndex] + event[translationIndex];
         if (onCanUpdatePosition(positionValue)) {
           positionOnScreen.value = positionValue;
           onDirectionXRemover(positionValue);
@@ -188,6 +189,7 @@ export const useController: UseControllerHook = ({
 
   const [animationEnteringFinish, toggleAnimationEnteringFinish] =
     useToggle(false);
+  const translateIndex = `translate${transitionDirection}` as 'translateX';
   const animatedStyle = useAnimatedStyle(
     () =>
       animationEnteringFinish
@@ -199,8 +201,7 @@ export const useController: UseControllerHook = ({
             ),
             transform: [
               {
-                [`translate${transitionDirection}` as 'translateX']:
-                  positionOnScreen.value,
+                [translateIndex]: positionOnScreen.value,
               },
             ],
           }
