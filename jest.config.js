@@ -5,4 +5,5 @@ module.exports = {
   collectCoverage: true,
   coverageDirectory: '<rootDir>/coverage',
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
+  setupFiles: ['./mocks/jest-setup.js'],
 };

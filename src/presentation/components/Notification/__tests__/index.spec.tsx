@@ -29,7 +29,6 @@ jest.mock('../useController', () => ({
 const mockOnRemove = jest.fn();
 const props = {
   type: 'success' as NotificationType,
-  id: '124',
   text: 'text test',
   amount: 1,
   onRemove: mockOnRemove,
