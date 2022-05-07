@@ -17,20 +17,8 @@ const App = (): JSX.Element => {
   const notification = useNotification();
 
   const onDispatchNotification = (): void => {
-    notification.custom({
+    notification.success({
       text: 'My first test! My first test! My first test! My first test!',
-      position: 'bottom-center',
-      dragDirection: 'x',
-      transition: 'slide',
-      showButtonClose: true,
-      customStyle: {
-        text: {
-          color: 'red',
-        },
-        button: {
-          backgroundColor: 'red',
-        },
-      },
     });
   };
 
