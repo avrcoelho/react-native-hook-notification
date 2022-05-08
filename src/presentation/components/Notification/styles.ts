@@ -1,5 +1,4 @@
 import { StyleSheet, ViewStyle } from 'react-native';
-import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 
 import { Colors } from '../../constants/Colors';
 import { NotificationPosition } from '../../types/Notification';
@@ -14,7 +13,7 @@ const themeDark = {
   backgroundColor: Colors.Black,
 };
 
-const topPosisiton = getStatusBarHeight() + 10;
+const topPosisiton = 10;
 
 export const styles = StyleSheet.create({
   container: {

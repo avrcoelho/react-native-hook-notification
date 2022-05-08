@@ -189,25 +189,23 @@ export const useController: UseControllerHook = ({
 
   const [animationEnteringFinish, toggleAnimationEnteringFinish] =
     useToggle(false);
-  const translateIndex = `translate${transitionDirection}` as 'translateX';
-  const animatedStyle = useAnimatedStyle(
-    () =>
-      animationEnteringFinish
-        ? {
-            opacity: interpolate(
-              positionOnScreen.value,
-              [-limitToRemove, 0, limitToRemove],
-              [0, 1, 0],
-            ),
-            transform: [
-              {
-                [translateIndex]: positionOnScreen.value,
-              },
-            ],
-          }
-        : {},
-    [animationEnteringFinish],
-  );
+  const animatedStyle = useAnimatedStyle(() => {
+    const translateIndex = `translate${transitionDirection}` as 'translateX';
+    return animationEnteringFinish
+      ? {
+          opacity: interpolate(
+            positionOnScreen.value,
+            [-limitToRemove, 0, limitToRemove],
+            [0, 1, 0],
+          ),
+          transform: [
+            {
+              [translateIndex]: positionOnScreen.value,
+            },
+          ],
+        }
+      : {};
+  }, [animationEnteringFinish, transitionDirection, limitToRemove]);
 
   const onFinishAnimation = useCallback(
     (isFinished: boolean): void => {

@@ -1,5 +1,6 @@
 {
   "expo": {
+    "entryPoint": "node_modules/expo/AppEntry.js",
     "name": "react-native-hook-notification",
     "slug": "react-native-hook-notification",
     "version": "1.0.0",
