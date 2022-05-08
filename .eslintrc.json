@@ -32,6 +32,7 @@
     "no-use-before-define": "off",
     "import/prefer-default-export": "off",
     "react/jsx-props-no-spreading": "off",
+    "import/no-extraneous-dependencies": "off",
     "no-shadow": "off",
     "@typescript-eslint/explicit-function-return-type": [
       "error",

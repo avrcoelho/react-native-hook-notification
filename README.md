@@ -2,6 +2,10 @@
 
 Add notifications in your React Native app. Types: success, error, warning, info, default or custom.
 
+- Compatible with `Reanimated v2`.
+- Compatible with `Expo`.
+- Written in `TypeScript`.
+
 ![Demo](demo.png)
 
 ## Install
@@ -15,6 +19,26 @@ or
 ```shell
 yarn add react-native-hook-notification
 ```
+
+#### Dependencies​
+
+This library needs these dependencies to be installed in your project before you can use it:
+
+```shell
+npm install react-native-reanimated react-native-gesture-handler
+```
+
+or
+
+```shell
+yarn add react-native-reanimated react-native-gesture-handler
+```
+
+> **ℹ️ INFO**
+>
+> **React Native Gesture Handler** needs extra steps to finalize its installation, please follow their [installation instructions](https://github.com/software-mansion/react-native-gesture-handler).
+>
+> **React Native Reanimated v2** needs extra steps to finalize its installation, please follow their [installation instructions](https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation/).
 
 ## Usage
 
@@ -75,12 +99,12 @@ export default function Component() {
 | autoClose       | boolean                                                                             | no       | true      | Automatic closing of the notification after the delay ends |
 | pauseOnPress    | boolean                                                                             | no       | true      | Auto close pause on hover                                  |
 | draggable       | boolean                                                                             | no       | true      | Enable or disable drag                                     |
-| icon            | React.FunctionComponentElement                                                      | no       | true      | Render icon on left side. Obs.: Dimensions: 24x24          |
+| icon            | React.FunctionComponentElement                                                      | no       |           | Render icon on left side. Obs.: Dimensions: 24x24          |
 | titleMaxLines   | number                                                                              | no       | 1         | Maximum number of lines for title                          |
 | textMaxLines    | number                                                                              | no       | 2         | Maximum number of lines for text                           |
-| customStyle     | number                                                                              | no       | 2         | Styles for custom notificaion type                         |
+| customStyle     | number                                                                              | no       |           | Styles for custom notificaion type                         |
 
-## LICENSE
+## License
 
 [![License](https://img.shields.io/badge/License-MIT-yellow?style=flat&logoColor=f00&link=https://opensource.org/licenses/MIT)](https://opensource.org/licenses/MIT)
 

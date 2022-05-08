@@ -18,7 +18,8 @@ const App = (): JSX.Element => {
 
   const onDispatchNotification = (): void => {
     notification.success({
-      text: 'My first test! My first test! My first test! My first test!',
+      title: 'Hey there!',
+      text: "I'm using react-native-hook-notification ❤️",
     });
   };
 
@@ -33,7 +34,7 @@ const App = (): JSX.Element => {
         </TouchableOpacity>
       </View>
 
-      <NotificationContainer />
+      <NotificationContainer theme="light" />
     </>
   );
 };
