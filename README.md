@@ -6,7 +6,9 @@ Add notifications in your React Native app. Types: success, error, warning, info
 - Compatible with `Expo`.
 - Written in `TypeScript`.
 
-![Demo](demo.jpg)
+<center>
+  <img src="demo.jpg" alt="Demo" width="350" />
+</center>
 
 ## Install
 
