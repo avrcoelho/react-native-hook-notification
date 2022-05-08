@@ -53,9 +53,8 @@ import { Component } from './component/Component';
 export default function App() {
   return (
     <>
-      <Component>
-        <NotificationContainer />
-      </Component>
+      <Component />
+      <NotificationContainer />
     </>
   );
 }
