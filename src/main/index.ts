@@ -21,9 +21,7 @@ export {
 
 const notificationStore = NotificationStore.getInstance();
 
-export const useNotification: UseNotificationHook = (
-  hookParams = { position: 'top-right' },
-) => {
+export const useNotification: UseNotificationHook = (hookParams = {}) => {
   const info = useCallback(
     (notificationParams: NotificationParams) => {
       const notification = {
