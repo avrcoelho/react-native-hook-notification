@@ -2,11 +2,11 @@
 
 Add notifications in your React Native app. Types: success, error, warning, info, default or custom.
 
+<img src="demo.jpg" alt="Demo" width="350" />
+
 - Compatible with `Reanimated v2`.
 - Compatible with `Expo`.
 - Written in `TypeScript`.
-
-<img src="demo.jpg" alt="Demo" width="350" />
 
 ## Install
 
