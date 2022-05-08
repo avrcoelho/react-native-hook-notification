@@ -1,6 +1,6 @@
 {
   "name": "react-native-hook-notification",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "license": "MIT",
   "main": "dist/main/index.js",
   "typings": "dist/main/index.d.ts",
