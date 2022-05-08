@@ -34,10 +34,6 @@ export type NotificationShowProgressBar = boolean;
 
 export type NotificationShowButtonClose = boolean;
 
-export type NotificationCloseOnPress = boolean;
-
-export type NotificationShowIcon = boolean;
-
 export type NotificationAutoClose = boolean;
 
 export type NotificationPauseOnHover = boolean;

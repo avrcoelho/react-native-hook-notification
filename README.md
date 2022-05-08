@@ -44,7 +44,7 @@ yarn add react-native-reanimated react-native-gesture-handler
 
 ## Usage
 
-- On app index file:
+- In the application index file:
 
 ```js
 import React from 'react';
@@ -61,7 +61,7 @@ export default function App() {
 }
 ```
 
-- On app component file:
+- In the component:
 
 ```js
 import React from 'react';
@@ -87,24 +87,23 @@ export default function Component() {
 
 ### Props
 
-| Property        | Type                                                                                | Required | Default   | Description                                                |
-| --------------- | ----------------------------------------------------------------------------------- | -------- | --------- | ---------------------------------------------------------- |
-| text            | string                                                                              | yes      |           | Notification text                                          |
-| title           | string                                                                              | no       |           | Notification title                                         |
-| position        | top-right \| top-center \| top-left \| bottom-right \| bottom-center \| bottom-left | no       | top-right | Notification position                                      |
-| theme           | colored \| light \| dark                                                            | no       | colored   | Notification theme                                         |
-| transition      | bounce \| flip \| fade \| slide \| zoom                                             | no       | bounce    | Notification transition                                    |
-| delay           | number                                                                              | no       | 5000      | Notification delay in milliseconds                         |
-| showButtonClose | boolean                                                                             | no       | false     | Show or hide close button                                  |
-| closeOnPress    | boolean                                                                             | no       | true      | Close on click                                             |
-| showIcon        | boolean                                                                             | no       | true      | Show or hide icon                                          |
-| autoClose       | boolean                                                                             | no       | true      | Automatic closing of the notification after the delay ends |
-| pauseOnPress    | boolean                                                                             | no       | true      | Auto close pause on hover                                  |
-| draggable       | boolean                                                                             | no       | true      | Enable or disable drag                                     |
-| icon            | React.FunctionComponentElement                                                      | no       |           | Render icon on left side. Obs.: Dimensions: 24x24          |
-| titleMaxLines   | number                                                                              | no       | 1         | Maximum number of lines for title                          |
-| textMaxLines    | number                                                                              | no       | 2         | Maximum number of lines for text                           |
-| customStyle     | number                                                                              | no       |           | Styles for custom notificaion type                         |
+| Property        | Type                                                                                                                                                                                            | Required | Default   | Description                                                |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | --------- | ---------------------------------------------------------- |
+| text            | string                                                                                                                                                                                          | yes      |           | Notification text                                          |
+| title           | string                                                                                                                                                                                          | no       |           | Notification title                                         |
+| position        | top-right \| top-center \| top-left \| bottom-right \| bottom-center \| bottom-left                                                                                                             | no       | top-right | Notification position                                      |
+| theme           | colored \| light \| dark                                                                                                                                                                        | no       | colored   | Notification theme                                         |
+| transition      | bounce \| flip \| fade \| slide \| zoom                                                                                                                                                         | no       | bounce    | Notification transition                                    |
+| delay           | number                                                                                                                                                                                          | no       | 5000      | Notification delay in milliseconds                         |
+| showButtonClose | boolean                                                                                                                                                                                         | no       | false     | Show or hide close button                                  |
+| autoClose       | boolean                                                                                                                                                                                         | no       | true      | Automatic closing of the notification after the delay ends |
+| pauseOnPress    | boolean                                                                                                                                                                                         | no       | true      | Auto close pause on hover                                  |
+| draggable       | boolean                                                                                                                                                                                         | no       | true      | Enable or disable drag                                     |
+| dragDirection   | x \| y                                                                                                                                                                                          | no       | y         | Drag direction                                             |
+| icon            | React.FunctionComponentElement                                                                                                                                                                  | no       |           | Render icon on left side. Obs.: Dimensions: 24x24          |
+| titleMaxLines   | number                                                                                                                                                                                          | no       | 1         | Maximum number of lines for title                          |
+| textMaxLines    | number                                                                                                                                                                                          | no       | 2         | Maximum number of lines for text                           |
+| customStyle     | `{ container?: StyleProp<ViewStyle>; title?: StyleProp<TextStyle>; text?: StyleProp<TextStyle>; icon?: StyleProp<ViewStyle>; button?: StyleProp<ViewStyle>;buttonText?: StyleProp<TextStyle>;}` | no       |           | Styles for custom notificaion type                         |
 
 ## License
 
