@@ -34,6 +34,8 @@ or
 yarn add react-native-reanimated react-native-gesture-handler
 ```
 
+<br />
+
 > **ℹ️ INFO**
 >
 > **React Native Gesture Handler** needs extra steps to finalize its installation, please follow their [installation instructions](https://github.com/software-mansion/react-native-gesture-handler).
