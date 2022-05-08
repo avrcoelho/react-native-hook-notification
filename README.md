@@ -48,6 +48,8 @@ yarn add react-native-reanimated react-native-gesture-handler
 
 ```js
 import React from 'react';
+import { NotificationContainer } from 'react-native-hook-notification';
+
 import { Component } from './component/Component';
 
 export default function App() {
