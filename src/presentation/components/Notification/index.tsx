@@ -1,6 +1,9 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import {
+  PanGestureHandler,
+  TouchableWithoutFeedback,
+} from 'react-native-gesture-handler';
 import Animated from 'react-native-reanimated';
 
 import { notificationDefaultProps } from '../../constants/notificationDefaultProps';
@@ -14,6 +17,7 @@ export const Notification = ({
   title,
   text,
   icon,
+  onPress,
   position = notificationDefaultProps.position,
   theme = notificationDefaultProps.theme,
   transition = notificationDefaultProps.transition,
@@ -25,6 +29,7 @@ export const Notification = ({
   draggable = notificationDefaultProps.draggable,
   customStyle = notificationDefaultProps.customStyle,
   titleMaxLines = notificationDefaultProps.titleMaxLines,
+  closeOnPress = notificationDefaultProps.closeOnPress,
   textMaxLines = notificationDefaultProps.textMaxLines,
 }: NotificationProps): JSX.Element => {
   const {
@@ -35,6 +40,7 @@ export const Notification = ({
     isPaused,
     onFinishAnimation,
     onGetNotificationHeight,
+    onPressNotification,
     isPortrait,
     width,
   } = useController({
@@ -48,6 +54,8 @@ export const Notification = ({
     onRemove,
     pauseOnPress,
     draggable,
+    closeOnPress,
+    onPress,
   });
   const buttonCloseStyleIndex = `buttonClose${theme}` as 'buttonClosecolored';
   const buttonCloseTextStyleIndex =
@@ -72,62 +80,73 @@ export const Notification = ({
           getPositionStyles(isPortrait)[position],
         ]}
       >
-        {!!icon && (
-          <View
-            style={[
-              styles.iconContainer,
-              type === 'custom' ? customStyle.icon : {},
-            ]}
-          >
-            {icon}
-          </View>
-        )}
+        <TouchableWithoutFeedback
+          style={styles.button}
+          onPress={onPressNotification}
+          disabled={!closeOnPress && !onPress}
+        >
+          <>
+            {!!icon && (
+              <View
+                style={[
+                  styles.iconContainer,
+                  type === 'custom' ? customStyle.icon : {},
+                ]}
+              >
+                {icon}
+              </View>
+            )}
 
-        {showButtonClose && (
-          <TouchableOpacity
-            onPress={onRemove}
-            style={[
-              styles.buttonClose,
-              styles[buttonCloseStyleIndex] || customStyle.button,
-            ]}
-            hitSlop={{
-              bottom: 5,
-              top: 5,
-              left: 5,
-              right: 5,
-            }}
-            accessibilityLabel="Close notification"
-            activeOpacity={0.5}
-          >
-            <Text
-              style={[
-                styles.buttonCloseText,
-                styles[buttonCloseTextStyleIndex] || customStyle.buttonText,
-              ]}
-            >
-              &#x2715;
-            </Text>
-          </TouchableOpacity>
-        )}
+            {showButtonClose && (
+              <TouchableOpacity
+                onPress={onRemove}
+                style={[
+                  styles.buttonClose,
+                  styles[buttonCloseStyleIndex] || customStyle.button,
+                ]}
+                hitSlop={{
+                  bottom: 5,
+                  top: 5,
+                  left: 5,
+                  right: 5,
+                }}
+                accessibilityLabel="Close notification"
+                activeOpacity={0.5}
+              >
+                <Text
+                  style={[
+                    styles.buttonCloseText,
+                    styles[buttonCloseTextStyleIndex] || customStyle.buttonText,
+                  ]}
+                >
+                  &#x2715;
+                </Text>
+              </TouchableOpacity>
+            )}
 
-        <View style={styles.textContainer}>
-          {!!title && (
-            <Text
-              ellipsizeMode="tail"
-              numberOfLines={titleMaxLines}
-              style={[styles.title, styles[typeAndTheme] || customStyle.title]}
-            >
-              {title}
-            </Text>
-          )}
-          <Text
-            ellipsizeMode="tail"
-            numberOfLines={textMaxLines}
-            style={[styles.text, styles[typeAndTheme] || customStyle.text]}
-          >
-            {text}
-          </Text>
-        </View>
+            <View style={styles.textContainer}>
+              {!!title && (
+                <Text
+                  ellipsizeMode="tail"
+                  numberOfLines={titleMaxLines}
+                  style={[
+                    styles.title,
+                    styles[typeAndTheme] || customStyle.title,
+                  ]}
+                >
+                  {title}
+                </Text>
+              )}
+              <Text
+                ellipsizeMode="tail"
+                numberOfLines={textMaxLines}
+                style={[styles.text, styles[typeAndTheme] || customStyle.text]}
+              >
+                {text}
+              </Text>
+            </View>
+          </>
+        </TouchableWithoutFeedback>
       </Animated.View>
     </PanGestureHandler>
   );

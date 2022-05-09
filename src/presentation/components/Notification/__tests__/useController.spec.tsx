@@ -20,8 +20,13 @@ describe('Notification hook controller', () => {
     pauseOnPress: true,
     autoClose: true,
     draggable: true,
+    closeOnPress: true,
     onRemove: jest.fn(),
   };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   it('should not be able to call runOnJS function when animation fisnished', () => {
     const { result } = renderHook(useController, {
@@ -45,5 +50,29 @@ describe('Notification hook controller', () => {
     });
 
     expect(result.current.animatedStyle).not.toEqual({});
+  });
+
+  it('should be able to close on press', () => {
+    const { result } = renderHook(useController, {
+      initialProps,
+    });
+
+    result.current.onPressNotification();
+
+    expect(initialProps.onRemove).toBeCalled();
+  });
+
+  it('should not be able to close on press', () => {
+    const { result } = renderHook(useController, {
+      initialProps: {
+        ...initialProps,
+        onPress: jest.fn(),
+        closeOnPress: false,
+      },
+    });
+
+    result.current.onPressNotification();
+
+    expect(initialProps.onRemove).not.toBeCalled();
   });
 });

@@ -37,6 +37,8 @@ type UseControllerHookProps = {
   pauseOnPress: boolean;
   autoClose: boolean;
   draggable: boolean;
+  closeOnPress: boolean;
+  onPress?(): void;
   onRemove(): void;
 };
 
@@ -64,6 +66,7 @@ type UseControllerHook = (props: UseControllerHookProps) => {
   width: number;
   onFinishAnimation(value: boolean): void;
   onGetNotificationHeight(event: LayoutChangeEvent): void;
+  onPressNotification(): void;
 };
 
 const DELAY = 1000;
@@ -79,6 +82,8 @@ export const useController: UseControllerHook = ({
   onRemove,
   pauseOnPress,
   draggable,
+  closeOnPress,
+  onPress,
 }) => {
   const typeAndTheme = `${type}${theme}` as 'defaultcolored';
   const transitionDirection = dragDirection.toUpperCase() as 'X' | 'Y';
@@ -236,6 +241,13 @@ export const useController: UseControllerHook = ({
     return () => clearInterval(timerRef.current as NodeJS.Timeout);
   }, [autoClose, delay, isPaused, onRemove]);
 
+  const onPressNotification = useCallback((): void => {
+    onPress?.();
+    if (closeOnPress) {
+      onRemove();
+    }
+  }, [closeOnPress, onPress, onRemove]);
+
   const animation = getAnimation({ position, transition });
   const isPortrait = useOrientation() === 'portrait';
 
@@ -249,5 +261,6 @@ export const useController: UseControllerHook = ({
     isPaused,
     isPortrait,
     width,
+    onPressNotification,
   };
 };

@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 4,
     position: 'absolute',
-    flexDirection: 'row',
+
     marginVertical: 6,
     shadowColor: Colors.Black,
     shadowOffset: {
@@ -32,6 +32,10 @@ export const styles = StyleSheet.create({
     elevation: 3,
     zIndex: 9999999,
     backgroundColor: Colors.White,
+  },
+  button: {
+    flexDirection: 'row',
+    flex: 1,
   },
   defaultcolored: {
     backgroundColor: Colors.White,

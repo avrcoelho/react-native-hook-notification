@@ -12,6 +12,7 @@ export const notificationDefaultProps = {
   transition: 'bounce' as NotificationTransition,
   delay: 5000,
   showButtonClose: false,
+  closeOnPress: false,
   autoClose: true,
   pauseOnPress: true,
   dragDirection: 'y' as NotificationDragDirection,

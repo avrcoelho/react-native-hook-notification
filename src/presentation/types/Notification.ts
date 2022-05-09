@@ -36,6 +36,8 @@ export type NotificationShowButtonClose = boolean;
 
 export type NotificationAutoClose = boolean;
 
+export type NotificationCloseOnPress = boolean;
+
 export type NotificationPauseOnHover = boolean;
 
 export type NotificationDraggable = boolean;
@@ -82,6 +84,10 @@ export interface NotificationProps {
    */
   pauseOnPress?: NotificationPauseOnHover;
   /**
+   * Close on press on notification (Default: false)
+   */
+  closeOnPress?: NotificationCloseOnPress;
+  /**
    * Enable or disable drag (Default: true)
    */
   draggable?: NotificationDraggable;
@@ -114,6 +120,10 @@ export interface NotificationProps {
    * Maximum number of lines for notification text. (Default: 2)
    */
   textMaxLines?: number;
+  /**
+   * Called on Notification press
+   */
+  onPress?: () => void;
 
   onRemove(): void;
 }

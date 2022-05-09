@@ -22,6 +22,7 @@ jest.mock('../useController', () => ({
     isPaused: false,
     onFinishAnimation: jest.fn(),
     onGetNotificationHeight: jest.fn(),
+    onPressNotification: jest.fn(),
     isPortrait: mockIsPortrait,
   }),
 }));
@@ -33,6 +34,7 @@ const props = {
   amount: 1,
   onRemove: mockOnRemove,
   draggable: true,
+  onPress: jest.fn(),
   icon: <View />,
 };
 describe('Notification component', () => {
@@ -57,6 +59,7 @@ describe('Notification component', () => {
     Object.assign(props, {
       title: 'title test',
       draggable: undefined,
+      closeOnPress: true,
     });
     mockIsPortrait = true;
     const { getByText } = render(<Notification {...props} />);
