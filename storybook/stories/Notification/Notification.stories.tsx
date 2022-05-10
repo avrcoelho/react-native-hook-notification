@@ -17,7 +17,7 @@ const App = (): JSX.Element => {
   const notification = useNotification();
 
   const onDispatchNotification = (): void => {
-    notification.success({
+    notification.warning({
       title: 'Hey there!',
       text: "I'm using react-native-hook-notification ❤️",
     });

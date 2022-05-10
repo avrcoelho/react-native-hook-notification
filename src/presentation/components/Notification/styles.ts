@@ -6,11 +6,13 @@ import { NotificationPosition } from '../../types/Notification';
 const themeLight = {
   color: Colors.Grey,
   backgroundColor: Colors.White,
+  borderLeftWidth: 5,
 };
 
 const themeDark = {
   color: Colors.White,
   backgroundColor: Colors.Black,
+  borderLeftWidth: 5,
 };
 
 const yPosisiton = 10;
@@ -57,16 +59,46 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.Red,
     color: Colors.White,
   },
-  defaultlight: themeLight,
-  infolight: themeLight,
-  warninglight: themeLight,
-  successlight: themeLight,
-  errorlight: themeLight,
-  defaultdark: themeDark,
-  infodark: themeDark,
-  warningdark: themeDark,
-  successdark: themeDark,
-  errordark: themeDark,
+  defaultlight: {
+    ...themeLight,
+    borderLeftColor: Colors.Grey,
+  },
+  infolight: {
+    ...themeLight,
+    borderLeftColor: Colors.Blue,
+  },
+  warninglight: {
+    ...themeLight,
+    borderLeftColor: Colors.Yellow,
+  },
+  successlight: {
+    ...themeLight,
+    borderLeftColor: Colors.Green,
+  },
+  errorlight: {
+    ...themeLight,
+    borderLeftColor: Colors.Red,
+  },
+  defaultdark: {
+    ...themeDark,
+    borderLeftColor: Colors.Grey,
+  },
+  infodark: {
+    ...themeDark,
+    borderLeftColor: Colors.Blue,
+  },
+  warningdark: {
+    ...themeDark,
+    borderLeftColor: Colors.Yellow,
+  },
+  successdark: {
+    ...themeDark,
+    borderLeftColor: Colors.Green,
+  },
+  errordark: {
+    ...themeDark,
+    borderLeftColor: Colors.Red,
+  },
 
   iconContainer: {
     width: 24,
