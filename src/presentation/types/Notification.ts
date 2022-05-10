@@ -115,11 +115,14 @@ export interface NotificationProps {
    * Maximum number of lines for notification title. (Default: 1)
    */
   titleMaxLines?: number;
-
   /**
    * Maximum number of lines for notification text. (Default: 2)
    */
   textMaxLines?: number;
+  /**
+   * Offset from the X axis of the screen (in px). (Default: 16)
+   */
+  xOffset?: number;
   /**
    * Called on Notification press
    */

@@ -14,7 +14,6 @@ import {
 
 import { LayoutChangeEvent } from 'react-native';
 import { useToggle } from '../../hooks/useToggle';
-import { useOrientation } from '../../hooks/useOrientation';
 import { AnimationReturn } from '../../types/Animation';
 import {
   NotificationDragDirection,
@@ -62,7 +61,6 @@ type UseControllerHook = (props: UseControllerHookProps) => {
     | object;
   animation: AnimationReturn;
   isPaused: boolean;
-  isPortrait: boolean;
   width: number;
   onFinishAnimation(value: boolean): void;
   onGetNotificationHeight(event: LayoutChangeEvent): void;
@@ -249,7 +247,6 @@ export const useController: UseControllerHook = ({
   }, [closeOnPress, onPress, onRemove]);
 
   const animation = getAnimation({ position, transition });
-  const isPortrait = useOrientation() === 'portrait';
 
   return {
     animatedStyle,
@@ -259,7 +256,6 @@ export const useController: UseControllerHook = ({
     onGetNotificationHeight,
     animation,
     isPaused,
-    isPortrait,
     width,
     onPressNotification,
   };

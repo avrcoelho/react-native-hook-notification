@@ -13,7 +13,7 @@ const themeDark = {
   backgroundColor: Colors.Black,
 };
 
-const topPosisiton = 10;
+const yPosisiton = 10;
 
 export const styles = StyleSheet.create({
   container: {
@@ -127,31 +127,35 @@ export const styles = StyleSheet.create({
   buttonCloseTextdark: { color: Colors.Black },
 });
 
-export const getPositionStyles = (
-  isPortrait: boolean,
-): Record<NotificationPosition, ViewStyle> => ({
+type GetPositionStylesProps = {
+  xOffset: number;
+};
+
+export const getPositionStyles = ({
+  xOffset,
+}: GetPositionStylesProps): Record<NotificationPosition, ViewStyle> => ({
   'top-right': {
-    top: isPortrait ? topPosisiton : 16,
-    right: isPortrait ? 10 : topPosisiton,
+    top: xOffset,
+    right: yPosisiton,
   },
   'top-center': {
-    top: isPortrait ? topPosisiton : 16,
+    top: xOffset,
     alignSelf: 'center',
   },
   'top-left': {
-    top: isPortrait ? topPosisiton : 16,
-    left: isPortrait ? 10 : topPosisiton,
+    top: xOffset,
+    left: yPosisiton,
   },
   'bottom-right': {
-    bottom: 24,
-    right: isPortrait ? 10 : topPosisiton,
+    bottom: xOffset,
+    right: yPosisiton,
   },
   'bottom-center': {
-    bottom: 24,
+    bottom: xOffset,
     alignSelf: 'center',
   },
   'bottom-left': {
-    bottom: 24,
-    left: isPortrait ? 10 : topPosisiton,
+    bottom: xOffset,
+    left: yPosisiton,
   },
 });

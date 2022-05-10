@@ -106,6 +106,7 @@ export default function Component() {
 | icon            | React.FunctionComponentElement                                                                                                                                                                  | no       |           | Render icon on left side. Obs.: Dimensions: 24x24          |
 | titleMaxLines   | number                                                                                                                                                                                          | no       | 1         | Maximum number of lines for title                          |
 | textMaxLines    | number                                                                                                                                                                                          | no       | 2         | Maximum number of lines for text                           |
+| xOffset         | number                                                                                                                                                                                          | no       | 16        | Offset from the X axis of the screen (in px)               |
 | customStyle     | `{ container?: StyleProp<ViewStyle>; title?: StyleProp<TextStyle>; text?: StyleProp<TextStyle>; icon?: StyleProp<ViewStyle>; button?: StyleProp<ViewStyle>;buttonText?: StyleProp<TextStyle>;}` | no       |           | Styles for custom notificaion type                         |
 
 ## License

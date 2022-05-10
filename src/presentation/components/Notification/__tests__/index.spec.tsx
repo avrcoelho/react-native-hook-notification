@@ -6,7 +6,6 @@ import { NotificationType } from '../../../types/Notification';
 import { Notification } from '..';
 import { Colors } from '../../../constants/Colors';
 
-let mockIsPortrait = false;
 let mockTypeAndTheme = 'defaultcolored';
 jest.mock('../useController', () => ({
   useController: () => ({
@@ -23,7 +22,6 @@ jest.mock('../useController', () => ({
     onFinishAnimation: jest.fn(),
     onGetNotificationHeight: jest.fn(),
     onPressNotification: jest.fn(),
-    isPortrait: mockIsPortrait,
   }),
 }));
 
@@ -60,8 +58,8 @@ describe('Notification component', () => {
       title: 'title test',
       draggable: undefined,
       closeOnPress: true,
+      xOffset: 10,
     });
-    mockIsPortrait = true;
     const { getByText } = render(<Notification {...props} />);
 
     expect(getByText('title test')).toBeTruthy();
@@ -73,7 +71,6 @@ describe('Notification component', () => {
       icon: <Icon />,
       showButtonClose: true,
     });
-    mockIsPortrait = true;
     const { getByText } = render(<Notification {...props} />);
 
     expect(getByText('IC')).toBeTruthy();
@@ -106,7 +103,6 @@ describe('Notification component', () => {
         },
       },
     });
-    mockIsPortrait = true;
     const { getByText } = render(<Notification {...props} />);
 
     expect(getByText('title test').props.style[1]).toEqual(

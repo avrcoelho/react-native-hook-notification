@@ -31,6 +31,7 @@ export const Notification = ({
   titleMaxLines = notificationDefaultProps.titleMaxLines,
   closeOnPress = notificationDefaultProps.closeOnPress,
   textMaxLines = notificationDefaultProps.textMaxLines,
+  xOffset = notificationDefaultProps.xOffset,
 }: NotificationProps): JSX.Element => {
   const {
     animatedStyle,
@@ -41,7 +42,6 @@ export const Notification = ({
     onFinishAnimation,
     onGetNotificationHeight,
     onPressNotification,
-    isPortrait,
     width,
   } = useController({
     dragDirection,
@@ -77,7 +77,7 @@ export const Notification = ({
           { width },
           styles[typeAndTheme] || customStyle.container,
           animatedStyle,
-          getPositionStyles(isPortrait)[position],
+          getPositionStyles({ xOffset })[position],
         ]}
       >
         <TouchableWithoutFeedback

@@ -19,6 +19,7 @@ export const notificationDefaultProps = {
   draggable: true,
   titleMaxLines: 1,
   textMaxLines: 2,
+  xOffset: 16,
   customStyle: {
     container: {},
     title: {},
