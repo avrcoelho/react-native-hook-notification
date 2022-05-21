@@ -18,8 +18,8 @@ const App = (): JSX.Element => {
 
   const onDispatchNotification = (): void => {
     notification.warning({
-      title: 'Hey there!',
-      text: "I'm using react-native-hook-notification ❤️",
+      title: "I'm using react-native-hook-notification ❤️",
+      text: "I'm using react-native-hook-notification ❤️ I'm using react-native-hook-notification ❤️",
     });
   };
 

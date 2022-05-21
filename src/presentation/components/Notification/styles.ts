@@ -114,14 +114,14 @@ export const styles = StyleSheet.create({
   },
 
   title: {
-    fontSize: 15,
-    lineHeight: 18,
+    fontSize: 16,
+    lineHeight: 20,
     marginBottom: 8,
     fontWeight: 'bold',
   },
 
   text: {
-    fontSize: 14,
+    fontSize: 16,
     lineHeight: 20,
   },
 
