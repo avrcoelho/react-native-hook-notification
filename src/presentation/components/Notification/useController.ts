@@ -223,21 +223,26 @@ export const useController: UseControllerHook = ({
 
   const delayDecrement = useRef(delay / DELAY);
   const timerRef = useRef<NodeJS.Timeout>();
+
+  const onExecuteTimer = useCallback((): void => {
+    timerRef.current = setInterval(() => {
+      delayDecrement.current -= 1;
+      if (delayDecrement.current === 0) {
+        onRemove();
+      }
+    }, DELAY);
+  }, [onRemove]);
+
   useEffect(() => {
     const canExecute = autoClose && !isPaused;
     if (canExecute) {
-      timerRef.current = setInterval(() => {
-        delayDecrement.current -= 1;
-        if (delayDecrement.current === 0) {
-          onRemove();
-        }
-      }, DELAY);
+      onExecuteTimer();
     } else {
       clearInterval(timerRef.current as NodeJS.Timeout);
     }
 
     return () => clearInterval(timerRef.current as NodeJS.Timeout);
-  }, [autoClose, delay, isPaused, onRemove]);
+  }, [autoClose, isPaused, onExecuteTimer]);
 
   const onPressNotification = useCallback((): void => {
     onPress?.();
