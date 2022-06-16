@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useRef } from 'react';
 import { NotificationStore } from '../presentation/store/NotificationStore';
 import {
   CustomNotificationParams,
@@ -22,78 +22,62 @@ export {
 const notificationStore = NotificationStore.getInstance();
 
 export const useNotification: UseNotificationHook = (hookParams = {}) => {
-  const info = useCallback(
-    (notificationParams: NotificationParams) => {
-      const notification = {
-        ...hookParams,
-        ...notificationParams,
-        type: 'info' as NotificationType,
-      };
-      notificationStore.add(notification);
-    },
-    [hookParams],
-  );
+  const info = (notificationParams: NotificationParams): void => {
+    const notification = {
+      ...hookParams,
+      ...notificationParams,
+      type: 'info' as NotificationType,
+    };
+    notificationStore.add(notification);
+  };
 
-  const success = useCallback(
-    (notificationParams: NotificationParams) => {
-      const notification = {
-        ...hookParams,
-        ...notificationParams,
-        type: 'success' as NotificationType,
-      };
-      notificationStore.add(notification);
-    },
-    [hookParams],
-  );
+  const success = (notificationParams: NotificationParams): void => {
+    const notification = {
+      ...hookParams,
+      ...notificationParams,
+      type: 'success' as NotificationType,
+    };
+    notificationStore.add(notification);
+  };
 
-  const error = useCallback(
-    (notificationParams: NotificationParams) => {
-      const notification = {
-        ...hookParams,
-        ...notificationParams,
-        type: 'error' as NotificationType,
-      };
-      notificationStore.add(notification);
-    },
-    [hookParams],
-  );
+  const error = (notificationParams: NotificationParams): void => {
+    const notification = {
+      ...hookParams,
+      ...notificationParams,
+      type: 'error' as NotificationType,
+    };
+    notificationStore.add(notification);
+  };
 
-  const warning = useCallback(
-    (notificationParams: NotificationParams) => {
-      const notification = {
-        ...hookParams,
-        ...notificationParams,
-        type: 'warning' as NotificationType,
-      };
-      notificationStore.add(notification);
-    },
-    [hookParams],
-  );
+  const warning = (notificationParams: NotificationParams): void => {
+    const notification = {
+      ...hookParams,
+      ...notificationParams,
+      type: 'warning' as NotificationType,
+    };
+    notificationStore.add(notification);
+  };
 
-  const defaultNotification = useCallback(
-    (notificationParams: NotificationParams) => {
-      const notification = {
-        ...hookParams,
-        ...notificationParams,
-        type: 'default' as NotificationType,
-      };
-      notificationStore.add(notification);
-    },
-    [hookParams],
-  );
+  const defaultNotification = (
+    notificationParams: NotificationParams,
+  ): void => {
+    const notification = {
+      ...hookParams,
+      ...notificationParams,
+      type: 'default' as NotificationType,
+    };
+    notificationStore.add(notification);
+  };
 
-  const custom = useCallback(
-    (notificationParams: CustomNotificationParams) => {
-      const notification = {
-        ...hookParams,
-        ...notificationParams,
-        theme: 'custom' as NotificationTheme,
-        type: 'custom' as NotificationType,
-      };
-      notificationStore.add(notification);
-    },
-    [hookParams],
-  );
+  const custom = (notificationParams: CustomNotificationParams): void => {
+    const notification = {
+      ...hookParams,
+      ...notificationParams,
+      theme: 'custom' as NotificationTheme,
+      type: 'custom' as NotificationType,
+    };
+    notificationStore.add(notification);
+  };
 
   return useRef({
     info,

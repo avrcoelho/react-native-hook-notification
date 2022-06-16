@@ -210,16 +210,13 @@ export const useController: UseControllerHook = ({
       : {};
   }, [animationEnteringFinish, transitionDirection, limitToRemove]);
 
-  const onFinishAnimation = useCallback(
-    (isFinished: boolean): void => {
-      'worklet';
+  const onFinishAnimation = (isFinished: boolean): void => {
+    'worklet';
 
-      if (isFinished) {
-        runOnJS(toggleAnimationEnteringFinish)();
-      }
-    },
-    [toggleAnimationEnteringFinish],
-  );
+    if (isFinished) {
+      runOnJS(toggleAnimationEnteringFinish)();
+    }
+  };
 
   const delayDecrement = useRef(delay / DELAY);
   const timerRef = useRef<NodeJS.Timeout>();
@@ -244,12 +241,12 @@ export const useController: UseControllerHook = ({
     return () => clearInterval(timerRef.current as NodeJS.Timeout);
   }, [autoClose, isPaused, onExecuteTimer]);
 
-  const onPressNotification = useCallback((): void => {
+  const onPressNotification = (): void => {
     onPress?.();
     if (closeOnPress) {
       onRemove();
     }
-  }, [closeOnPress, onPress, onRemove]);
+  };
 
   const animation = getAnimation({ position, transition });
 
