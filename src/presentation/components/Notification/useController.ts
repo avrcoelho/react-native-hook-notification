@@ -25,6 +25,7 @@ import {
 import { getAnimation } from '../../utils/getAnimation';
 import { useNotificationWidth } from '../../hooks/useNotificationWidth';
 import { useLimitToRemove } from '../../hooks/useLimitToRemove';
+import { useIsMounted } from '../../hooks/useIsMounted';
 
 type UseControllerHookProps = {
   dragDirection: NotificationDragDirection;
@@ -221,14 +222,16 @@ export const useController: UseControllerHook = ({
   const delayDecrement = useRef(delay / DELAY);
   const timerRef = useRef<NodeJS.Timeout>();
 
+  const isMounted = useIsMounted();
   const onExecuteTimer = useCallback((): void => {
     timerRef.current = setInterval(() => {
       delayDecrement.current -= 1;
-      if (delayDecrement.current === 0) {
+      const canExecute = isMounted() && delayDecrement.current === 0;
+      if (canExecute) {
         onRemove();
       }
     }, DELAY);
-  }, [onRemove]);
+  }, [onRemove, isMounted]);
 
   useEffect(() => {
     const canExecute = autoClose && !isPaused;
