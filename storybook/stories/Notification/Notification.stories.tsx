@@ -1,7 +1,8 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { storiesOf } from '@storybook/react-native';
 import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { storiesOf } from '@storybook/react-native';
 
 import { NotificationContainer, useNotification } from '../../../src/main';
 
@@ -24,7 +25,7 @@ const App = (): JSX.Element => {
   };
 
   return (
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={styles.container}>
         <TouchableOpacity
           style={{ marginTop: 100 }}
@@ -34,8 +35,8 @@ const App = (): JSX.Element => {
         </TouchableOpacity>
       </View>
 
-      <NotificationContainer theme="light" />
-    </>
+      <NotificationContainer theme="light" closeOnPress />
+    </GestureHandlerRootView>
   );
 };
 

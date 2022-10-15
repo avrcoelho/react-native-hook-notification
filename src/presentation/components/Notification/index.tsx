@@ -60,6 +60,7 @@ export const Notification = ({
   const buttonCloseStyleIndex = `buttonClose${theme}` as 'buttonClosecolored';
   const buttonCloseTextStyleIndex =
     `buttonCloseText${theme}` as 'buttonCloseTextcolored';
+  const textStyle = `text${theme}` as 'textlight';
 
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
@@ -129,10 +130,7 @@ export const Notification = ({
                 <Text
                   ellipsizeMode="tail"
                   numberOfLines={titleMaxLines}
-                  style={[
-                    styles.title,
-                    styles[typeAndTheme] || customStyle.title,
-                  ]}
+                  style={[styles.title, styles[textStyle] || customStyle.title]}
                 >
                   {title}
                 </Text>
@@ -140,7 +138,7 @@ export const Notification = ({
               <Text
                 ellipsizeMode="tail"
                 numberOfLines={textMaxLines}
-                style={[styles.text, styles[typeAndTheme] || customStyle.text]}
+                style={[styles.text, styles[textStyle] || customStyle.text]}
               >
                 {text}
               </Text>

@@ -25,6 +25,7 @@ import {
 import { getAnimation } from '../../utils/getAnimation';
 import { useNotificationWidth } from '../../hooks/useNotificationWidth';
 import { useLimitToRemove } from '../../hooks/useLimitToRemove';
+import { useIsMounted } from '../../hooks/useIsMounted';
 
 type UseControllerHookProps = {
   dragDirection: NotificationDragDirection;
@@ -87,6 +88,7 @@ export const useController: UseControllerHook = ({
   const transitionDirection = dragDirection.toUpperCase() as 'X' | 'Y';
   const positionOnScreen = useSharedValue(0);
   const [isPaused, toggleIsPaused] = useToggle(false);
+  const timerRef = useRef<NodeJS.Timeout>();
 
   const onTogglePause = useCallback((): void => {
     'worklet';
@@ -192,6 +194,13 @@ export const useController: UseControllerHook = ({
 
   const [animationEnteringFinish, toggleAnimationEnteringFinish] =
     useToggle(false);
+  const isMounted = useIsMounted();
+  const onToggleAnimationEnteringFinish = useCallback(() => {
+    if (isMounted) {
+      toggleAnimationEnteringFinish();
+    }
+  }, [toggleAnimationEnteringFinish, isMounted]);
+
   const animatedStyle = useAnimatedStyle(() => {
     const translateIndex = `translate${transitionDirection}` as 'translateX';
     return animationEnteringFinish
@@ -214,12 +223,11 @@ export const useController: UseControllerHook = ({
     'worklet';
 
     if (isFinished) {
-      runOnJS(toggleAnimationEnteringFinish)();
+      runOnJS(onToggleAnimationEnteringFinish)();
     }
   };
 
   const delayDecrement = useRef(delay / DELAY);
-  const timerRef = useRef<NodeJS.Timeout>();
 
   const onExecuteTimer = useCallback((): void => {
     timerRef.current = setInterval(() => {

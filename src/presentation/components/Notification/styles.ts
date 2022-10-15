@@ -124,6 +124,15 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
   },
+  textcolored: {
+    color: Colors.White,
+  },
+  textdark: {
+    color: Colors.White,
+  },
+  textlight: {
+    color: Colors.Grey,
+  },
 
   buttonClose: {
     width: 16,
