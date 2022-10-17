@@ -35,7 +35,7 @@ const App = (): JSX.Element => {
         </TouchableOpacity>
       </View>
 
-      <NotificationContainer theme="light" closeOnPress />
+      <NotificationContainer theme="light" closeOnPress showButtonClose />
     </GestureHandlerRootView>
   );
 };

@@ -25,6 +25,7 @@ import {
 import { getAnimation } from '../../utils/getAnimation';
 import { useNotificationWidth } from '../../hooks/useNotificationWidth';
 import { useLimitToRemove } from '../../hooks/useLimitToRemove';
+import { useIsMounted } from '../../hooks/useIsMounted';
 
 type UseControllerHookProps = {
   dragDirection: NotificationDragDirection;
@@ -88,67 +89,65 @@ export const useController: UseControllerHook = ({
   const positionOnScreen = useSharedValue(0);
   const [isPaused, toggleIsPaused] = useToggle(false);
 
-  const onTogglePause = useCallback((): void => {
+  const isMounted = useIsMounted();
+
+  const onVerifyCanExecuteTogglePause = (): void => {
+    const canExecute = pauseOnPress && isMounted();
+    if (canExecute) {
+      toggleIsPaused();
+    }
+  };
+
+  const onTogglePause = (): void => {
     'worklet';
 
-    if (pauseOnPress) {
-      runOnJS(toggleIsPaused)();
-    }
-  }, [pauseOnPress, toggleIsPaused]);
+    runOnJS(onVerifyCanExecuteTogglePause)();
+  };
 
   const width = useNotificationWidth();
   const { limitToRemove, onGetNotificationHeight } = useLimitToRemove({
     dragDirection,
     width,
   });
-  const onDirectionXRemover = useCallback(
-    (pos: number): void => {
-      'worklet';
+  const onDirectionXRemover = (pos: number): void => {
+    'worklet';
 
-      if (
-        dragDirection === 'x' &&
-        (pos > limitToRemove || pos < -limitToRemove)
-      ) {
-        runOnJS(onRemove)();
-      }
-    },
-    [dragDirection, limitToRemove, onRemove],
-  );
+    if (
+      dragDirection === 'x' &&
+      (pos > limitToRemove || pos < -limitToRemove)
+    ) {
+      runOnJS(onRemove)();
+    }
+  };
 
-  const onDirectionYRemover = useCallback(
-    (pos: number): void => {
-      'worklet';
+  const onDirectionYRemover = (pos: number): void => {
+    'worklet';
 
-      if (
-        dragDirection === 'y' &&
-        (pos > limitToRemove || pos < -limitToRemove)
-      ) {
-        runOnJS(onRemove)();
-      }
-    },
-    [dragDirection, limitToRemove, onRemove],
-  );
+    if (
+      dragDirection === 'y' &&
+      (pos > limitToRemove || pos < -limitToRemove)
+    ) {
+      runOnJS(onRemove)();
+    }
+  };
 
-  const onCanUpdatePosition = useCallback(
-    (pos: number): boolean => {
-      'worklet';
+  const onCanUpdatePosition = (pos: number): boolean => {
+    'worklet';
 
-      if (!draggable) {
-        return false;
-      }
-      if (dragDirection === 'x') {
-        return true;
-      }
-      if (/top/.test(position) && pos > 0) {
-        return false;
-      }
-      if (/bottom/.test(position) && pos < 0) {
-        return false;
-      }
+    if (!draggable) {
+      return false;
+    }
+    if (dragDirection === 'x') {
       return true;
-    },
-    [dragDirection, position, draggable],
-  );
+    }
+    if (/top/.test(position) && pos > 0) {
+      return false;
+    }
+    if (/bottom/.test(position) && pos < 0) {
+      return false;
+    }
+    return true;
+  };
 
   const canTogglePause = pauseOnPress && autoClose;
   const contextIndex = `position${transitionDirection}` as 'positionX';
@@ -180,14 +179,7 @@ export const useController: UseControllerHook = ({
         positionOnScreen.value = withTiming(0);
       },
     },
-    [
-      onDirectionXRemover,
-      onCanUpdatePosition,
-      onDirectionYRemover,
-      onCanUpdatePosition,
-      onTogglePause,
-      canTogglePause,
-    ],
+    [onTogglePause, canTogglePause],
   );
 
   const [animationEnteringFinish, toggleAnimationEnteringFinish] =

@@ -161,6 +161,7 @@ export const styles = StyleSheet.create({
 
   buttonCloseText: {
     fontSize: 14,
+    lineHeight: 16,
   },
 
   buttonCloseTextcolored: { color: Colors.Grey },

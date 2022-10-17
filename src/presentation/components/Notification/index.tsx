@@ -98,33 +98,6 @@ export const Notification = ({
               </View>
             )}
 
-            {showButtonClose && (
-              <TouchableOpacity
-                onPress={onRemove}
-                style={[
-                  styles.buttonClose,
-                  styles[buttonCloseStyleIndex] || customStyle.button,
-                ]}
-                hitSlop={{
-                  bottom: 5,
-                  top: 5,
-                  left: 5,
-                  right: 5,
-                }}
-                accessibilityLabel="Close notification"
-                activeOpacity={0.5}
-              >
-                <Text
-                  style={[
-                    styles.buttonCloseText,
-                    styles[buttonCloseTextStyleIndex] || customStyle.buttonText,
-                  ]}
-                >
-                  &#x2715;
-                </Text>
-              </TouchableOpacity>
-            )}
-
             <View style={styles.textContainer}>
               {!!title && (
                 <Text
@@ -145,6 +118,33 @@ export const Notification = ({
             </View>
           </>
         </TouchableWithoutFeedback>
+
+        {showButtonClose && (
+          <TouchableOpacity
+            onPress={onRemove}
+            style={[
+              styles.buttonClose,
+              styles[buttonCloseStyleIndex] || customStyle.button,
+            ]}
+            hitSlop={{
+              bottom: 5,
+              top: 5,
+              left: 5,
+              right: 5,
+            }}
+            accessibilityLabel="Close notification"
+            activeOpacity={0.5}
+          >
+            <Text
+              style={[
+                styles.buttonCloseText,
+                styles[buttonCloseTextStyleIndex] || customStyle.buttonText,
+              ]}
+            >
+              &#x2715;
+            </Text>
+          </TouchableOpacity>
+        )}
       </Animated.View>
     </PanGestureHandler>
   );
